@@ -1,3 +1,3 @@
 # TShipSDK
 
-A description of this package.
+SDK to make TShip API integration for iOS developers easier.
