@@ -1,12 +1,6 @@
-//
-//  Method.swift
-//  Yummie
-//
-//  Created by Mohammed Adetunji on 13/10/2022
-//
-
 import Foundation
 
+/// Enum representing the different Http methods used to make API calls.
 enum Method: String {
     case get = "GET"
     case post = "POST"

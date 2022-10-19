@@ -1,15 +1,19 @@
-//
-//  File.swift
-//  
-//
-//  Created by Mac on 14/10/2022.
-//
-
 import Foundation
 
+///Address data model containing all information needed about an Address to arrange a shipping.
 public struct Address: Codable {
     
-    public let addressId, city, country, firstName, lastName, email, line1, line2, phoneNumber, state, zipCode : String
+    public let addressId : String
+    public let city : String
+    public let country : String
+    public let firstName : String
+    public let lastName : String
+    public let email : String
+    public let line1 : String
+    public let line2 : String
+    public let phoneNumber : String
+    public let state : String
+    public let zipCode : String
     public let coordinates: Coordinates
     public let isResidential: Bool
     
