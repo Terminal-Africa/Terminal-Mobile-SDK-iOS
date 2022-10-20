@@ -72,11 +72,39 @@ Request body with details used to create Address. You'll build the request with 
 
 `runCompletionOnUIThread: Bool = true`
 
-Boolean indicating whether the completion handler should be run on the UI or background thread.
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
 `completion: @escaping(Result<Address, Error>) -> Void`
 
 The completion handler to call, passing along the response status and the newly created [Address](#address) if no error occurred.
+
+### Get Address
+
+```
+getAddress(
+    request: [String: Any], 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Address, Error>) -> Void
+)
+```
+
+##### Description
+
+This function fetches details of an  Address on the TShip API.
+
+##### Parameters
+
+`addressId: String`
+
+Unique id used to identify the address.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Address, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [Address](#address), if no error occurred.
 
 ## Request Builders
 
