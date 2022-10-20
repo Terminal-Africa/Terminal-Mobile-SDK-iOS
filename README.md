@@ -6,7 +6,8 @@
 3. [Features](#features)
 4. [Getting Started](#getting-started)
 5. [Addresses](#addresses)
-6. [Models](#models)
+6. [Request Builders](#request-builders)
+7. [Models](#models)
 
 ## Overview
 The TShip SDK was built on top of the TShip API to make integrating the TShip API in your App easier. The TShip API is a JSON API that provides a single interface for integrating Nigerian shipping carriers such as DHL, Gokada, Sendbox with your applications. The API allows anyone to programatically get shipping rates and arrange pickup and delivery for a parcel. The TShip SDK enables you to easily do all of this in your iOS App. To use the TShip SDK, you need to [create an account on the Terminal website](https://app.terminal.africa/sign-up) and retrieve a Secret Key in your settings. 
@@ -53,7 +54,7 @@ Here you'll find information on how to create, update, fetch and validate addres
 ### Create Address
 
 ```
-createAddress(
+TShipSDK.createAddress(
     request: [String: Any], 
     runCompletionOnUIThread: Bool = true, 
     completion: @escaping(Result<Address, Error>) -> Void
@@ -81,7 +82,7 @@ The completion handler to call, passing along the response status and the newly 
 ### Get Address
 
 ```
-getAddress(
+TShipSDK.getAddress(
     request: [String: Any], 
     runCompletionOnUIThread: Bool = true, 
     completion: @escaping(Result<Address, Error>) -> Void
@@ -90,13 +91,41 @@ getAddress(
 
 ##### Description
 
-This function fetches details of an  Address on the TShip API.
+This function fetches details of an Address on the TShip API.
 
 ##### Parameters
 
 `addressId: String`
 
 Unique id used to identify the address.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Address, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [Address](#address), if no error occurred.
+
+### Get Addresses
+
+```
+TShipSDK.getAddresses(
+    request: [String: Any], 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Address, Error>) -> Void
+)
+```
+
+##### Description
+
+This function fetches Addresses previously created on the TShip API.
+
+##### Parameters
+
+`request: [String: Any]`
+
+Should contain the query parameters for paginating through the Addresses. This should be created with the PaginatedRequestBuilder class.
 
 `runCompletionOnUIThread: Bool = true`
 
@@ -250,6 +279,76 @@ This function adds metadata to the address.
 
 Metadata you want to attach to the Addresss.
 
+### PaginatedRequestBuilder
+
+This class helps create the parameters required for a base paginated request.
+
+```
+init(
+    perPage: Int = 15, 
+    page: Int = 1
+)
+```
+
+##### Description
+
+Default initializer that optionally takes in the parameters for a paginated request.
+
+##### Parameters
+
+`perPage: Int = 15`
+
+The number of items to return in the response per request. The default number is 15
+
+`page: Int = 1`
+
+The page number of the paginated request. This starts from 1. The default value is 1.
+
+```
+build() -> [String: Any]
+```
+
+##### Description
+
+This function returns the built request for a paginated API call.
+
+##### Returns
+
+Returns a dictionary containing the parameters provided to the builder.
+
+```
+withPage(
+    page: Int
+)
+```
+
+##### Description
+
+This function updates the page number of the request.
+
+##### Parameters
+
+`page: Int`
+
+The page number of the paginated request. This starts from 1
+
+```
+withPerPage(
+    perPage: Int
+)
+```
+
+##### Description
+
+This function updates the number of items to return per paginated request.
+
+##### Parameters
+
+`perPage: Int`
+
+The number of items to return in the response per request.
+
+
 ## Models
 
 ### Address
@@ -327,3 +426,43 @@ Latitude of the location.
 `lng: Double`
 
 Longitude of the location.
+
+### TShipPageData
+
+#### Description
+
+Contains details about a given page returned in a paginated response.
+
+#### Properties
+
+`total: Int`
+
+The total number items that can be returned from the Endpoint.
+
+`perPage: Int`
+
+The number of items set to be returned per paginated request.
+
+`currentPage: Int`
+
+The page number of data being returned.
+
+`pageCount: Int`
+
+The number of pages of data that can be returned.
+
+`prevPage: Int?`
+
+The page number of the previous page. If there is no previous page this value is null.
+
+`nextPage: Int?`
+
+The page number of the next page. If there is no next page this value is null.
+
+`hasPrevPage: Bool`
+
+Indicates whether there is a previous page.
+
+`hasNextPage: Int?`
+
+Indicates whether there is a next page.

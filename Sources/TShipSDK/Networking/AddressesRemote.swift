@@ -41,4 +41,23 @@ class AddresssesRemote: NetworkService {
         }
     }
     
+    /// This function fetches Addresses previously created on the TShip API.
+    /// - Parameters:
+    ///   - secretKey: User's TShipAPI Secret key.
+    ///   - addressId: Unique id used to identify the address.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func getAddresses(secretKey: String, request: [String: Any], runCompletionOnUIThread: Bool, completion: @escaping(Result<GetAddressResponseData, Error>) -> Void){
+        self.request(route: Route.address(), method: Method.get, bearerToken: secretKey, queryParameters: request,runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<GetAddressResponseData>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }
