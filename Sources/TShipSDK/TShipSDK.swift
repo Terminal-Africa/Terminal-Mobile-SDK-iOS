@@ -28,7 +28,7 @@ public class TShipSDK {
     /// - Parameters:
     ///   - request: Request body with details used to create Address.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
-    ///   - completion: The completion handler to call, passing along the response status and response data.
+    ///   - completion: The completion handler to call, passing along the response status and the newly created Address if no error occurred.
     /// - Returns: URLRequest
     public func createAddress(request: [String: Any], runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
         addressesRemote.createAddress(secretKey: secretKey, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
