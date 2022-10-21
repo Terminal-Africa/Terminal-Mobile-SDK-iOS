@@ -26,7 +26,7 @@ public class TShipSDK {
     
     /// This function creates an Address on the TShip API.
     /// - Parameters:
-    ///   - request: Request body with details used to create Address. This should be created with the CreateAddressRequestBuilder class.
+    ///   - request: Request body with details used to create Address. This should be created with the AddressRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the newly created Address if no error occurred.
     public func createAddress(request: [String: Any], runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
@@ -49,6 +49,16 @@ public class TShipSDK {
     ///   - completion: The completion handler to call, passing along the response status and the newly created Address if no error occurred.
     public func getAddresses(request: [String: Any], runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetAddressResponseData, Error>) -> Void){
         addressesRemote.getAddresses(secretKey: secretKey, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
+    /// This updates an Address previously created on the TShip API.
+    /// - Parameters:
+    ///   - addressId: Unique id used to identify the address.
+    ///   - request: Request body with the Address details you want to update. This should be created with the AddressRequestBuilder class.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and the updated Address if no error occurred.
+    public func updateAddress(addressId: String, request: [String: Any], runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
+        addressesRemote.updateAddress(secretKey: secretKey, addressId: addressId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
 }

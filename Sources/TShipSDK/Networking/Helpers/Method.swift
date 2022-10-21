@@ -6,4 +6,5 @@ enum Method: String {
     case post = "POST"
     case delete = "DELETE"
     case patch = "PATCH"
+    case put = "PUT"
 }

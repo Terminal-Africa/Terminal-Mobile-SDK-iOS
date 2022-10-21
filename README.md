@@ -69,7 +69,7 @@ This function creates an Address on the TShip API.
 
 `request: [String: Any]`
 
-Request body with details used to create Address. You'll build the request with the [CreateAddressRequestBuilder](#createaddressrequestbuilder).
+Request body with details used to create Address. You'll build the request with the [AddressRequestBuilder](#addressrequestbuilder).
 
 `runCompletionOnUIThread: Bool = true`
 
@@ -134,6 +134,39 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 `completion: @escaping(Result<Address, Error>) -> Void`
 
 The completion handler to call, passing along the response status and the [Address](#address), if no error occurred.
+
+### Update Address
+
+```
+TShipSDK.updateAddress(
+    addressId: String,
+    request: [String: Any], 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Address, Error>) -> Void
+)
+```
+
+##### Description
+
+This function updates an Address previously created on the TShip API.
+
+##### Parameters
+
+`addressId: String`
+
+Unique id used to identify the address.
+
+`request: [String: Any]`
+
+Request body with details used to create Address. You'll build the request with the [AddressRequestBuilder](#addressrequestbuilder). Please note that the address zip code which you can add to builder using the `.withZipCode(_ zipCode: String)` function is required to update an address.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Address, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the newly created [Address](#address) if no error occurred.
 
 ## Request Builders
 
