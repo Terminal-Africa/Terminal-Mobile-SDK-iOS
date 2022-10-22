@@ -220,10 +220,10 @@ Returns a dictionary containing the parameters provided to the builder.
 
 ```
 withDetailsForUserAtAddress(
-    firstName: String, 
-    lastName: String, 
-    email: String,
-    phone: String
+    firstName: String? = nil, 
+    lastName: String? = nil, 
+    email: String? = nil,
+    phone: String? = nil
 )
 ```
 
@@ -235,19 +235,19 @@ This function adds details for the user at the address to the request.
 
 `firstName: String`
 
-First Name of the person at the location.
+First Name of the person at the location. It can be ignored if need be.
 
 `lastName: String`
 
-Last Name of the person at the location.
+Last Name of the person at the location. It can be ignored if need be.
 
 `email: String`
 
-Email of the person at the location.
+Email of the person at the location. It can be ignored if need be.
 
 `phone: String`
 
-Phone number of the person at the location.
+Phone number of the person at the location. It can be ignored if need be.
 
 #### Adding the Address Lines
 

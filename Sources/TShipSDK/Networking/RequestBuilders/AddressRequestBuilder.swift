@@ -19,16 +19,28 @@ public class AddressRequestBuilder {
     
     /// This function adds the details for the user at the address to the request.
     /// - Parameters:
-    ///   - firstName: First Name of the person at the location.
-    ///   - lastName: Last Name of the person at the location.
-    ///   - email: Email of the person at the location.
-    ///   - phone: Phone number of the person at the location.
+    ///   - firstName: First Name of the person at the location. It can be ignored if need be.
+    ///   - lastName: Last Name of the person at the location. It can be ignored if need be.
+    ///   - email: Email of the person at the location. It can be ignored if need be.
+    ///   - phone: Phone number of the person at the location. It can be ignored if need be.
     @discardableResult
-    public func withDetailsForUserAtAddress(firstName: String, lastName: String, email: String, phone: String) -> AddressRequestBuilder {
-        request[PARAM_EMAIL] = email
-        request[PARAM_FIRST_NAME] = firstName
-        request[PARAM_LAST_NAME] = lastName
-        request[PARAM_PHONE] = phone
+    public func withDetailsForUserAtAddress(firstName: String? = nil, lastName: String? = nil, email: String? = nil, phone: String? = nil) -> AddressRequestBuilder {
+        if let email {
+            request[PARAM_EMAIL] = email
+        }
+        
+        if let firstName {
+            request[PARAM_FIRST_NAME] = firstName
+        }
+        
+        if let lastName {
+            request[PARAM_LAST_NAME] = lastName
+        }
+        
+        if let phone {
+            request[PARAM_PHONE] = phone
+        }
+        
         return self
     }
     
