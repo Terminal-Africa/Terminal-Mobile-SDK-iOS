@@ -174,6 +174,8 @@ The completion handler to call, passing along the response status and the newly 
 
 This class helps create the request body needed to create or update an address.
 
+#### Initialising the Builder
+
 ```
 init(
     city: String, 
@@ -200,6 +202,8 @@ Name of the country the address is located in.
 
 Name of the state the address is located in.
 
+#### Building the Request
+
 ```
 build() -> [String: Any]
 ```
@@ -211,6 +215,8 @@ This function returns the built create address request.
 ##### Returns
 
 Returns a dictionary containing the parameters provided to the builder.
+
+#### Adding Details about the User at the Address
 
 ```
 withDetailsForUserAtAddress(
@@ -243,6 +249,8 @@ Email of the person at the location.
 
 Phone number of the person at the location.
 
+#### Adding the Address Lines
+
 ```
 withAddressLines(
     line1: String, 
@@ -264,6 +272,8 @@ Line1 of the Address.
 
 Line2 of the Address. This value is optional so you can just ignore it.
 
+#### Adding the Zip Code
+
 ```
 withZipCode(
     zipCode: String
@@ -280,6 +290,8 @@ This function adds the Address's zip code to the request.
 
 Zip code of the region the address is located in.
 
+#### Setting if it is a Residential Address
+
 ```
 isResidential(
     isResidential: Bool
@@ -295,6 +307,8 @@ This function sets whether the address is a residential address or not. This def
 `isResidential: Bool`
 
 Indicates whether the address is a residential address.
+
+#### Adding Metadata
 
 ```
 withMetaData(
@@ -315,6 +329,8 @@ Metadata you want to attach to the Addresss.
 ### PaginatedRequestBuilder
 
 This class helps create the parameters required for a base paginated request.
+
+#### Initialising the Builder
 
 ```
 init(
@@ -337,6 +353,8 @@ The number of items to return in the response per request. The default number is
 
 The page number of the paginated request. This starts from 1. The default value is 1.
 
+#### Building the Request
+
 ```
 build() -> [String: Any]
 ```
@@ -348,6 +366,8 @@ This function returns the built request for a paginated API call.
 ##### Returns
 
 Returns a dictionary containing the parameters provided to the builder.
+
+#### Setting the Page Number
 
 ```
 withPage(
@@ -364,6 +384,8 @@ This function updates the page number of the request.
 `page: Int`
 
 The page number of the paginated request. This starts from 1
+
+#### Setting Number of Items Per Page
 
 ```
 withPerPage(
