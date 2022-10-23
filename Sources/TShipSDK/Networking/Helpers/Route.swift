@@ -14,8 +14,11 @@ enum Route {
     /// Address Route for creating, fetching and updating Addresses. Pass in the address id to add it to the url.
     case address(String? = nil)
     
-    ///  Route for fetching list of countries valid on TShip.
+    /// Route for fetching list of countries valid on TShip.
     case countries
+    
+    /// Route for fetching list of states within a country valid on TShip.
+    case states
     
     /// String representation of the route
     var description: String {
@@ -29,6 +32,10 @@ enum Route {
             
         case .countries:
             return "/countries"
+            
+        case .states:
+            return "/states"
+            
         }
     }
 }

@@ -1,5 +1,3 @@
-import Foundation
-
 /// This class helps create the request body needed to create an address.
 public class AddressRequestBuilder {
     

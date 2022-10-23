@@ -195,6 +195,34 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the array of all valid [Country](#country)s if no error occurred.
 
+### Get Valid States
+
+```
+getValidStates(
+    request: [String: Any], 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<[Country], Error>) -> Void)
+```
+
+##### Description
+
+This function all the countries valid on the TShip API.
+
+##### Parameters
+
+`request: [String: Any]`
+
+Request body with country code for states to get. You'll build the request with the [CityOrStateRequestBuilder](#cityorstaterequestbuilder).
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[Country], Error>) -> Void`
+
+The completion handler to call, passing along the response status and the array of all valid [Country](#country)s if no error occurred.
+
+
 ## Request Builders
 
 ### AddressRequestBuilder
@@ -352,6 +380,83 @@ This function adds metadata to the address.
 `metadata: [String: Any]`
 
 Metadata you want to attach to the Addresss.
+
+### CityOrStateRequestBuilder
+
+This class helps create the request body needed to fetch States in a Country or Cities in a State.
+
+#### Initialising the Builder
+
+```
+init(
+    countryCode: String, 
+    stateCode: String? = nil
+)
+```
+
+##### Description
+
+Default initializer taking in the required parameters for quering the city and state requests.
+
+##### Parameters
+
+`countryCode: String`
+
+The country code of the country whose states or cities you want to fetch
+
+`stateCode: String? = nil`
+
+The state code of the state whose cities you want to fetch. Can  be omitted if you want to fetch list of states.
+
+#### Building the Request
+
+```
+build() -> [String: Any]
+```
+
+##### Description
+
+This function returns the built request for a paginated API call.
+
+##### Returns
+
+Returns a dictionary containing the parameters provided to the builder.
+
+#### Setting the Country Code
+
+```
+withCountryCode(
+    countryCode: String
+)
+```
+
+##### Description
+
+This function adds the country code to use in request.
+
+##### Parameters
+
+`countryCode: String`
+
+The country code of the country whose states or cities you want to fetch
+
+#### Setting the State Code
+
+```
+withStateCode(
+    stateCode: String
+)
+```
+
+##### Description
+
+This function adds the state code to use in request.
+
+##### Parameters
+
+`stateCode: String`
+
+The state code of the state whose cities you want to fetch. Can  be omitted if you want to fetch list of states.
 
 ### PaginatedRequestBuilder
 
@@ -548,6 +653,34 @@ The country's longitude.
 `timezones: [Timezone]`
 
 The details about the [Timezone](#timezone)s that are in the country.
+
+### State
+
+#### Description
+
+State data model containing details about a State.
+
+#### Properties
+
+`name: String`
+
+The name of the state.
+
+`isoCode: String`
+
+The iso code of the state.
+
+`countryCode: String`
+
+The country code of the country the state is in.
+
+`latitude: String`
+
+The state's latitude.
+
+`longitude: String`
+
+The state's longitude.
 
 ### Timezone
 
