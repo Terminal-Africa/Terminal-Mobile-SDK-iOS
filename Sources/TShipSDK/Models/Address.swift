@@ -1,5 +1,3 @@
-import Foundation
-
 ///Address data model containing all information needed about an Address to arrange a shipping.
 public struct Address: Codable {
     

@@ -6,8 +6,9 @@
 3. [Features](#features)
 4. [Getting Started](#getting-started)
 5. [Addresses](#addresses)
-6. [Request Builders](#request-builders)
-7. [Models](#models)
+6. [Miscellanous](#miscellanous)
+7. [Request Builders](#request-builders)
+8. [Models](#models)
 
 ## Overview
 The TShip SDK was built on top of the TShip API to make integrating the TShip API in your App easier. The TShip API is a JSON API that provides a single interface for integrating Nigerian shipping carriers such as DHL, Gokada, Sendbox with your applications. The API allows anyone to programatically get shipping rates and arrange pickup and delivery for a parcel. The TShip SDK enables you to easily do all of this in your iOS App. To use the TShip SDK, you need to [create an account on the Terminal website](https://app.terminal.africa/sign-up) and retrieve a Secret Key in your settings. 
@@ -167,6 +168,32 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 `completion: @escaping(Result<Address, Error>) -> Void`
 
 The completion handler to call, passing along the response status and the newly created [Address](#address) if no error occurred.
+
+## Miscellanous
+
+Here you'll find information about miscellanous remote operations you can make that support other operations.
+
+### Get Valid Countries
+
+```
+getValidCountries(
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<[Country], Error>) -> Void)
+```
+
+##### Description
+
+This function all the countries valid on the TShip API.
+
+##### Parameters
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[Country], Error>) -> Void`
+
+The completion handler to call, passing along the response status and the array of all valid [Country](#country)s if no error occurred.
 
 ## Request Builders
 
@@ -481,6 +508,74 @@ Latitude of the location.
 `lng: Double`
 
 Longitude of the location.
+
+### Country
+
+#### Description
+
+Country data model containing in formation about a country.
+
+#### Properties
+
+`isoCode: String`
+
+The country's iso code.
+
+`name: String`
+
+The name of the country.
+
+`phoneCode: String`
+
+The country's phone number code.
+
+`flag: String`
+
+An emoji of the country's Flag.
+
+`currency: String`
+
+An emoji of the country's Flag.
+
+`latitude: String`
+
+The country's latitude.
+
+`longitude: String`
+
+The country's longitude.
+
+`timezones: [Timezone]`
+
+The details about the [Timezone](#timezone)s that are in the country.
+
+### Timezone
+
+#### Description
+
+Timezone data model containing timezone information for a region.
+
+#### Properties
+
+`zoneName: String`
+
+The technical name of the timezone.
+
+`gmtOffset: Int`
+
+The timezone's gmt offset.
+
+`gmtOffsetName: String`
+
+The timezone's gmt offset.
+
+`abbreviation: String`
+
+The timezone's abbreviation.
+
+`tzName: String`
+
+The less technical name of the timezone.
 
 ### TShipPageData
 

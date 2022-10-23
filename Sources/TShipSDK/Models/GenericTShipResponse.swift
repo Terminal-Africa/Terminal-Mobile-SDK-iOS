@@ -1,5 +1,3 @@
-import Foundation
-
 /// Struct representing the default response structure for response body received from TShip API.
 struct GenericTShipResponse<Data: Codable>: Codable {
     
