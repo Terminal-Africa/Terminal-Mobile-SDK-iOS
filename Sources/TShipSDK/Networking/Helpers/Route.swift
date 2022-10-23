@@ -20,6 +20,9 @@ enum Route {
     /// Route for fetching list of states within a country valid on TShip.
     case states
     
+    /// Route for fetching list of cities within a state valid on TShip.
+    case cities
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -35,6 +38,9 @@ enum Route {
             
         case .states:
             return "/states"
+            
+        case .cities:
+            return "/cities"
             
         }
     }

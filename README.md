@@ -173,6 +173,33 @@ The completion handler to call, passing along the response status and the newly 
 
 Here you'll find information about miscellanous remote operations you can make that support other operations.
 
+### Get Valid Cities
+
+```
+getValidCities(
+    request: [String: Any], 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<[City], Error>) -> Void)
+```
+
+##### Description
+
+This function fetches all the cities within a state valid on the TShip API.
+
+##### Parameters
+
+`request: [String: Any]`
+
+Request body with country and code for states to get. You'll build the request with the [CityOrStateRequestBuilder](#cityorstaterequestbuilder).
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[City], Error>) -> Void`
+
+The completion handler to call, passing along the response status and the array of all valid [City](#city)s if no error occurred.
+
 ### Get Valid Countries
 
 ```
@@ -201,7 +228,7 @@ The completion handler to call, passing along the response status and the array 
 getValidStates(
     request: [String: Any], 
     runCompletionOnUIThread: Bool = true, 
-    completion: @escaping(Result<[Country], Error>) -> Void)
+    completion: @escaping(Result<[State], Error>) -> Void)
 ```
 
 ##### Description
@@ -220,7 +247,7 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 `completion: @escaping(Result<[Country], Error>) -> Void`
 
-The completion handler to call, passing along the response status and the array of all valid [Country](#country)s if no error occurred.
+The completion handler to call, passing along the response status and the array of all valid [State](#state)s if no error occurred.
 
 
 ## Request Builders
@@ -597,6 +624,34 @@ Indicates whether the address is a residential address.
 `coordinates: Coordinates`
 
 Geographical Coordinates of the addresss.
+
+### City
+
+#### Description
+
+City data model containing details about a City.
+
+#### Properties
+
+`name: String`
+
+The name of the city.
+
+`stateCode: String`
+
+The iso code of the state the city is in.
+
+`countryCode: String`
+
+The iso code of the country the city is in.
+
+`latitude: String`
+
+The state's latitude.
+
+`longitude: String`
+
+The state's longitude.
 
 ### Coordinates
 
