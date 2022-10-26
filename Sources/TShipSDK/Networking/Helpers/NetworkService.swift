@@ -30,12 +30,13 @@ class NetworkService {
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            if runCompletionOnUIThread {
-                DispatchQueue.main.async {
-                    self.handleResponse(response: response, data: data, completion: completion)
-                }
-            }else{
+            self.runInBackgroundOrUIThread(runOnUIThread: runCompletionOnUIThread) {
+//                if let data = data {
+//                    let response = String(data: data, encoding: .utf8) ?? "Could not stringify our data"
+//                    print(response)
+//                } else {
+//                    print("No data returned")
+//                }
                 self.handleResponse(response: response, data: data, completion: completion)
             }
         }.resume()
@@ -95,11 +96,6 @@ class NetworkService {
             
             if let data = data {
                 let decoder = JSONDecoder()
-                do {
-                    let you = try decoder.decode(T.self, from: data)
-                }catch{
-                    print(error.localizedDescription)
-                }
                 guard let response = try? decoder.decode(T.self, from: data) else {
                     completion(.failure(TShipSDKError.errorDecoding))
                     return
@@ -127,6 +123,16 @@ class NetworkService {
             
         }
         
+    }
+    
+    func runInBackgroundOrUIThread(runOnUIThread: Bool, toRun: @escaping() -> Void){
+        if runOnUIThread {
+            DispatchQueue.main.async {
+                toRun()
+            }
+        }else{
+            toRun()
+        }
     }
     
 }

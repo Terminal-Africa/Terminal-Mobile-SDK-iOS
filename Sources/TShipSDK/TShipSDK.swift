@@ -10,6 +10,9 @@ public class TShipSDK {
     /// Instance of MiscellanousRemote class for performing miscellanous remote operations.
     let miscellanousRemote = MiscellanousRemote()
     
+    /// Instance of MiscellanousRemote class for performing miscellanous remote operations.
+    let packagingRemote = PackagingRemote()
+    
     /// Initializes the TShipSDK with secret key which is required for all calls to the TShipAPI.
     init(secretKey: String) {
         self.secretKey = secretKey

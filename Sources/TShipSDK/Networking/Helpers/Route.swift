@@ -23,6 +23,9 @@ enum Route {
     /// Route for fetching list of cities within a state valid on TShip.
     case cities
     
+    /// Packaging Route for creating, fetching and updating Packaging. Pass in the packaging id to add it to the url.
+    case packaging(String? = nil)
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -41,6 +44,12 @@ enum Route {
             
         case .cities:
             return "/cities"
+            
+        case .packaging(let packagingId):
+            if let packagingId = packagingId {
+                return "/packaging/\(packagingId)"
+            }
+            return "/packaging"
             
         }
     }

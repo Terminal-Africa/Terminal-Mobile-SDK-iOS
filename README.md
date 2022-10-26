@@ -7,6 +7,7 @@
 4. [Getting Started](#getting-started)
 5. [Addresses](#addresses)
 6. [Miscellanous](#miscellanous)
+6. [Packaging](#packaging)
 7. [Request Builders](#request-builders)
 8. [Models](#models)
 
@@ -249,6 +250,37 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the array of all valid [State](#state)s if no error occurred.
 
+## Packaging
+
+Here you'll find information on how to create, update and fetch Packaging.
+
+### Create Packaging
+
+```
+createPackaging(
+    request: PackagingRequest, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Packaging, Error>) -> Void)
+```
+
+##### Description
+
+This function creates a Packaging on the TShip API.
+
+##### Parameters
+
+`request: PackagingRequest`
+
+Request body with details used to create a Packaging. All the parameters that are available to add to the [PackagingRequest](#packagingrequest) class are required to create a Packaging
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Packaging, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the newly created [Packaging](#packaging) if no error occurred.
+
 
 ## Request Builders
 
@@ -485,6 +517,118 @@ This function adds the state code to use in request.
 
 The state code of the state whose cities you want to fetch. Can  be omitted if you want to fetch list of states.
 
+### PackagingRequest
+
+This class helps create the request body needed to create and update a packaging. All parameters are required to create a Packaging.
+
+#### Setting the Packaging name
+
+```
+withName(
+    name: String
+)
+```
+
+##### Description
+
+This function adds the name of the packaging to the request.
+
+##### Parameters
+
+`name: String`
+
+The name users will use to identify the packaging.
+
+##### Returns
+
+The instance of PackagingRequest.
+
+#### Setting the Packaging type
+
+```
+withType(
+    type: PackagingType
+)
+```
+
+##### Description
+
+This function adds the type of the packaging to the request.
+
+##### Parameters
+
+`type: PackagingType`
+
+The type of the packaging. This is gotten from an enum containing all Packaging Types supported by the TShip API.
+
+##### Returns
+
+The instance of PackagingRequest.
+
+#### Setting the Packaging Size
+
+```
+withSizeDimensions(
+    height: Float, 
+    width: Float, 
+    length: Float, 
+    sizeUnit: SizeUnit = .cm
+)
+```
+
+##### Description
+
+This function adds the dimensions of the packaging to the request.
+
+##### Parameters
+
+`height: Float`
+
+The height of the packaging.
+
+`width: Float`
+
+The width of the packaging.
+
+`length: Float`
+
+The length of the packaging.
+
+`sizeUnit: SizeUnit = .cm`
+
+The unit used to measure the size dimensions of the packaging. The default value for this is cm which is also the only suppported size unit for now.
+
+##### Returns
+
+The instance of PackagingRequest.
+
+#### Setting the Packaging Weight
+
+```
+withWeight(
+    weight: Float, 
+    weightUnit: WeightUnit = .kg
+)
+```
+
+##### Description
+
+This function adds the weight of the packaging to the request.
+
+##### Parameters
+
+`weight: Float`
+
+The weight of the packaging.
+
+`weightUnit: WeightUnit = .kg`
+
+The weight unit used for the size dimensions of the packaging. The default value for this is cm which is also the only suppported weight unit for now.
+
+##### Returns
+
+The instance of PackagingRequest.
+
 ### PaginatedRequestBuilder
 
 This class helps create the parameters required for a base paginated request.
@@ -709,6 +853,58 @@ The country's longitude.
 
 The details about the [Timezone](#timezone)s that are in the country.
 
+### Packaging
+
+#### Description
+
+Packaging data model containing information about packaging used to ship items.
+
+#### Properties
+
+`height: Float`
+
+The country's iso code.
+
+`width: Float`
+
+The width of the packaging.
+
+`length: Float`
+
+The length of the packaging.
+
+`sizeUnit: String`
+
+The unit used to measure the size dimensions of the packaging. Only 'cm' is supported at this time..
+
+`weight: Float`
+
+The weight of the packaging.
+
+`weightUnit: String`
+
+The unit used to measure the weight of the packaging. Only 'kg' is supported at this time.
+
+`type: String`
+
+The type of the packaging.
+
+`packagingId: String`
+
+The unique id used to identify the packaging.
+
+`name: String`
+
+The name users will use to identify the packaging.
+
+`createdAt: String`
+
+The date and time the Packaging was created.
+
+`updatedAt: String`
+
+The date and time the Packaging was updated.
+
 ### State
 
 #### Description
@@ -804,3 +1000,50 @@ Indicates whether there is a previous page.
 `hasNextPage: Int?`
 
 Indicates whether there is a next page.
+
+
+## Enums
+
+### PackagingType
+
+#### Description
+
+An enum representing the valid Packaging types on TShip.
+
+#### Cases
+
+`box`
+
+Represents the box Packaging type.
+
+`envelope`
+
+Represents the envelope Packaging type.
+
+`softPackaging`
+
+Represents the soft Packaging type.
+
+### SizeUnit
+
+#### Description
+
+An enum representing the valid size units used on TShip.
+
+#### Cases
+
+`cm`
+
+Represents the box Packaging type.
+
+### WeightUnit
+
+#### Description
+
+An enum representing the valid size units used on TShip.
+
+#### Cases
+
+`kg`
+
+Represents kilogram weight unit.

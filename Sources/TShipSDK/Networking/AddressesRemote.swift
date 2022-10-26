@@ -1,5 +1,3 @@
-import Foundation
-
 /// Remote class that provides functions to make requests to the address route.
 class AddresssesRemote: NetworkService {
     
