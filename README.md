@@ -281,6 +281,33 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the newly created [Packaging](#packaging) if no error occurred.
 
+### Get Packaging
+
+```
+getPackaging(
+    packagingId: String, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Packaging, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches details of a Packaging previously created on the TShip API.
+
+##### Parameters
+
+`packagingId: String`
+
+Unique id used to identify the packaging
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Packaging, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [Packaging](#packaging) if no error occurred.
+
 
 ## Request Builders
 

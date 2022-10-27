@@ -28,4 +28,23 @@ class PackagingRemote: NetworkService {
         }
     }
     
+    /// This function fetches details of a Packaging previously created on the TShip API.
+    /// - Parameters:
+    ///   - secretKey: User's TShipAPI Secret key.
+    ///   - packagingId: Unique id used to identify the packaing.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func getPackaging(secretKey: String, packagingId: String, runCompletionOnUIThread: Bool, completion: @escaping(Result<Packaging, Error>) -> Void){
+        self.request(route: Route.packaging(packagingId), method: Method.get, bearerToken: secretKey, runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<Packaging>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }
