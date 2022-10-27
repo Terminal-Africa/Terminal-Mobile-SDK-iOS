@@ -42,6 +42,7 @@ class AddresssesRemote: NetworkService {
     /// This function fetches an Address previously created on the TShip API.
     /// - Parameters:
     ///   - secretKey: User's TShipAPI Secret key.
+    ///   - request: Should contain the query parameters for paginating through the Addresses. This should be created with the PaginatedRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
     func getAddresses(secretKey: String, request: [String: Any], runCompletionOnUIThread: Bool, completion: @escaping(Result<GetAddressResponseData, Error>) -> Void){

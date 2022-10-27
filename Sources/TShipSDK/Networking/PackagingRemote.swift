@@ -43,7 +43,23 @@ class PackagingRemote: NetworkService {
             case .failure(let error):
                 completion(.failure(error))
             }
-            
+        }
+    }
+    
+    /// This function fetches the list of Packaging previously created on the TShip API.
+    /// - Parameters:
+    ///   - request: Should contain the query parameters for paginating through the Packaging. This should be created with the PaginatedRequestBuilder class.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing along the response status and the list of paginated Packaging if no error occurred.
+    func getMultiplePackaging(secretKey: String, request: [String: Any], runCompletionOnUIThread: Bool, completion: @escaping(Result<GetMultiplePackagingResponseData, Error>) -> Void){
+        self.request(route: Route.packaging(), method: Method.get, bearerToken: secretKey, queryParameters: request, runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<GetMultiplePackagingResponseData>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
     

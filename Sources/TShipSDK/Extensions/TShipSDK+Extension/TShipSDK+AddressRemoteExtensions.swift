@@ -23,7 +23,7 @@ public extension TShipSDK {
     /// - Parameters:
     ///   - request: Should contain the query parameters for paginating through the Addresses. This should be created with the PaginatedRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
-    ///   - completion: The completion handler to call, passing along the response status and the newly created Address if no error occurred.
+    ///   - completion: The completion handler to call, passing the response status alongside the GetAddressResponseData which contains the paginated Address, if no error occurred.
     func getAddresses(request: [String: Any], runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetAddressResponseData, Error>) -> Void){
         addressesRemote.getAddresses(secretKey: secretKey, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }

@@ -19,4 +19,13 @@ public extension TShipSDK {
         packagingRemote.getPackaging(secretKey: secretKey, packagingId: packagingId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function fetches the list of Packaging previously created on the TShip API.
+    /// - Parameters:
+    ///   - request: Should contain the query parameters for paginating through the Packaging. This should be created with the PaginatedRequestBuilder class.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing the response status alongside the GetMultiplePackagingResponseData which contains the paginated Packaging, if no error occurred.
+    func getMultiplePackaging(request: [String: Any], runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetMultiplePackagingResponseData, Error>) -> Void){
+        packagingRemote.getMultiplePackaging(secretKey: secretKey, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

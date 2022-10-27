@@ -113,9 +113,9 @@ The completion handler to call, passing along the response status and the [Addre
 
 ```
 TShipSDK.getAddresses(
-    request: [String: Any], 
-    runCompletionOnUIThread: Bool = true, 
-    completion: @escaping(Result<Address, Error>) -> Void
+    request: [String: Any],
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<GetAddressResponseData, Error>) -> Void
 )
 ```
 
@@ -135,7 +135,7 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 `completion: @escaping(Result<Address, Error>) -> Void`
 
-The completion handler to call, passing along the response status and the [Address](#address), if no error occurred.
+The completion handler to call, passing the response status alongside the [GetAddressResponseData](#getaddressresponsedata) which contains the paginated [Address](#address), if no error occurred.
 
 ### Update Address
 
@@ -307,6 +307,33 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 `completion: @escaping(Result<Packaging, Error>) -> Void`
 
 The completion handler to call, passing along the response status and the [Packaging](#packaging) if no error occurred.
+
+### Get Multiple Packaging
+
+```
+getMultiplePackaging(
+    request: [String: Any], 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Packaging, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches the list of Packaging previously created on the TShip API.
+
+##### Parameters
+
+`request: [String: Any]`
+
+Should contain the query parameters for paginating through the Packaging. This should be created with the PaginatedRequestBuilder class.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Packaging, Error>) -> Void`
+
+The completion handler to call, passing the response status alongside the [GetMultiplePackagingResponseData](#getmultiplepackagingresponsedata) which contains the paginated Packaging, if no error occurred.
 
 
 ## Request Builders
@@ -879,6 +906,38 @@ The country's longitude.
 `timezones: [Timezone]`
 
 The details about the [Timezone](#timezone)s that are in the country.
+
+### GetAddressResponseData
+
+#### Description
+
+Represents the response data for paginated addresses, featuring the page data.
+
+#### Properties
+
+`pagination: TShipPageData`
+
+Details about the page of data being returned.
+
+`addresses: [Address]`
+
+The list of paginated Addresses.
+
+### GetMultiplePackagingResponseData
+
+#### Description
+
+Represents the structure paginated Packaging are returned, featuring the page data.
+
+#### Properties
+
+`pagination: TShipPageData`
+
+The country's iso code.
+
+`packaging: [Packaging]`
+
+The list of paginated Packaging.
 
 ### Packaging
 
