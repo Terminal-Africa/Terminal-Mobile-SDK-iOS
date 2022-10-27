@@ -31,12 +31,12 @@ class NetworkService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             self.runInBackgroundOrUIThread(runOnUIThread: runCompletionOnUIThread) {
-//                if let data = data {
-//                    let response = String(data: data, encoding: .utf8) ?? "Could not stringify our data"
-//                    print(response)
-//                } else {
-//                    print("No data returned")
-//                }
+                if let data = data {
+                    let response = String(data: data, encoding: .utf8) ?? "Could not stringify our data"
+                    print(response)
+                } else {
+                    print("No data returned")
+                }
                 self.handleResponse(response: response, data: data, completion: completion)
             }
         }.resume()

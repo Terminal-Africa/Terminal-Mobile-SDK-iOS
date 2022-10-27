@@ -28,4 +28,14 @@ public extension TShipSDK {
         packagingRemote.getMultiplePackaging(secretKey: secretKey, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function updates a Packaging on the TShip API.
+    /// - Parameters:
+    ///   - packagingId: Unique id used to identify the packaing.
+    ///   - request: Request body with details used to update a Packaging.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and the updated Packaging, if no error occurred.
+    func updatePackaging(packagingId: String, request: PackagingRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Packaging, Error>) -> Void){
+        packagingRemote.updatePackaging(secretKey: secretKey, packagingId: packagingId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

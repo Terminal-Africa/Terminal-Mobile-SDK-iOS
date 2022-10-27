@@ -2,19 +2,19 @@
 public struct Packaging: Codable {
     
     /// The height of the packaging.
-    public let height: Float
+    public let height: Double
     
     /// The width of the packaging.
-    public let width: Float
+    public let width: Double
     
     /// The length of the packaging.
-    public let length: Float
+    public let length: Double
     
     /// The unit used to measure the size dimensions of the packaging. Only 'cm' is supported at this time.
     public let sizeUnit: String
     
     /// The weight of the packaging.
-    public let weight: Float
+    public let weight: Double
     
     /// The unit used to measure the weight of the packaging. Only 'kg' is supported at this time.
     public let weightUnit: String

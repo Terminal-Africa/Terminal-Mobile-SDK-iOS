@@ -37,11 +37,20 @@ public class PackagingRequest{
     ///     - sizeUnit: the unit used to measure the size dimensions of the packaging. The default value for this is cm which is also the only suppported size unit for now.
     /// - returns the instance of PackagingRequest
     @discardableResult
-    public func withSizeDimensions(height: Float, width: Float, length: Float, sizeUnit: SizeUnit = .cm) -> PackagingRequest
+    public func withSizeDimensions(height: Double? = nil, width: Double? = nil, length: Double? = nil, sizeUnit: SizeUnit = .cm) -> PackagingRequest
     {
-        request[PARAM_HEIGHT] = height
-        request[PARAM_WIDTH] = width
-        request[PARAM_LENGTH] = length
+        if let height {
+            request[PARAM_HEIGHT] = height
+        }
+        
+        if let width {
+            request[PARAM_WIDTH] = width
+        }
+        
+        if let length {
+            request[PARAM_LENGTH] = length
+        }
+        
         request[PARAM_SIZE_UNIT] = sizeUnit.rawValue
         return self
     }

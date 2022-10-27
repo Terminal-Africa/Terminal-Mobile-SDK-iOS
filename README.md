@@ -335,6 +335,38 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing the response status alongside the [GetMultiplePackagingResponseData](#getmultiplepackagingresponsedata) which contains the paginated Packaging, if no error occurred.
 
+### Update Packaging
+
+```
+updatePackaging(
+    packagingId: String,
+    request: PackagingRequest, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Packaging, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches the list of Packaging previously created on the TShip API.
+
+##### Parameters
+
+`packagingId: String`
+
+Unique id used to identify the packaing.
+
+`request: PackagingRequest`
+
+Request body with details used to update a Packaging.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Packaging, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the updated [Packaging](#packaging), if no error occurred.
+
 
 ## Request Builders
 
@@ -623,9 +655,9 @@ The instance of PackagingRequest.
 
 ```
 withSizeDimensions(
-    height: Float, 
-    width: Float, 
-    length: Float, 
+    height: Double? = nil, 
+    width: Double? = nil, 
+    length: Double? = nil, 
     sizeUnit: SizeUnit = .cm
 )
 ```
@@ -636,17 +668,17 @@ This function adds the dimensions of the packaging to the request.
 
 ##### Parameters
 
-`height: Float`
+`height: Double? = nil`
 
-The height of the packaging.
+The height of the packaging. The default value is nil. If the value is set to nil it is ignored.
 
-`width: Float`
+`width: Double? = nil`
 
-The width of the packaging.
+The width of the packaging. The default value is nil. If the value is set to nil it is ignored.
 
-`length: Float`
+`length: Double? = nil`
 
-The length of the packaging.
+The length of the packaging. The default value is nil. If the value is set to nil it is ignored.
 
 `sizeUnit: SizeUnit = .cm`
 
@@ -660,7 +692,7 @@ The instance of PackagingRequest.
 
 ```
 withWeight(
-    weight: Float, 
+    weight: Double, 
     weightUnit: WeightUnit = .kg
 )
 ```
@@ -671,7 +703,7 @@ This function adds the weight of the packaging to the request.
 
 ##### Parameters
 
-`weight: Float`
+`weight: Double`
 
 The weight of the packaging.
 
@@ -947,15 +979,15 @@ Packaging data model containing information about packaging used to ship items.
 
 #### Properties
 
-`height: Float`
+`height: Double`
 
 The country's iso code.
 
-`width: Float`
+`width: Double`
 
 The width of the packaging.
 
-`length: Float`
+`length: Double`
 
 The length of the packaging.
 
@@ -963,7 +995,7 @@ The length of the packaging.
 
 The unit used to measure the size dimensions of the packaging. Only 'cm' is supported at this time..
 
-`weight: Float`
+`weight: Double`
 
 The weight of the packaging.
 
