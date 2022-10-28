@@ -7,7 +7,7 @@ public extension TShipSDK {
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the newly created Packaging if no error occurred.
     func createPackaging(request: PackagingRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Packaging, Error>) -> Void){
-        packagingRemote.createPackaging(secretKey: secretKey, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+        packagingRemote.createPackaging(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
     /// This function fetches details of a Packaging previously created on the TShip API.
@@ -16,7 +16,7 @@ public extension TShipSDK {
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
     ///   - completion: The completion handler to call, passing along the response status and the newly created Address if no error occurred.
     func getPackaging(packagingId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Packaging, Error>) -> Void){
-        packagingRemote.getPackaging(secretKey: secretKey, packagingId: packagingId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+        packagingRemote.getPackaging(packagingId: packagingId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
     /// This function fetches the list of Packaging previously created on the TShip API.
@@ -25,7 +25,7 @@ public extension TShipSDK {
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
     ///   - completion: The completion handler to call, passing the response status alongside the GetMultiplePackagingResponseData which contains the paginated Packaging, if no error occurred.
     func getMultiplePackaging(request: [String: Any], runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetMultiplePackagingResponseData, Error>) -> Void){
-        packagingRemote.getMultiplePackaging(secretKey: secretKey, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+        packagingRemote.getMultiplePackaging(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
     /// This function updates a Packaging on the TShip API.
@@ -35,7 +35,7 @@ public extension TShipSDK {
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the updated Packaging, if no error occurred.
     func updatePackaging(packagingId: String, request: PackagingRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Packaging, Error>) -> Void){
-        packagingRemote.updatePackaging(secretKey: secretKey, packagingId: packagingId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+        packagingRemote.updatePackaging(packagingId: packagingId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
 }

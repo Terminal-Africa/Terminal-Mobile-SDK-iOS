@@ -7,7 +7,7 @@ let TSHIP_API_DEV_ENV_BASE_URL = "https://sandbox.terminal.africa/v1"
 public class TShipSDK {
     
     /// User's TShipAPI Secret key
-    let secretKey: String
+    private let secretKey: String
     
     /// Determine whether or not to use the Live or Development Environment of the TShip API.
     private let useLiveEnvironment: Bool
@@ -23,17 +23,17 @@ public class TShipSDK {
     
     /// Instance of AddressRemote class for performing remote operations that involve Addresses.
     var addressesRemote: AddresssesRemote {
-        return AddresssesRemote(baseUrl: baseUrl)
+        return AddresssesRemote(baseUrl: baseUrl, bearerToken: secretKey)
     }
     
     /// Instance of MiscellanousRemote class for performing miscellanous remote operations.
     var miscellanousRemote: MiscellanousRemote {
-        return MiscellanousRemote(baseUrl: baseUrl)
+        return MiscellanousRemote(baseUrl: baseUrl, bearerToken: secretKey)
     }
     
     /// Instance of PackagingRemote class for performing remote operations that involve Packaging.
     var packagingRemote: PackagingRemote{
-        return PackagingRemote(baseUrl: baseUrl)
+        return PackagingRemote(baseUrl: baseUrl, bearerToken: secretKey)
     }
     
     /// Initializes the TShipSDK with secret key which is required for all calls to the TShipAPI.

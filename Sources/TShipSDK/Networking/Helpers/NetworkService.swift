@@ -8,18 +8,22 @@ class NetworkService {
     /// Base url to use to make requests to routes
     private let baseUrl: String
     
+    /// The bearer token for API access. Usually access token or a secret/public key. 'Bearer' is added for you so you need only provide the key/token.
+    private let bearerToken: String
+    
     /// Initialises the NetworkService with the baseUrl
     /// - Parameters:
     ///  - baseUrl: Base url to use to make requests to routes
-    init(baseUrl: String) {
+    ///  - bearerToken: The bearer token for API access. Usually access token or a secret/public key. 'Bearer' is added for you so you need only provide the key/token.
+    init(baseUrl: String, bearerToken: String) {
         self.baseUrl = baseUrl
+        self.bearerToken = bearerToken
     }
     
     /// This function makes an API request.
     /// - Parameters:
     ///   - route: The path the the resource in the backend.
     ///   - method: Type of request to be made.
-    ///   - bearerToken: The bearer token for API access. Usually access token or a secret/public key. 'Bearer' is added for you so you need only provide the key/token.
     ///   - queryParameters: Query parameters you need to pass to the backend.
     ///   - requestBody: Request body you need to pass to the backend.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
@@ -28,7 +32,6 @@ class NetworkService {
     func request<T: Codable>(
         route: Route,
         method: Method,
-        bearerToken: String? = nil,
         queryParameters: [String: Any]? = nil,
         requestBody: [String: Any]? = nil,
         runCompletionOnUIThread: Bool,
