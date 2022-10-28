@@ -27,19 +27,19 @@ For developers with access, you also have to navigate through legacy API systems
 Through TShip, developers have a gateway to leading logistics partners on the continent via a single interface, removing the need for unnesseccary documentation and allowing them to focus on what they do best, building great products for the ecosystem.
 
 ## Features
-This section describes the core features available through the Shipmonk API.
+This section describes the core features available through the TShip API.
 
 - **Get Live Shipping Rates**:
-Get live shipping rates for any of Shipmonk's carrier partners including DHL Express, Gokada, Kwik, Sendbox and UPS. Shipmonk will also provide information about pickup dates and delivery times for each rate request.
+Get live shipping rates for any of TShip's carrier partners including DHL Express, Gokada, Kwik, Sendbox and UPS. TShip will also provide information about pickup dates and delivery times for each rate request.
 
 - **Arrange Pickup & Delivery**:
-Arrange pickup and delivery for your parcels with a single API call. The API call also allows you to specify the type of vehicle needed for the shipment as well as indicate how much assistance you might need to load a large parcel. In the future, Shipmonk will also allow you to schedule shipment requests with our respective carrier partners.
+Arrange pickup and delivery for your parcels with a single API call. The API call also allows you to specify the type of vehicle needed for the shipment as well as indicate how much assistance you might need to load a large parcel. In the future, TShip will also allow you to schedule shipment requests with our respective carrier partners.
 
 - **Track Shipments**:
-Shipmonk provides an endpoint for tracking any shipment arranged via the API. We also include links to specific carrier tracking pages with each request.
+TShip provides an endpoint for tracking any shipment arranged via the API. We also include links to specific carrier tracking pages with each request.
 
 - **Manage Packaging**:
-You can create and maintain information about the different types of packaging you use for preparing your parcels. In the future, shipmonk will allow you to access packaging informatin from our carrier partners.
+You can create and maintain information about the different types of packaging you use for preparing your parcels. In the future, tship will allow you to access packaging informatin from our carrier partners.
 
 ## Getting Started
 
