@@ -5,6 +5,16 @@ import Foundation
  */
 class NetworkService {
     
+    /// Base url to use to make requests to routes
+    private let baseUrl: String
+    
+    /// Initialises the NetworkService with the baseUrl
+    /// - Parameters:
+    ///  - baseUrl: Base url to use to make requests to routes
+    init(baseUrl: String) {
+        self.baseUrl = baseUrl
+    }
+    
     /// This function makes an API request.
     /// - Parameters:
     ///   - route: The path the the resource in the backend.
@@ -55,7 +65,7 @@ class NetworkService {
                                bearerToken: String? = nil,
                                queryParameters: [String: Any]? = nil,
                                requestBody: [String: Any]? = nil) -> URLRequest? {
-        let urlString = Route.baseUrl + route.description
+        let urlString = baseUrl + route.description
         guard let url = urlString.asUrl else { return nil }
         var urlRequest = URLRequest(url: url)
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
