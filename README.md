@@ -374,11 +374,11 @@ Here you'll find information on how to create, update and fetch Parcels.
 ### Create Parcels
 
 ```
-createParcels<T: Codable>(
+createParcel<T: Codable>(
     metadataType: T.Type = EmptyMetadata.self,
     request: ParcelRequest<T>, 
     runCompletionOnUIThread: Bool = true, 
-    completion: @escaping(Result<Packaging, Error>) -> Void)
+    completion: @escaping(Result<Parcel<T>, Error>) -> Void)
 ```
 
 ##### Description
@@ -399,7 +399,7 @@ Request body with details used to create a Parcel. All the parameters that are a
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<Packaging, Error>) -> Void`
+`completion: @escaping(Result<Parcel<T>, Error>) -> Void`
 
 The completion handler to call, passing along the response status and the newly created [Parcel](#parcel) if no error occurred.
 
@@ -410,7 +410,7 @@ getParcel(
     metadataType: T.Type = EmptyMetadata.self,
     packagingId: String, 
     runCompletionOnUIThread: Bool = true, 
-    completion: @escaping(Result<Packaging, Error>) -> Void)
+    completion: @escaping(Result<Parcel<T>, Error>) -> Void)
 ```
 
 ##### Description
@@ -431,9 +431,41 @@ Unique id used to identify the parcel
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<Packaging, Error>) -> Void`
+`completion: @escaping(Result<Parcel<T>, Error>) -> Void`
 
 The completion handler to call, passing along the response status and the [Parcel](#parcel) if no error occurred.
+
+### Get Parcels
+
+```
+getParcels(
+    metadataType: T.Type = EmptyMetadata.self,
+    request: [String: Any], 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Parcel<T>, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches Parcels previously created on the TShip API.
+
+##### Parameters
+
+`metadataType: T.Type = EmptyMetadata.self`
+
+The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
+
+`request: [String: Any]`
+
+Should contain the query parameters for paginating through the Parcels. This should be created with the [PaginatedRequestBuilder](#paginatedrequestbuilder) class.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<GetParcelsResponseData<T>, Error>) -> Void`
+
+The completion handler to call, passing along the response status alongside the [GetParcelsResponseData](#getparcelsresponsedata) which contains the paginated Parcels, if no error occurred.
 
 
 ## Request Builders
@@ -1225,9 +1257,25 @@ Represents the structure paginated Packaging are returned, featuring the page da
 
 `pagination: TShipPageData`
 
-The country's iso code.
+Details about the page of data being returned.
 
 `packaging: [Packaging]`
+
+The list of paginated Packaging.
+
+### GetParcelsResponseData
+
+#### Description
+
+Represents the structure paginated Packaging are returned, featuring the page data.
+
+#### Properties
+
+`pagination: TShipPageData`
+
+Details about the page of data being returned.
+
+`parcels: [Parcel<T>]`
 
 The list of paginated Packaging.
 

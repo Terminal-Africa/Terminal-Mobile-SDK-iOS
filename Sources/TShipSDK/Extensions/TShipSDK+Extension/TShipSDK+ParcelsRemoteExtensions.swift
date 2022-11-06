@@ -21,4 +21,14 @@ public extension TShipSDK {
         parcelRemote.getParcel(parcelId: parcelId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function fetches Parcels previously created on the TShip API.
+    /// - Parameters:
+    ///   - metadataType: The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you no metadata is attached to the Parcel. The default type of the metadata is EmptyMetadata.self, EmptyMetadata being an empty struct.
+    ///   - request: Should contain the query parameters for paginating through the Parcels. This should be created with the PaginatedRequestBuilder class.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing the response status alongside the GetParcelsResponseData which contains the paginated Parcels, if no error occurred.
+    func getParcels<T: Codable>(_ metadataType: T.Type = EmptyMetadata.self, request: [String: Any], runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetParcelsResponseData<T>, Error>) -> Void){
+        parcelRemote.getParcels(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

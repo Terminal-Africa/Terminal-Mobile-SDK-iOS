@@ -37,4 +37,22 @@ class ParcelRemote: NetworkService {
         }
     }
     
+    /// This function fetches an Parcel previously created on the TShip API.
+    /// - Parameters:
+    ///   - request: Should contain the query parameters for paginating through the Parcels. This should be created with the PaginatedRequestBuilder class.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func getParcels<T: Codable>(request: [String: Any], runCompletionOnUIThread: Bool, completion: @escaping(Result<GetParcelsResponseData<T>, Error>) -> Void){
+        self.request(route: Route.parcels(), method: Method.get, queryParameters: request,runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<GetParcelsResponseData<T>>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }
