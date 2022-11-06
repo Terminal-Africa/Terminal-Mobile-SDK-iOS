@@ -55,4 +55,23 @@ class ParcelRemote: NetworkService {
         }
     }
     
+    /// This updates an Parcel previously created on the TShip API.
+    /// - Parameters:
+    ///   - parcelId: Unique id used to identify the parcel.
+    ///   - request: Request body with all the Parcel details to update the Parcel.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and the updated Parcel if no error occurred.
+    func updateParcel<T: Codable>(parcelId: String, request: ParcelRequest<T>, runCompletionOnUIThread: Bool, completion: @escaping(Result<Parcel<T>, Error>) -> Void){
+        self.request(route: Route.parcels(parcelId), method: Method.put, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<Parcel<T>>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }

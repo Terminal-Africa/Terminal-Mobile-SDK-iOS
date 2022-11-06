@@ -31,4 +31,14 @@ public extension TShipSDK {
         parcelRemote.getParcels(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This updates an Parcel previously created on the TShip API.
+    /// - Parameters:
+    ///   - parcelId: Unique id used to identify the parcel.
+    ///   - request: Request body with all the Parcel details to update the Parcel. This can be initialized from an existing Parcel using the variant of the ParcelRequest initializer that takes in a Parcel.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and the updated Parcel if no error occurred.
+    func updateParcel<T: Codable>(_ metadataType: T.Type = EmptyMetadata.self, parcelId: String, request: ParcelRequest<T>, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Parcel<T>, Error>) -> Void){
+        parcelRemote.updateParcel(parcelId: parcelId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

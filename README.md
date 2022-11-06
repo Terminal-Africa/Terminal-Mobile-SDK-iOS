@@ -442,7 +442,7 @@ getParcels(
     metadataType: T.Type = EmptyMetadata.self,
     request: [String: Any], 
     runCompletionOnUIThread: Bool = true, 
-    completion: @escaping(Result<Parcel<T>, Error>) -> Void)
+    completion: @escaping(Result<GetParcelsResponseData<T>, Error>) -> Void)
 ```
 
 ##### Description
@@ -466,6 +466,38 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 `completion: @escaping(Result<GetParcelsResponseData<T>, Error>) -> Void`
 
 The completion handler to call, passing along the response status alongside the [GetParcelsResponseData](#getparcelsresponsedata) which contains the paginated Parcels, if no error occurred.
+
+### Update Parcel
+
+```
+updateParcel(
+    metadataType: T.Type = EmptyMetadata.self,
+    request: ParcelRequest<T>, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Parcel<T>, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches Parcels previously created on the TShip API.
+
+##### Parameters
+
+`metadataType: T.Type = EmptyMetadata.self`
+
+The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
+
+`request: ParcelRequest<T>`
+
+Request body with all the Parcel details to update the Parcel. This can be initialized from an existing Parcel using [the variant of the ParcelRequest initializer that takes in a Parcel](#initialising-parcelrequest-with-parcel).
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Parcel<T>, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the updated [Parcel](#parcel) if no error occurred.
 
 
 ## Request Builders
@@ -954,6 +986,24 @@ The [Currency](#currency) the value of the items are stored in.
 `weightUnit: WeightUnit`
 
 The unit used to measure the weight of the packaging. The default value, 'kg', is the only weight unit supported at this time. This takes in the enum [WeightUnit](#weightunit).
+
+#### Initialising ParcelRequest with Parcel
+
+```
+init(
+    from: Parcel<T>
+)
+```
+
+##### Description
+
+Initializer taking in a Parcel whose details you want to copy in order to update or clone it.
+
+##### Parameters
+
+`from: Parcel<T>`
+
+The Parcel you are trying to update or Clone.
 
 #### Adding an Item to the Parcel
 

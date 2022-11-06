@@ -32,6 +32,18 @@ public class ParcelRequest<T: Codable>: Codable {
         self.currency = currency.rawValue
     }
     
+    /// Initializer taking in a Parcel whose details you want to copy in order to update or clone it.
+    /// - Parameters:
+    ///   -  from: The Parcel you are trying to update or Clone.
+    public init(from parcel: Parcel<T>) {
+        self.description = parcel.description
+        self.packagingId = parcel.packagingId
+        self.weightUnit = parcel.weightUnit
+        self.currency = parcel.currency ?? Currency.NGN.rawValue
+        self.items = parcel.items
+        self.metadata = parcel.metadata
+    }
+    
     /// This function adds an Item to the Parcel.
     /// - Parameters:
     ///   - name: The name used to identify the Item.
