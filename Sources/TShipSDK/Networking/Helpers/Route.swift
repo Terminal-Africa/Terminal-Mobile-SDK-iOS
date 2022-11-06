@@ -26,6 +26,9 @@ enum Route {
     /// Packaging Route for creating, fetching and updating Packaging. Pass in the packaging id to add it to the url.
     case packaging(String? = nil)
     
+    /// Parcel Route for creating, fetching and updating Parcels. Pass in the Parcel id to add it to the url.
+    case parcels(String? = nil)
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -51,6 +54,13 @@ enum Route {
             }
             return "/packaging"
             
+        case .parcels(let parcelId):
+            if let parcelId = parcelId {
+                return "/parcels/\(parcelId)"
+            }
+            return "/parcels"
+            
         }
     }
+    
 }

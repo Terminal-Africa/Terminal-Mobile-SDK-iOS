@@ -36,6 +36,11 @@ public class TShipSDK {
         return PackagingRemote(baseUrl: baseUrl, bearerToken: secretKey)
     }
     
+    /// Instance of ParcelRemote class for performing remote operations that involve Parcels.
+    var parcelRemote: ParcelRemote{
+        return ParcelRemote(baseUrl: baseUrl, bearerToken: secretKey)
+    }
+    
     /// Initializes the TShipSDK with secret key which is required for all calls to the TShipAPI.
     /// - Parameters:
     ///  - secretKey: User's TShipAPI Secret key.

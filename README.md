@@ -792,6 +792,192 @@ This function updates the number of items to return per paginated request.
 
 The number of items to return in the response per request.
 
+### ParcelRequest<T: Codable>
+
+This class is used to make Create and Update requests for Parcels. It requires you specify the type of class of the metadata to attach to the Parcel. The metadata should ideally be a struct representing your metadata model which conforms to Swift's Codable protocol. If you don't want to pass in any metadata, you can set the struct [EmptyMetadata](#emptymetadata) as the metadata type and go ahead and ignore the metadata which would be set to `nil` by default.
+
+#### Properties
+
+`description: String`
+
+A short description with details about the Parcel and it's content.
+
+`packagingId: String`
+
+The unique Id used to identify the Packaging used to keep the Items in the Parcel.
+
+`weightUnit: String`
+
+The unit used to measure the weight of the packaging. The unit 'kg' is the only weight unit supported at this time. This takes in the enum [WeightUnit](#weightunit)
+
+`currency: String`
+
+The [Currency](#currency) the value of the items are stored in. 
+
+`metadata: T? = nil`
+
+Additional metadata you want to attach to the Parcel.
+
+`items: [ParcelItem]`
+
+The [items](#parcelitem) that are in the Parcel. This can be read but not writen to directly. Use the [`withItem`](#adding-an-item-to-the-parcel) and [`removeItemAt`](#removing-an-item) methods respectively to add or remove items.
+
+#### Initialising ParcelRequest
+
+```
+init(
+    description: String, 
+    packagingId: String, 
+    currency: Currency, 
+    weightUnit: WeightUnit = .kg
+)
+```
+
+##### Description
+
+Default initializer taking in the details required to create a Parcel.
+
+##### Parameters
+
+`description: String`
+
+A short description with details about the Parcel and it's content.
+
+`packagingId: String`
+
+The unique Id used to identify the Packaging used to keep the Items in the Parcel.
+
+`currency: Currency`
+
+The [Currency](#currency) the value of the items are stored in.
+
+`weightUnit: WeightUnit`
+
+The unit used to measure the weight of the packaging. The default value, 'kg', is the only weight unit supported at this time. This takes in the enum [WeightUnit](#weightunit).
+
+#### Adding an Item to the Parcel
+
+```
+withItem(
+    name: String, 
+    description: String, 
+    quantity: Int, 
+    value: Double, 
+    weight: Double
+) -> ParcelRequest
+```
+
+##### Description
+
+This function adds an Item to the Parcel alongside it's details.
+
+##### Parameters
+
+`name: String`
+
+The name used to identify the Item.
+
+`description: String`
+
+A short description of the item.
+
+`quantity: Int`
+
+The quantity of the item in the parcel.
+
+`value: Double`
+
+The total monetary value of the item. Note that this is the cost per item multiplied by the quantity.
+
+`weight: Double`
+
+The weight of the item. Note that this is the weight per item multiplied by the quantity.
+
+##### Returns
+
+Returns the Instance of the ParcelRequest.
+
+#### Removing an Item
+
+```
+removeItemAt(
+    index: Int
+)
+```
+
+##### Description
+
+This function removes an Item from the Parcel.
+
+##### Parameters
+
+`index: Int`
+
+The index of the item to be removed in the items array.
+
+##### Returns
+
+Returns the Instance of the ParcelRequest.
+
+#### Attaching Metadata to the Parcel
+
+```
+withMetadata(
+    metadata: T
+)
+```
+
+##### Description
+
+This function adds metadata to attach to the parcel object.
+
+##### Parameters
+
+`metadata: T`
+
+The metadata to attach to the parcel. T is the Metadata data/class type specified earlier when initializing or declaring the ParcelRequest class.
+
+##### Returns
+
+Returns the Instance of the ParcelRequest.
+
+#### Updating the description
+
+```
+with(
+    description: String, 
+    packagingId: String, 
+    currency: Currency, 
+    weightUnit: WeightUnit
+)
+```
+
+##### Description
+
+This function updates the Parcel's details. If any of the parameters is set to nil the parameter is not updated. The default values are set to nil, so you can ignore parameters you don't want to update.
+
+##### Parameters
+
+`description: String? = nil`
+
+A short description with details about the Parcel and it's content.
+
+`packagingId: String? = nil`
+
+The unique Id used to identify the Packaging used to keep the Items in the Parcel.
+
+`currency: Currency? = nil`
+
+The [Currency](#currency) the value of the items are stored in.
+
+`weightUnit: WeightUnit? = nil`
+
+The unit used to measure the weight of the packaging. The unit 'kg' is the only weight unit supported at this time. This takes in the enum [WeightUnit](#weightunit)
+
+##### Returns
+
+Returns the Instance of the ParcelRequest.
+
 
 ## Models
 
@@ -939,6 +1125,12 @@ The country's longitude.
 
 The details about the [Timezone](#timezone)s that are in the country.
 
+### EmptyMetadata
+
+#### Description
+
+Data Model representing empty metadata. This model will be set by default as the generic type for metadata attached to address and parcel if no metadata type is provided.
+
 ### GetAddressResponseData
 
 #### Description
@@ -993,7 +1185,7 @@ The length of the packaging.
 
 `sizeUnit: String`
 
-The unit used to measure the size dimensions of the packaging. Only 'cm' is supported at this time..
+The unit used to measure the size dimensions of the packaging. Only 'cm' is supported at this time.
 
 `weight: Double`
 
@@ -1022,6 +1214,70 @@ The date and time the Packaging was created.
 `updatedAt: String`
 
 The date and time the Packaging was updated.
+
+### Parcel<T>
+
+#### Description
+
+Data model containing information about the parcel to be shipped. The generic type is the type of the metadata class/struct model. The default is usually set to [EmptyMetadata](#emptymetadata).
+
+#### Properties
+
+`description: String`
+
+A short description with details about the Parcel and it's content.
+
+`packagingId: String`
+
+The unique Id used to identify the Packaging used to keep the Items in the Parcel.
+
+`currency: String`
+
+The currency the value of the item is stored in.
+
+`weightUnit: String`
+
+The unit used to measure the weight of the packaging. Only 'kg' is supported at this time.
+
+`metadata: T?`
+
+Metadata to be attached to the Parcel.
+
+`items: [ParcelItem]`
+
+The list of [items](#parcelitem) that are in the Parcel.
+
+### ParcelItem
+
+#### Description
+
+Data model containing the details about an Item.
+
+#### Properties
+
+`description: String`
+
+A short description of the item.
+
+`name: String`
+
+The name used to identify the Item.
+
+`currency: String`
+
+The currency the value of the item is stored in.
+
+`quantity: Int`
+
+The quantity of the item in the parcel.
+
+`value: Double`
+
+The total monetary value of the item. Note that this is the cost per item multiplied by the quantity.
+
+`weight: Double`
+
+The weight of the item. Note that this is the weight per item multiplied by the quantity.
 
 ### State
 
@@ -1121,6 +1377,70 @@ Indicates whether there is a next page.
 
 
 ## Enums
+
+### Currency
+
+#### Description
+
+An enum representing the currency types supported by the TShip API.
+
+#### Cases
+
+`AED`
+
+Represents United Arab Emirates Dirham.
+
+`AUD`
+
+Represents Australian Dollar.
+
+`CAD`
+
+Represents Canadian Dollar.
+
+`CNY`
+
+Represents Chinese Yuan.
+
+`EUR`
+
+Represents Euro.
+
+`GBP`
+
+Represents Pound sterling.
+
+`GHS`
+
+Represents Ghanaian Cedi.
+
+`HKD`
+
+Represents Hong Kong Dollar.
+
+`KES`
+
+Represents Kenyan Shilling.
+
+`NGN`
+
+Represents Nigerian Naira.
+
+`TZS`
+
+Represents Tanzanian Shilling.
+
+`UGX`
+
+Represents Ugandan Shilling.
+
+`USD`
+
+Represents United States Dollar.
+
+`ZAR`
+
+Represents South African Rand.
 
 ### PackagingType
 

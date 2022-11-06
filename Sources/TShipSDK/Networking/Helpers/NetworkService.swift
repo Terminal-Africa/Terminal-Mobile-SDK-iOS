@@ -92,6 +92,20 @@ class NetworkService {
         return urlRequest
     }
     
+    /// This function converts any class that comforms to the Codable protocol to a dictionary, which can then be used to make API requests
+    func codableClassToDict<RequestModel: Codable>(model: RequestModel?) -> [String : AnyObject]? {
+        var object: [String : AnyObject] = [String : AnyObject]()
+        do {
+            if let dataFromObject = try? JSONEncoder().encode(model) {
+                object = try JSONSerialization.jsonObject(with: dataFromObject, options: []) as! [String : AnyObject]
+            }
+        } catch (let error) {
+            print("\nError Encoding Parameter Model Object \n \(error.localizedDescription)\n")
+        }
+        return object
+    }
+
+    
     /// This function handles responses gotten from the server, calling the completion handler when it is done. This function is tuned to be friendlier to the error data model used in the TShip API by decoding the error data with TShipResponseWithoutData struct so it is easier to get and pass along the error messages from BAD_REQUESTs(400) since the data it returns is not consistent and is not being used for now.
     /// - Parameters:
     ///   - response: The response  gotten from running URLSession.dataTask or .data.
