@@ -367,6 +367,74 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the updated [Packaging](#packaging), if no error occurred.
 
+## Parcels
+
+Here you'll find information on how to create, update and fetch Parcels.
+
+### Create Parcels
+
+```
+createParcels<T: Codable>(
+    metadataType: T.Type = EmptyMetadata.self,
+    request: ParcelRequest<T>, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Packaging, Error>) -> Void)
+```
+
+##### Description
+
+This function creates a Parcel on the TShip API.
+
+##### Parameters
+
+`metadataType: T.Type = EmptyMetadata.self`
+
+The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
+
+`request: PackagingRequest`
+
+Request body with details used to create a Parcel. All the parameters that are available to add to the [ParcelRequest](#parcelrequest) class are required to create a Parcel.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Packaging, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the newly created [Parcel](#parcel) if no error occurred.
+
+### Get Parcel
+
+```
+getParcel(
+    metadataType: T.Type = EmptyMetadata.self,
+    packagingId: String, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Packaging, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches details of a Parcel previously created on the TShip API.
+
+##### Parameters
+
+`metadataType: T.Type = EmptyMetadata.self`
+
+The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
+
+`parcelId: String`
+
+Unique id used to identify the parcel
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Packaging, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [Parcel](#parcel) if no error occurred.
+
 
 ## Request Builders
 

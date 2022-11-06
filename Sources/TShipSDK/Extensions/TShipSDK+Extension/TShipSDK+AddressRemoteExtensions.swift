@@ -14,7 +14,7 @@ public extension TShipSDK {
     /// - Parameters:
     ///   - addressId: Unique id used to identify the address.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
-    ///   - completion: The completion handler to call, passing along the response status and the newly created Address if no error occurred.
+    ///   - completion: The completion handler to call, passing along the response status and the Address if no error occurred.
     func getAddress(addressId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
         addressesRemote.getAddress(addressId: addressId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
