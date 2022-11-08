@@ -29,6 +29,9 @@ enum Route {
     /// Parcel Route for creating, fetching and updating Parcels. Pass in the Parcel id to add it to the url.
     case parcels(String? = nil)
     
+    /// Route for getting rates for a shipment.
+    case shipmentRates
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -59,6 +62,9 @@ enum Route {
                 return "/parcels/\(parcelId)"
             }
             return "/parcels"
+            
+        case .shipmentRates:
+            return "/rates/shipment"
             
         }
     }

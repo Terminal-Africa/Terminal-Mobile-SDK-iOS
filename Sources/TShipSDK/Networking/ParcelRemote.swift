@@ -1,4 +1,4 @@
-
+/// Remote class that provides functions to make requests to the parcels route.
 class ParcelRemote: NetworkService {
     
     /// This creates a Parcel on the TShip API. This function uses a generic type to represent the model of the metadata attached to the Parcel.

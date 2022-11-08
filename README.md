@@ -499,6 +499,37 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the updated [Parcel](#parcel) if no error occurred.
 
+## Rates
+
+Here you'll find information on how to interact with the Rates endpoint throught the SDK.
+
+### Get Rates for Shipment
+
+```
+getRatesForShipment<T: Codable>(
+    request: GetRateForShipmentRequest, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<[Rate], Error>) -> Void)
+```
+
+##### Description
+
+This function gets the rates for a shipment using the TShip API.
+
+##### Parameters
+
+`request: GetRateForShipmentRequest`
+
+[GetRateForShipmentRequest](#getrateforshipmentrequest) containing the parameters needed to get shipment rate. If the shipment Id is added to the request you need only add the parcel Id otherwise the address ids for the pickup and delivery ids as well as the parcel id are required to get rates for a shipment.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[Rate], Error>) -> Void`
+
+The completion handler to call, passing along the response status alongside the [Rates](#rates) for the shipment, if no error occurred.
+
 
 ## Request Builders
 
@@ -734,6 +765,93 @@ This function adds the state code to use in request.
 `stateCode: String`
 
 The state code of the state whose cities you want to fetch. Can  be omitted if you want to fetch list of states.
+
+### GetRateForShipmentRequest
+
+This class is used to make a request to get rates for a shipment with provided details.
+
+#### Properties
+
+`pickupAddressId: String?`
+
+The unique id used to identify the previously stored address to pickup the parcel from.
+
+`deliveryAddressId: String?`
+
+The unique id used to identify the previously stored address to deliver the parcel to.
+
+`parcelId: String`
+
+The unique id used to identify the parcel.
+
+`currency: String`
+
+The currency the rates should be returned in.
+
+`shipmentId: String?`
+
+The unique id used to identify the shipment.
+
+#### Initialising Request with Shipment Id
+
+```
+init(
+    shipmentId: String,
+    parcelId: String,
+    currency: Currency = .NGN
+)
+```
+
+##### Description
+
+Default initializer taking in the details required to get shipment rates using a shipment id.
+
+##### Parameters
+
+`shipmentId: String`
+
+The unique id used to identify the shipment whose rates you want to fetch.
+
+`parcelId: String`
+
+The unique id used to identify the parcel.
+
+`currency: Currency = .NGN`
+
+The currency the rates should be returned in. The default value for this is NGN.
+
+#### Initialising Request without a Shipment Id
+
+```
+init(
+    pickupAddressId: String,
+    deliveryAddressId: String,
+    parcelId: String,
+    currency: Currency = .NGN
+)
+```
+
+##### Description
+
+Default initializer taking in the details required to get shipment rates without using a shipment id.
+
+##### Parameters
+
+`pickupAddressId: String`
+
+The unique id used to identify the previously stored address to pickup the parcel.
+
+`deliveryAddressId: String`
+
+The unique id used to identify the previously stored address to deliver the parcel to.
+
+`parcelId: String`
+
+The unique id used to identify the parcel.
+
+`currency: Currency = .NGN`
+
+The currency the rates should be returned in. The default value for this is NGN.
 
 ### PackagingRequest
 
@@ -1500,6 +1618,78 @@ The timezone's abbreviation.
 `tzName: String`
 
 The less technical name of the timezone.
+
+### Rate
+
+#### Description
+
+Rate data model containing details about a rate.
+
+#### Properties
+
+`amount: Double`
+
+The cost of shipping with this Rate.
+
+`carrierLogo: String`
+
+A Url to the carrier's logo.
+
+`carrierName: String`
+
+The carrier's name.
+
+`carrierRateDescription: String`
+
+A short description from the carrier about the Rate.
+
+`carrierSlug: String`
+
+The unique string used to identify the carrier.
+
+`currency: String`
+
+The currency the rate's amount is in.
+
+`deliveryAddressId: String`
+
+The unique id used to identify the previously stored address to deliver the parcel to.
+
+`deliveryDate: String`
+
+The datetime the delivery is expected to have been made.
+
+`deliveryEta: Int`
+
+The estimated amount of time it would take to deliver the parcel in minutes.
+
+`deliveryTime: String`
+
+The estimated amount of time it would take to deliver the parcel in human readable text.
+
+`rateId: String`
+
+The unique Id used to identify the rate.
+
+`pickupDate: String?`
+
+The datetime the delivery is expected to have been picked up.
+
+`pickupEta: Int`
+
+The estimated amount of time it would take to pick up the parcel in minutes.
+
+`pickupTime: String`
+
+The estimated amount of time it would take to pick up the parcel in human readable text.
+
+`pickupAddressId: String`
+
+The unique id used to identify the previously stored address to pick up the parcel from.
+
+`parcelId: String`
+
+The unique Id used to identify the parcel that contains the Items to be shipped.
 
 ### TShipPageData
 
