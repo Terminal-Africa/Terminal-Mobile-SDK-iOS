@@ -32,6 +32,9 @@ enum Route {
     /// Route for getting rates for a shipment.
     case shipmentRates
     
+    /// Route used to create shipment tasks, track status of shipments and retrieve information about shipments.
+    case shipments(String? = nil)
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -65,6 +68,12 @@ enum Route {
             
         case .shipmentRates:
             return "/rates/shipment"
+            
+        case .shipments(let shipmentId):
+            if let shipmentId = shipmentId {
+                return "/shipments/\(shipmentId)"
+            }
+            return "/shipments"
             
         }
     }

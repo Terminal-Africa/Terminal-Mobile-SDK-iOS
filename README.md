@@ -1691,6 +1691,74 @@ The unique id used to identify the previously stored address to pick up the parc
 
 The unique Id used to identify the parcel that contains the Items to be shipped.
 
+### Shipment<ParcelMetadata>
+
+#### Description
+
+Data model containing information about a Shipment. The generic type is the type of the metadata class/struct model attached to the Parcel. The default is usually set to [EmptyMetadata](#emptymetadata).
+
+#### Properties
+
+`shipmentId: String`
+
+The unique string used to identify the Shipment.
+
+`deliveryAddress: Address`
+
+Contains details about the delivery [Address](#address).
+
+`pickupAddress: Address`
+
+Contains details about the pickup [Address](#address).
+
+`returnAddress: Address`
+
+Contains details about the return [Address](#address).
+
+`parcel: Parcel<ParcelMetadata>`
+
+Contains details about the [Parcel](#parcel).
+
+`pickupDate: String?`
+
+The datetime the parcel will be picked up.
+
+`shipmentPurpose: ShipmentPurpose`
+
+The purpose of the shipment. This is represented with the enum [ShipmentPurpose](#shipmentpurpose).
+
+`status: ShipmentStatus`
+
+The status of the shipment. This is represented with the enum [ShipmentStatus](#shipmentstatus).
+
+`events: [ShipmentEvent]`
+
+List of Events that have occurred on the shipment. These are represented with the model [ShipmentEvent](#shipmentevent)
+
+### ShipmentEvent
+
+#### Description
+
+Data model containing information about an event that occurred during the shipping process.
+
+#### Properties
+
+`createdAt: String`
+
+The datetime the Event occurred.
+
+`description: String`
+
+A short description of the Event.
+
+`location: String`
+
+Human readable version of the location the Event happened.
+
+`status: String`
+
+The status being reported by the Event.
+
 ### TShipPageData
 
 #### Description
@@ -1817,6 +1885,66 @@ Represents the envelope Packaging type.
 `softPackaging`
 
 Represents the soft Packaging type.
+
+### ShipmentPurpose
+
+#### Description
+
+An enum representing all the valid shipment purposes you can set when creating a shipment.
+
+#### Cases
+
+`personal`
+
+Used if you are shipping for personal reasons.
+
+`commercial`
+
+Used if you are shipping for commercial/business reasons.
+
+`sample`
+
+Used if you are shipping a sample product to a customer.
+
+`returnAfterRepair`
+
+Used if you are shipping a product back to customer after repair.
+
+`returnForRepair`
+
+Used if you are shipping a product for repair.
+
+### ShipmentStatus
+
+#### Description
+
+An enum representing all the valid shipment purposes you can set when creating a shipment.
+
+#### Cases
+
+`cancelled`
+
+Represents when the shipment has been cancelled.
+
+`confirmed`
+
+Represents when the shipment has been confirmed by the carrier.
+
+`delivered`
+
+Represents when the shipment has been delivered to the delivery address.
+
+`draft`
+
+Represents when the shipment has not been arranged.
+
+`inTransit`
+
+Represents when the parcel is on it's way to it's destination.
+
+`pending`
+
+Represents when a shipment is yet to be confirmed by the carrier.
 
 ### SizeUnit
 
