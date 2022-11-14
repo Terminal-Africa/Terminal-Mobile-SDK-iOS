@@ -530,6 +530,74 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status alongside the [Rates](#rates) for the shipment, if no error occurred.
 
+## Shipments
+
+Here you'll find information on how to create, update, fetch, arrange, track and cancel Shipments.
+
+### Create Shipment
+
+```
+createShipment<ParcelM: Codable>(
+    parcelMetadataType: ParcelM.Type = EmptyMetadata.self, 
+    request: ShipmentRequest, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void)
+```
+
+##### Description
+
+This function creates a Shipment on the TShip API.
+
+##### Parameters
+
+`parcelMetadataType: ParcelM.Type = EmptyMetadata.self`
+
+The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel or you don't need it. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
+
+`request: ShipmentRequest`
+
+Request body with details used to create a Shipment. This takes in an instance of the [ShipmentRequest](#shipmentrequest) class.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the newly created [Shipment](#shipment) if no error occurred.
+
+### Get Shipment
+
+```
+getShipment<ParcelM: Codable>(
+    parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
+    shipmentId: String,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches details of a Shipment previously created on the TShip API.
+
+##### Parameters
+
+`metadataType: T.Type = EmptyMetadata.self`
+
+The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel or you don't need it. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
+
+`shipmentId: String`
+
+Unique id used to identify the shipment
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [Shipment](#shipment) if no error occurred.
+
 
 ## Request Builders
 
@@ -1245,6 +1313,70 @@ The unit used to measure the weight of the packaging. The unit 'kg' is the only 
 ##### Returns
 
 Returns the Instance of the ParcelRequest.
+
+### ShipmentRequest
+
+This class is used to make Create and Update requests for Shipments
+
+#### Properties
+
+`pickupAddressId: String`
+
+The unique id used to identify the pickup address.
+
+`deliveryAddressId: String`
+
+The unique id used to identify the delivery address.
+
+`returnAddressId: String`
+
+The unique id used to identify the return address.
+
+`parcelId: String`
+
+The unique id used to identify the parcel. 
+
+`shipmentPurpose: ShipmentPurpose`
+
+The purpose for shipping the parcel. This uses the enum [ShipmentPurpose](#shipmentpurpose).
+
+#### Initialising ShipmentRequest
+
+```
+init(
+    pickupAddressId: String,
+    deliveryAddressId: String,
+    parcelId: String,
+    returnAddressId: String? = nil,
+    shipmentPurpose: ShipmentPurpose = .personal
+)
+```
+
+##### Description
+
+Default initializer taking in the details required to create a Shipment.
+
+##### Parameters
+
+`pickupAddressId: String`
+
+The unique id used to identify the pickup address.
+
+`deliveryAddressId: String`
+
+The unique id used to identify the delivery address.
+
+`parcelId: String`
+
+The unique id used to identify the parcel.
+
+`returnAddressId: String? = nil`
+
+The unique id used to identify the return address. If this is not set the addressFromId(the pickup address) is set as the return address.
+
+`shipmentPurpose: ShipmentPurpose = .personal`
+
+The purpose for shipping the parcel. This takes in the [ShipmentPurpose](#shipmentpurpose). The default value is personal.
 
 
 ## Models

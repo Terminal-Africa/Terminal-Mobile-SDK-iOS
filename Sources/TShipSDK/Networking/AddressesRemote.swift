@@ -19,7 +19,7 @@ class AddresssesRemote: NetworkService {
         }
     }
     
-    /// This creates an Address on the TShip API.
+    /// This fetches an Address previously created on the TShip API.
     /// - Parameters:
     ///   - addressId: Unique id used to identify the address.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.

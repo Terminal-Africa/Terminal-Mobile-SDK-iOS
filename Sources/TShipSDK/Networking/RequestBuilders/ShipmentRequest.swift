@@ -1,5 +1,5 @@
 /// This class is used to make Create and Update requests for Shipments.
-public class CreateShipmentRequest: Codable{
+public class ShipmentRequest: Codable{
     
     /// The unique id used to identify the pickup address.
     public var pickupAddressId: String
