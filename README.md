@@ -1631,21 +1631,17 @@ The date and time the Packaging was created.
 
 The date and time the Packaging was updated.
 
-### Parcel<T>
+### Parcel<T: Codable>
 
 #### Description
 
-Data model containing information about the parcel to be shipped. The generic type is the type of the metadata class/struct model. The default is usually set to [EmptyMetadata](#emptymetadata).
+Base Data model containing information about the parcel to be shipped. The generic type is the type of the metadata class/struct model. The default is usually set to [EmptyMetadata](#emptymetadata).
 
 #### Properties
 
 `description: String`
 
 A short description with details about the Parcel and it's content.
-
-`packagingId: String`
-
-The unique Id used to identify the Packaging used to keep the Items in the Parcel.
 
 `currency: String`
 
@@ -1694,6 +1690,30 @@ The total monetary value of the item. Note that this is the cost per item multip
 `weight: Double`
 
 The weight of the item. Note that this is the weight per item multiplied by the quantity.
+
+### ParcelWithoutPackagingData<T: Codable>: Parcel<T>
+
+#### Description
+
+Data model containing information about the parcel to be shipped alongside the packaging id. This inherits from the base Parcel model, containing all the details there. This class was made seperately because sometimes the Parcel comes with Packaging details as opposed to just the packaging id.
+
+#### Properties
+
+`packagingId: String`
+
+The unique Id used to identify the Packaging used to keep the Items in the Parcel.
+
+### ParcelWithPackagingData<T: Codable>: Parcel<T>
+
+#### Description
+
+Data model containing information about the parcel to be shipped alongside the [Packaging](#packaging) details. This inherits from the [base Parcel model](#parcel), containing all the details there. This class was made seperately because sometimes the Parcel comes with packaging id as opposed to just the packaging details.
+
+#### Properties
+
+`packaging: Packaging`
+
+Details about the Packaging used to keep the Items in the Parcel.
 
 ### State
 
@@ -1823,33 +1843,17 @@ The unique id used to identify the previously stored address to pick up the parc
 
 The unique Id used to identify the parcel that contains the Items to be shipped.
 
-### Shipment<ParcelMetadata>
+### Shipment
 
 #### Description
 
-Data model containing information about a Shipment. The generic type is the type of the metadata class/struct model attached to the Parcel. The default is usually set to [EmptyMetadata](#emptymetadata).
+Data model containing information about a Shipment.
 
 #### Properties
 
 `shipmentId: String`
 
 The unique string used to identify the Shipment.
-
-`deliveryAddress: Address`
-
-Contains details about the delivery [Address](#address).
-
-`pickupAddress: Address`
-
-Contains details about the pickup [Address](#address).
-
-`returnAddress: Address`
-
-Contains details about the return [Address](#address).
-
-`parcel: Parcel<ParcelMetadata>`
-
-Contains details about the [Parcel](#parcel).
 
 `pickupDate: String?`
 
@@ -1890,6 +1894,114 @@ Human readable version of the location the Event happened.
 `status: String`
 
 The status being reported by the Event.
+
+### ShipmentExtras
+
+#### Description
+
+Extra information that can be used to track the Shipment with the Carrier.
+
+#### Properties
+
+`carrierTrackingUrl: String`
+
+Url to view the shipment tracking information on the Carrier's website.
+
+`bookingReference: String?`
+
+Booking reference id used to identify the shipment on the Carrier's website.
+
+`shippingLabelURL: String?`
+
+URL liinking to the shipping label.
+
+`trackingUrl: String`
+
+Url to view the shipment tracking information on Terminal's website.
+
+`carrierTrackingNumber: String`
+
+Number used to track the shipment on the carrier's website.
+
+`commercialInvoiceUrl: String`
+
+URL to the commercial invoice generated for the shipment items by TShip.
+
+### ShipmentPopulated: Shipment
+
+#### Description
+
+Data model containing information about a Shipment with the Addresses and Carriers populated. This inherits from the base Shipment model, containing all the details there.
+
+#### Properties
+
+`deliveryAddress: Address`
+
+Contains details about the delivery address.
+
+`pickupAddress: Address?`
+
+Contains details about the pickup address.
+
+`returnAddress: Address?`
+
+Contains details about the return address.
+
+`carrier: Carrier?`
+
+Details about the carrier used to arrange the Shipment.
+
+### ShipmentPopulatedWithoutPackagingData<ParcelMetadata: Codable>: ShipmentPopulated
+
+#### Description
+
+Data model containing information about a Shipment with the Addresses and Carriers populated. This inherits from [the populated Shipment model](#shipmentpopulated), containing all the details there.
+
+#### Properties
+
+`parcel: ParcelWithoutPackagingData<ParcelMetadata>`
+
+Contains details about the parcel excuding the Packaging details but containing the packaging id.
+
+### ShipmentPopulatedWithPackagingData<ParcelMetadata: Codable>: ShipmentPopulated
+
+#### Description
+
+Data model containing information about a Shipment with the Addresses and Carriers populated. This inherits from the base Shipment model, containing all the details there.
+
+#### Properties
+
+`parcel: ParcelWithPackagingData<ParcelMetadata>`
+
+Contains details about the parcel including the Packaging details.
+
+### ShipmentUnpopulated: Shipment
+
+#### Description
+
+Data model containing information about a Shipment without the Addresses and Carriers populated but rather their ids. This inherits from the [base Shipment model](#shipment), containing all the details there.
+
+#### Properties
+
+`deliveryAddressId: String`
+
+The unique id used to identify the previously stored address to deliver the parcel to.
+
+`pickupAddressId: String`
+
+The unique id used to identify the previously stored address to pick up the parcel from.
+
+`returnAddressId: String`
+
+The unique id used to identify the previously stored address to return the parcel to.
+
+`parcelId: String`
+
+The unique Id used to identify the parcel that contains the Items to be shipped.
+
+`carrierId: String`
+
+Details about the carrier used to arrange the Shipment.
 
 ### TShipPageData
 

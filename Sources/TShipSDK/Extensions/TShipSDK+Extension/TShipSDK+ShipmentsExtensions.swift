@@ -7,7 +7,7 @@ public extension TShipSDK {
     ///   - request: Request body with details used to create a Shipment.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the newly created Shipment if no error occurred.
-    func createShipment<ParcelM: Codable>(_ parcelMetadataType: ParcelM.Type = EmptyMetadata.self, request: ShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void){
+    func createShipment<ParcelM: Codable>(_ parcelMetadataType: ParcelM.Type = EmptyMetadata.self, request: ShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<ParcelM>, Error>) -> Void){
         shipmentsRemote.createShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
@@ -17,7 +17,7 @@ public extension TShipSDK {
     ///   - shipmentId: Unique id used to identify the Shipment.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
     ///   - completion: The completion handler to call, passing along the response status and the Shipment if no error occurred.
-    func getShipment<ParcelM: Codable>(_ parcelMetadataType: ParcelM.Type = EmptyMetadata.self, shipmentId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void){
+    func getShipment<ParcelM: Codable>(_ parcelMetadataType: ParcelM.Type = EmptyMetadata.self, shipmentId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<ParcelM>, Error>) -> Void){
         shipmentsRemote.getShipment(shipmentId: shipmentId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
    

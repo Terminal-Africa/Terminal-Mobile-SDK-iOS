@@ -1,5 +1,5 @@
 /// Contains details about a given page returned in a paginated response.
-public struct TShipPageData: Codable{
+public struct TShipPageData: Decodable{
     
     /// The total number items that can be returned from the Endpoint.
     public let total: Int

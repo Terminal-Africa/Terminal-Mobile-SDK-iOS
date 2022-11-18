@@ -37,7 +37,15 @@ public class ParcelRequest<T: Codable>: Codable {
     ///   -  from: The Parcel you are trying to update or Clone.
     public init(from parcel: Parcel<T>) {
         self.description = parcel.description
-        self.packagingId = parcel.packagingId
+        
+        if let parcelWithout = parcel as? ParcelWithoutPackagingData {
+            self.packagingId = parcelWithout.packagingId
+        } else if let parcelWith = parcel as? ParcelWithPackagingData {
+            self.packagingId = parcelWith.packaging.packagingId
+        } else {
+            self.packagingId = ""
+        }
+        
         self.weightUnit = parcel.weightUnit
         self.currency = parcel.currency ?? Currency.NGN.rawValue
         self.items = parcel.items

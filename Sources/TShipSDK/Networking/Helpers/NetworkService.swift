@@ -29,7 +29,7 @@ class NetworkService {
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
     /// - Returns: URLRequest
-    func request<T: Codable>(
+    func request<T: Decodable>(
         route: Route,
         method: Method,
         queryParameters: [String: Any]? = nil,
@@ -93,7 +93,7 @@ class NetworkService {
     }
     
     /// This function converts any class that comforms to the Codable protocol to a dictionary, which can then be used to make API requests
-    func codableClassToDict<RequestModel: Codable>(model: RequestModel?) -> [String : AnyObject]? {
+    func codableClassToDict<RequestModel: Encodable>(model: RequestModel?) -> [String : AnyObject]? {
         var object: [String : AnyObject] = [String : AnyObject]()
         do {
             if let dataFromObject = try? JSONEncoder().encode(model) {
@@ -111,7 +111,7 @@ class NetworkService {
     ///   - response: The response  gotten from running URLSession.dataTask or .data.
     ///   - data: Data gotten from running URLSession.dataTask or .data.
     ///   - completion: The completion handler to call, passing along the response status and response data.
-    private func handleResponse<T: Codable>(response: URLResponse?, data: Data?,
+    private func handleResponse<T: Decodable>(response: URLResponse?, data: Data?,
                                               completion: (Result<T, Error>) -> Void) {
         guard let response = response else {
             completion(.failure(TShipSDKError.unknownError))

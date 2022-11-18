@@ -1,5 +1,5 @@
 /// Struct representing the default response structure for response body received from TShip API.
-struct GenericTShipResponse<Data: Codable>: Codable {
+struct GenericTShipResponse<Data: Decodable>: Decodable {
     
     /// Status that indicates whether the remote operation was successfull.
     let status: Bool

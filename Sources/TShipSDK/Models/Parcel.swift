@@ -1,5 +1,5 @@
 /// Data model containing information about the parcel to be shipped.
-public struct Parcel<T: Codable>: Codable {
+public class Parcel<T: Codable>: Decodable {
     
     /// The unique Id used to identify the Parcel .
     public let parcelId: String
@@ -7,11 +7,11 @@ public struct Parcel<T: Codable>: Codable {
     /// A short description with details about the Parcel and it's content.
     public let description: String
     
-    /// The unique Id used to identify the Packaging used to keep the Items in the Parcel.
-    public let packagingId: String
-    
     /// The unit used to measure the weight of the packaging. Only 'kg' is supported at this time.
     public let weightUnit: String
+    
+    /// The total weight of the Parcel.
+    public let totalWeight: Double
     
     /// The currency the value of the items are stored in. The default value for this is Nigerian Naira.
     public var currency: String? {
@@ -29,8 +29,8 @@ public struct Parcel<T: Codable>: Codable {
     
     private enum CodingKeys: String, CodingKey {
         case parcelId = "parcel_id"
-        case packagingId = "packaging"
         case weightUnit = "weight_unit"
+        case totalWeight = "total_weight"
         case description, metadata, items
     }
     
