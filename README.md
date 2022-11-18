@@ -598,6 +598,38 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the [Shipment](#shipment) if no error occurred.
 
+### Get Populated Shipments
+
+```
+getPopulatedShipments<ParcelM: Codable>(
+    parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
+    request: PaginatedRequestBuilder,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<GetShipmentsResponseData<ParcelM>, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches Shipments previously created on the TShip API with the Shipment populated with details for addresses, carriers and parcel.
+
+##### Parameters
+
+`parcelMetadataType: ParcelM.Type = EmptyMetadata.self`
+
+The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel or you don't need it. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
+
+`request: PaginatedRequestBuilder`
+
+Contains the query parameters for paginating through the Shipments. This should be created with the PaginatedRequestBuilder class.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<GetShipmentsResponseData<ParcelM>, Error>) -> Void`
+
+The completion handler to call, passing along the response status and an instance of  [GetShipmentsResponseData](#getshipmentsresponsedata) if no error occurred.
+
 
 ## Request Builders
 
