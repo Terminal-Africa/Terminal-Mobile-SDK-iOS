@@ -37,6 +37,24 @@ class ShipmentsRemote: NetworkService {
         }
     }
     
+    /// This function fetches Shipments previously created on the TShip API with the Shipment.
+    /// - Parameters:
+    ///   - request: Contain the query parameters for paginating through the Shipments.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func getShipments(request: PaginatedRequestBuilder, runCompletionOnUIThread: Bool, completion: @escaping(Result<GetShipmentsResponseData, Error>) -> Void){
+        self.request(route: Route.shipments(), method: Method.get, queryParameters: request.build(),runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<GetShipmentsResponseData>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
     /// This function fetches Shipments previously created on the TShip API with the Shipment populated with details for addresses, carriers and parcel.
     /// - Parameters:
     ///   - request: Contain the query parameters for paginating through the Shipments.

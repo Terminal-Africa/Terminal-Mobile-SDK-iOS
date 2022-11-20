@@ -21,6 +21,15 @@ public extension TShipSDK {
         shipmentsRemote.getShipment(shipmentId: shipmentId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function fetches Shipments previously created on the TShip API with the Shipment.
+    /// - Parameters:
+    ///   - request: Contains the query parameters for paginating through the Shipments. This should be created with the PaginatedRequestBuilder class.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing the response status alongside an instance of GetShipmentsResponseData which contains the paginated ShipmentPopulatedWithoutPackagingData, if no error occurred.
+    func getShipments(request: PaginatedRequestBuilder, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetShipmentsResponseData, Error>) -> Void){
+        shipmentsRemote.getShipments(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
     /// This function fetches Shipments previously created on the TShip API with the Shipment populated with details for addresses, carriers and parcel.
     /// - Parameters:
     ///   - parcelMetadataType: The metatype of the metadata model struct/class attached to the Parcel in the Shipment. You can omit this value if you didn't attach metadata to the Parcel or you don't need it. The default type of the metadata is EmptyMetadata.self, EmptyMetadata being an empty struct.

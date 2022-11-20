@@ -601,6 +601,33 @@ The completion handler to call, passing along the response status and the [Shipm
 ### Get Populated Shipments
 
 ```
+getShipments(
+    request: PaginatedRequestBuilder,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<GetShipmentsResponseData<ParcelM>, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches Shipments previously created on the TShip API with the Shipment.
+
+##### Parameters
+
+`request: PaginatedRequestBuilder`
+
+Contains the query parameters for paginating through the Shipments. This should be created with the PaginatedRequestBuilder class.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<GetShipmentsResponseData<ParcelM>, Error>) -> Void`
+
+The completion handler to call, passing along the response status and an instance of  [GetShipmentsResponseData](#getshipmentsresponsedata) if no error occurred.
+
+### Get Populated Shipments
+
+```
 getPopulatedShipments<ParcelM: Codable>(
     parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
     request: PaginatedRequestBuilder,
@@ -1610,6 +1637,38 @@ Details about the page of data being returned.
 `parcels: [Parcel<T>]`
 
 The list of paginated Packaging.
+
+### GetPopulatedShipmentsResponseData
+
+#### Description
+
+Represents the response data for paginated addresses, featuring the page data.
+
+#### Properties
+
+`pagination: TShipPageData`
+
+Details about the page of data being returned.
+
+`shipments: [ShipmentUnpopulated]`
+
+The list of paginated [ShipmentPopulatedWithoutPackagingData](#shipmentpopulatedwithoutpackagingdata).
+
+### GetShipmentsResponseData
+
+#### Description
+
+Represents the response data for paginated addresses, featuring the page data.
+
+#### Properties
+
+`pagination: TShipPageData`
+
+Details about the page of data being returned.
+
+`shipments: [ShipmentUnpopulated]`
+
+The list of paginated [ShipmentUnpopulated](#shipmentunpopulated).
 
 ### Packaging
 
