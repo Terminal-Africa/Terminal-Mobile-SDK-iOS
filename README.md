@@ -769,6 +769,33 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the [user's profile](#user) if no error occurred.
 
+### Get User's Wallet Details
+
+```
+getUserWallet(
+    userId: String, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<User, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches details about a user's wallet.
+
+##### Parameters
+
+`userId: String`
+
+The unique string used to identify the user on the TShip API.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [user's wallet details](#wallet) if no error occurred.
+
 
 ## Request Builders
 
@@ -2466,6 +2493,38 @@ Total amount of shipments performed by the user.
 `totalShipmentAmount: Int`
 
 Total amount of money spent on shipment.
+
+### Wallet
+
+#### Description
+
+Data model containing information about a user's wallet.
+
+#### Properties
+
+`companyName: String`
+
+The name of the user's company.
+
+`amount: Double`
+
+The amount of money in the user's wallet.
+
+`currency: Currency`
+
+The currency the user's wallet is being returned in.
+
+`userId: String`
+
+The unique string used to identify the user on the TShip API.
+
+`active: Bool`
+
+Indicates whether the user's wallet is active or not.
+
+`createdAt: String`
+
+The datetime the user's wallet was created.
 
 
 ## Enums
