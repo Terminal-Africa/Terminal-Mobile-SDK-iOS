@@ -738,6 +738,37 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing the response status alongside an instance of [ShipmentUnpopulated](#shipmentunpopulated) which contains information about the cancelled shipment, if no error occurred.
 
+## Users
+
+Here you'll find information on how to create, update, fetch, arrange, track and cancel Shipments.
+
+### Get User's Profile
+
+```
+getUserProfile(
+    userId: String, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<User, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches details of a User's account.
+
+##### Parameters
+
+`userId: String`
+
+The unique string used to identify the user on the TShip API.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [user's profile](#user) if no error occurred.
+
 
 ## Request Builders
 
@@ -2363,6 +2394,78 @@ Indicates whether there is a previous page.
 `hasNextPage: Int?`
 
 Indicates whether there is a next page.
+
+### User
+
+#### Description
+
+Data model representing information about a User.
+
+#### Properties
+
+`companyName: String`
+
+The name of the user's company.
+
+`country: String`
+
+The country the user's company is based in.
+
+`email: String`
+
+The user's email address.
+
+`firstName: String`
+
+The user's firstname.
+
+`lastName: String`
+
+The user's lastname.
+
+`metadata: UserMetadata`
+
+Extra data about the user relating to terminal africa. Represented with the [UserMetadata struct](#usermetadata).
+
+`phoneNumber: String`
+
+The user's phone number.
+
+`walletId: String`
+
+The user's wallet id.
+
+`userId: String`
+
+The unique string used to identify the user.
+
+`createdAt: String`
+
+The time the user's profile was created.
+
+`businessCategory: String`
+
+The category the user's category falls into.
+
+`state: String`
+
+The state the user's company is based in.
+
+### UserMetadata
+
+#### Description
+
+Data model representing extra data about the user relating to terminal africa.
+
+#### Properties
+
+`totalShipment: Int`
+
+Total amount of shipments performed by the user.
+
+`totalShipmentAmount: Int`
+
+Total amount of money spent on shipment.
 
 
 ## Enums
