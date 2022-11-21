@@ -49,4 +49,13 @@ public extension TShipSDK {
         shipmentsRemote.trackShipment(shipmentId: shipmentId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function arranges pickup and delivery of a Shipment.
+    /// - Parameters:
+    ///   - request: An instance of ArrangeShipmentRequest that contains all the information required to arrange a shipment.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing the response status alongside an instance of ShipmentUnpopulated which contains information about the newly arranged shipment, if no error occurred.
+    func arrangeShipment(request: ArrangeShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void){
+        shipmentsRemote.arrangeShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

@@ -1,4 +1,4 @@
-///
+/// Base Shipment model containing information about a Shipment.
 public class Shipment: Decodable{
     
     /// The unique string used to identify the Shipment

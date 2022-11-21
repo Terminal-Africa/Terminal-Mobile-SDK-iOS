@@ -684,6 +684,33 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing the response status alongside an instance of [ShipmentTrackingInfo](#shipmenttrackinginfo) which contains all the information needed to track the shipment, if no error occurred.
 
+### Arrange Shipment
+
+```
+trackShipment(
+    request: ArrangeShipmentRequest, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void)
+```
+
+##### Description
+
+This function arranges pickup and delivery of a Shipment.
+
+##### Parameters
+
+`request: ArrangeShipmentRequest`
+
+An instance of ArrangeShipmentRequest that contains all the information required to arrange a shipment.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void`
+
+The completion handler to call, passing the response status alongside an instance of [ShipmentUnpopulated](#shipmentunpopulated) which contains information about the newly arranged shipment, if no error occurred.
+
 
 ## Request Builders
 
@@ -842,6 +869,95 @@ This function adds metadata to the address.
 `metadata: [String: Any]`
 
 Metadata you want to attach to the Addresss.
+
+### ArrangeShipmentRequest
+
+This class is used to make a request to arrange pickup and delivery for a Shipment.
+
+#### Initialising the Request
+
+```
+init(
+    rateId: String
+)
+```
+
+##### Description
+
+Default initializer taking in the details required to arrange a Shipment.
+
+##### Parameters
+
+`rateId: String`
+
+The unique id used to identify the rate to use.
+
+#### Initialising the Request with Shipmnent id
+
+```
+init(
+    rateId: String,
+    shipmentId: String
+)
+```
+
+##### Description
+
+Initializer taking in the rate id and the shipment id of the Shipment to be arranged.
+
+##### Parameters
+
+`rateId: String`
+
+The unique id used to identify the rate to use.
+
+`shipmentId: String`
+
+The unique id used to identify the shipment to arrange. If one is not set a new shipment will be created.
+
+#### Setting the Rate id
+
+```
+withRateId(
+    rateId: String
+)
+```
+
+##### Description
+
+This function updates the rate id.
+
+##### Parameters
+
+`rateId: String`
+
+The unique id used to identify the rate to use.
+
+##### Returns
+
+The instance of ArrangeShipmentRequest.
+
+#### Setting the Shipment id
+
+```
+withShipmentId(
+    shipmentId: String
+)
+```
+
+##### Description
+
+This function updates the shipment id.
+
+##### Parameters
+
+`shipmentId: String`
+
+The unique id used to identify the shipment to arrange. If one is not set a new shipment will be created.
+
+##### Returns
+
+The instance of ArrangeShipmentRequest.
 
 ### CityOrStateRequestBuilder
 
