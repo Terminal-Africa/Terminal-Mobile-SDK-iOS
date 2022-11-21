@@ -657,6 +657,33 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and an instance of  [GetShipmentsResponseData](#getshipmentsresponsedata) if no error occurred.
 
+### Track Shipment
+
+```
+trackShipment(
+    shipmentId: String, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<ShipmentTrackingInfo, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches Shipments previously created on the TShip API with the Shipment populated with details for addresses, carriers and parcel.
+
+##### Parameters
+
+`shipmentId: String`
+
+The id of the Shipment to track.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentTrackingInfo, Error>) -> Void`
+
+The completion handler to call, passing the response status alongside an instance of [ShipmentTrackingInfo](#shipmenttrackinginfo) which contains all the information needed to track the shipment, if no error occurred.
+
 
 ## Request Builders
 
@@ -2053,6 +2080,66 @@ Data model containing information about a Shipment with the Addresses and Carrie
 `parcel: ParcelWithoutPackagingData<ParcelMetadata>`
 
 Contains details about the parcel excuding the Packaging details but containing the packaging id.
+
+### ShipmentPopulatedWithPackagingData<ParcelMetadata: Codable>: ShipmentPopulated
+
+#### Description
+
+Data model containing information about a Shipment with the Addresses and Carriers populated. This inherits from the base Shipment model, containing all the details there.
+
+#### Properties
+
+`parcel: ParcelWithPackagingData<ParcelMetadata>`
+
+Contains details about the parcel including the Packaging details.
+
+### ShipmentTrackingInfo
+
+#### Description
+
+Data model all the information needed to track the Shipment.
+
+#### Properties
+
+`deliveryAddress: Address`
+
+Contains details about the delivery address.
+
+`pickupAddress: Address`
+
+Contains details about the pickup address.
+
+`carrier: Carrier?`
+
+Details about the carrier used to arrange the Shipment.
+
+`shipmentId: String`
+
+The unique string used to identify the Shipment
+
+`pickupDate: String?`
+
+The datetime the parcel will be picked up.
+
+`deliveryDate: String?`
+
+The datetime the parcel will be delivered.
+
+`deliveryArranged: String?`
+
+The datetime the parcel delivery was arranged.
+
+`status: ShipmentStatus`
+
+The status of the shipment.
+
+`events: [ShipmentEvent]`
+
+Array of [ShipmentEvents](#shipmentevent) that have occurred on the shipment.
+
+`trackingStatus: ShipmentEvent?`
+
+Details about the last [ShipmentEvent](#shipmentevent) that happened on the shipment.
 
 ### ShipmentPopulatedWithPackagingData<ParcelMetadata: Codable>: ShipmentPopulated
 

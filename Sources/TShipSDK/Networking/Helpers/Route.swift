@@ -35,6 +35,9 @@ enum Route {
     /// Route used to create shipment tasks, track status of shipments and retrieve information about shipments.
     case shipments(String? = nil)
     
+    /// Route used to track a shipment.
+    case trackShipment(String)
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -75,6 +78,8 @@ enum Route {
             }
             return "/shipments"
             
+        case .trackShipment(let shipmentId):
+            return "/shipments/track/\(shipmentId)"
         }
     }
     

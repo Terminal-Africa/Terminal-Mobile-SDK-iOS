@@ -40,4 +40,13 @@ public extension TShipSDK {
         shipmentsRemote.getPopulatedShipments(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function tracks a Shipment previously created on the TShip API.
+    /// - Parameters:
+    ///   - shipmentId: The id of the Shipment to track.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing the response status alongside an instance of ShipmentTrackingInfo which contains all the information needed to track the shipment, if no error occurred.
+    func trackShipment(shipmentId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentTrackingInfo, Error>) -> Void){
+        shipmentsRemote.trackShipment(shipmentId: shipmentId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

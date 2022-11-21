@@ -75,4 +75,22 @@ class ShipmentsRemote: NetworkService {
         }
     }
     
+    /// This function tracks a Shipment previously created on the TShip API.
+    /// - Parameters:
+    ///   - shipmentId: The id of the Shipment to track.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func trackShipment(shipmentId: String, runCompletionOnUIThread: Bool, completion: @escaping(Result<ShipmentTrackingInfo, Error>) -> Void){
+        self.request(route: Route.trackShipment(shipmentId), method: Method.get, runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<ShipmentTrackingInfo>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }
