@@ -2,7 +2,7 @@
 public struct ShipmentExtras: Codable {
     
     /// Url to view the shipment tracking information on the Carrier's website.
-    public let carrierTrackingUrl: String
+    public let carrierTrackingUrl: String?
     
     /// Booking reference id used to identify the shipment on the Carrier's website.
     public let bookingReference: String?
@@ -14,10 +14,10 @@ public struct ShipmentExtras: Codable {
     public let trackingUrl: String
     
     /// Number used to track the shipment on the carrier's website.
-    public let carrierTrackingNumber: String
+    public let carrierTrackingNumber: String?
     
     /// URL to the commercial invoice generated for the shipment items by TShip.
-    public let commercialInvoiceUrl: String
+    public let commercialInvoiceUrl: String?
     
     private enum CodingKeys: String, CodingKey {
         case carrierTrackingUrl = "carrier_tracking_url"

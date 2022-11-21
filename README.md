@@ -687,7 +687,7 @@ The completion handler to call, passing the response status alongside an instanc
 ### Arrange Shipment
 
 ```
-trackShipment(
+arrangeShipment(
     request: ArrangeShipmentRequest, 
     runCompletionOnUIThread: Bool = true, 
     completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void)
@@ -710,6 +710,33 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 `completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void`
 
 The completion handler to call, passing the response status alongside an instance of [ShipmentUnpopulated](#shipmentunpopulated) which contains information about the newly arranged shipment, if no error occurred.
+
+### Cancel Shipment
+
+```
+cancelShipment(
+    shipmentId: String, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void)
+```
+
+##### Description
+
+This function cancels a Shipment previously created on the TShip API.
+
+##### Parameters
+
+`shipmentId: String`
+
+The id of the Shipment to track.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentTrackingInfo, Error>) -> Void`
+
+The completion handler to call, passing the response status alongside an instance of [ShipmentUnpopulated](#shipmentunpopulated) which contains information about the cancelled shipment, if no error occurred.
 
 
 ## Request Builders

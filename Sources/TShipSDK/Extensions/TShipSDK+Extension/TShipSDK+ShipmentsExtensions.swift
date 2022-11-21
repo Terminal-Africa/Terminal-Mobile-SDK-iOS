@@ -58,4 +58,13 @@ public extension TShipSDK {
         shipmentsRemote.arrangeShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function cancels a Shipment previously created on the TShip API.
+    /// - Parameters:
+    ///   - shipmentId: The id of the Shipment to cancel.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing the response status alongside an instance of ShipmentUnpopulated which contains information about the cancelled shipment, if no error occurred.
+    func cancelShipment(shipmentId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void){
+        shipmentsRemote.cancelShipment(request: CancelShipmentRequest(shipmentId: shipmentId), runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

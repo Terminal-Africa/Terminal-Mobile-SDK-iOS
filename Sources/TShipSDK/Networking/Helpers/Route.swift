@@ -41,6 +41,9 @@ enum Route {
     /// Route used to arrange pickup and delivery of a shipment.
     case arrangeShipment
     
+    /// Route used to cancel a shipment.
+    case cancelShipment
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -84,9 +87,11 @@ enum Route {
         case .trackShipment(let shipmentId):
             return "/shipments/track/\(shipmentId)"
             
-            
         case .arrangeShipment:
             return "/shipments/pickup"
+            
+        case .cancelShipment:
+            return "/shipments/cancel"
             
         }
     }

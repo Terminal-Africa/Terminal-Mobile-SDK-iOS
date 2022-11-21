@@ -111,4 +111,22 @@ class ShipmentsRemote: NetworkService {
         }
     }
     
+    /// This function arranges pickup and delivery of a Shipment.
+    /// - Parameters:
+    ///   - request: An instance of CancelShipmentRequest that contains all the information required to cancel a shipment.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func cancelShipment(request: CancelShipmentRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void){
+        self.request(route: Route.cancelShipment, method: Method.post, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<ShipmentUnpopulated>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }
