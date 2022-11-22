@@ -50,6 +50,9 @@ enum Route {
     /// Route used to fetch the user's wallet details.
     case userWallet
     
+    /// Route used to fetch the user's wallet details.
+    case userCarriers
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -104,6 +107,9 @@ enum Route {
             
         case .userWallet:
             return "/users/wallet-balance"
+            
+        case .userCarriers:
+            return "/users/carriers"
             
         }
     }

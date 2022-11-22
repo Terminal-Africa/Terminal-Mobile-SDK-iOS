@@ -33,7 +33,7 @@ public class Shipment: Decodable{
         case shipmentId = "shipment_id"
         case pickupDate = "pickup_date"
         case shipmentPurpose = "shipment_purpose"
-        case status, events, parcel, carrier, extras
+        case status, events, extras
     }
     
 }

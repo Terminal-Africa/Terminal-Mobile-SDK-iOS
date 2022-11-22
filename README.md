@@ -796,6 +796,33 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the [user's wallet details](#wallet) if no error occurred.
 
+### Get User's Carriers
+
+```
+getUserCarriers(
+    request: GetCarriersRequest, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<GetCarriersResponse, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches list of all carriers available for a user.
+
+##### Parameters
+
+`request: GetCarriersRequest`
+
+Contians the query parameters required to paginated the carriers. This uses the [GetCarriersRequest](#getcarriersreqeust) class.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the user's [Carrier](#carrier)s if no error occurred.
+
 
 ## Request Builders
 
@@ -1120,6 +1147,87 @@ This function adds the state code to use in request.
 `stateCode: String`
 
 The state code of the state whose cities you want to fetch. Can  be omitted if you want to fetch list of states.
+
+### GetCarriersRequest: PaginatedRequestBuilder
+
+This class houses the parameters required for a carriers paginated request.
+
+#### Initialising GetCarriersRequest
+
+```
+init(
+    perPage: Int = 15, 
+    page: Int = 1, 
+    active: Bool? = nil, 
+    type: CarrierServiceType? = nil
+)
+```
+
+##### Description
+
+Default initializer that optionally takes in the parameters for getting carriers. This class inherits from the [PaginatedRequestBuilder](#paginatedrequestbuilder) class so it contains it's capabilities.
+
+##### Parameters
+
+`perPage: Int = 15`
+
+The number of items to return in the response per request. The default number is 15.
+
+`page: Int = 1`
+
+The page number of the paginated request. This starts from 1. The default value is 1.
+
+`active: Bool? = nil`
+
+If true, only active carriers will be returned. If set to false, only disabled carriers will be returned. If nil, all carriers will be returned. It is nil by default.
+
+`type: CarrierServiceType? = nil`
+
+Set if you want carriers that offer a specific [service type](#carrierservicetype). If nil all carriers are returned. It is nil by default.
+
+#### Getting active Carriers
+
+```
+isActive(
+    active: Bool?
+) -> GetCarriersRequest
+```
+
+##### Description
+
+This function updates the active parameter in the request, determining whether to only return active carriers.
+
+##### Parameters
+
+`active: Bool?`
+
+If true, only active carriers will be returned. If set to false, only disabled carriers will be returned. If nil, all carriers will be returned.
+
+##### Returns
+
+The instance of GetCarriersRequest.
+
+#### Getting Carriers that offer specific Service types
+
+```
+withType(
+    type: CarrierServiceType?
+) -> GetCarriersRequest
+```
+
+##### Description
+
+This function updates the active parameter in the request, determining whether to only return active carriers.
+
+##### Parameters
+
+`type: CarrierServiceType?`
+
+Set if you want carriers that offer a specific [service type](#carrierservicetype). If nil all carriers are returned.
+
+##### Returns
+
+The instance of GetCarriersRequest.
 
 ### GetRateForShipmentRequest
 
@@ -1727,6 +1835,54 @@ Indicates whether the address is a residential address.
 `coordinates: Coordinates`
 
 Geographical Coordinates of the addresss.
+
+### Carrier
+
+#### Description
+
+Data model containing information about a Carrier.
+
+#### Properties
+
+`name: String`
+
+The Carrier's name.
+
+`logo: String`
+
+A Url to the carrier's logo.
+
+`slug: String`
+
+A unique slug used to identify the carrier.
+
+`carrierId: String`
+
+A unique string used to identify the carrier.
+
+`domestic: Bool`
+
+Indicates whether the carrier offers domestic shipments.
+
+`regional: Bool`
+
+Indicates whether the carrier offers regional shipments.
+
+`international: Bool`
+
+Indicates whether the carrier offers international shipments.
+
+`requiresInvoice: Bool`
+
+Indicates whether the carrier requires that the commercial invoice is attached to the parcel to be shipped.
+
+`requiresWaybill: Bool`
+
+Indicates whether the carrier requires that the waybill is attached to the parcel to be shipped
+
+`availableCountries: [String]`
+
+List of countries(ISO2) that the carrier is available in.
 
 ### City
 
@@ -2528,6 +2684,26 @@ The datetime the user's wallet was created.
 
 
 ## Enums
+
+### CarrierServiceType
+
+#### Description
+
+Represents the different service types carriers can offer.
+
+#### Cases
+
+`domestic`
+
+Represents domestic shipping.
+
+`regional`
+
+Represents regional shipping.
+
+`international`
+
+Represents international shipping.
 
 ### Currency
 

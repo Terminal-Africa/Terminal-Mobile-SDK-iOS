@@ -7,7 +7,7 @@ class ShipmentsRemote: NetworkService {
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the newly created Shipment if no error occurred.
     func createShipment<ParcelM: Codable>(request: ShipmentRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<ParcelM>, Error>) -> Void){
-        self.request(route: Route.shipments(), method: Method.post, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
+        self.request(route: Route.shipments(), method: Method.post, requestBody: request.toDict(), runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<ShipmentPopulatedWithPackagingData<ParcelM>>, Error>) in
             switch(result) {
             case .success(let response):

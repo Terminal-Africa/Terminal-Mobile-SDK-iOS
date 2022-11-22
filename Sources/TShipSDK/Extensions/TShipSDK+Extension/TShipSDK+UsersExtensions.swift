@@ -19,4 +19,13 @@ public extension TShipSDK {
         usersRemote.getUserWallet(request: GetUserWalletRequest(userId: userId), runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function fetches list of all carriers available for a user.
+    /// - Parameters:
+    ///   - request: Contians the query parameters required to paginated the carriers.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing along the response status and the user's carriers if no error occurred.
+    func getUserCarriers(request: GetCarriersRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetCarriersResponse, Error>) -> Void){
+        usersRemote.getUserCarriers(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }
