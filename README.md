@@ -854,6 +854,33 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the user's transactions if no error occurred. This passes an instance of [GetTransactionResponse](#gettransactionresponse) if no error occurs.
 
+### Get Transaction
+
+```
+getTransaction(
+    transactionId: String, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Transaction, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches details of a User's account.
+
+##### Parameters
+
+`transactionId: String`
+
+Unique id used to identify the transaction.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Transaction, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [Transaction](#transaction) if no error occurred.
+
 
 ## Request Builders
 
