@@ -910,7 +910,34 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 `completion: @escaping(Result<GetCarriersResponse, Error>) -> Void`
 
-The completion handler to call, passing along the response status and [Carrier](#carrier)s if no error occurred.
+The completion handler to call, passing along the response status and an instance of [GetCarriersResponse](#getcarriersresponse) containing the list of [Carrier](#carrier)s if no error occurred.
+
+### Get Carrier by Id
+
+```
+getCarrier(
+    carrierId: String, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<Carrier, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches details of a carrier on the TShip API.
+
+##### Parameters
+
+`carrierId: String`
+
+Unique string used to identify the carrier.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Carrier, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [Carrier](#carrier) if no error occurred.
 
 
 ## Request Builders
