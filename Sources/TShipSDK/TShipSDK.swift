@@ -51,7 +51,7 @@ public class TShipSDK {
         return ShipmentsRemote(baseUrl: baseUrl, bearerToken: secretKey)
     }
     
-    /// Instance of ShipmentsRemote class for performing remote operations that involve Shipments.
+    /// Instance of UsersRemote class for performing remote operations that involve Users.
     var usersRemote: UsersRemote{
         return UsersRemote(baseUrl: baseUrl, bearerToken: secretKey)
     }
@@ -59,6 +59,11 @@ public class TShipSDK {
     /// Instance of ShipmentsRemote class for performing remote operations that involve Transactions.
     var transactionsRemote: TransactionsRemote{
         return TransactionsRemote(baseUrl: baseUrl, bearerToken: secretKey)
+    }
+    
+    /// Instance of CarriersRemote class for performing remote operations that involve Carriers.
+    var carriersRemote: CarriersRemote{
+        return CarriersRemote(baseUrl: baseUrl, bearerToken: secretKey)
     }
     
     /// Initializes the TShipSDK with secret key which is required for all calls to the TShipAPI.

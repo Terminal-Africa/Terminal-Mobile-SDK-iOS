@@ -881,6 +881,37 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the [Transaction](#transaction) if no error occurred.
 
+## Carriers
+
+Here you'll find information on how to get, enable and disable carriers.
+
+### Get Carriers
+
+```
+getCarriers(
+    request: GetCarriersRequest, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<GetCarriersResponse, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches a list of all the carriers available on the TShip API.
+
+##### Parameters
+
+`request: GetCarriersRequest`
+
+Contains the query parameters required to paginate the carriers. This uses the [GetCarriersRequest](#getcarriersreqeust) class.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<GetCarriersResponse, Error>) -> Void`
+
+The completion handler to call, passing along the response status and [Carrier](#carrier)s if no error occurred.
+
 
 ## Request Builders
 

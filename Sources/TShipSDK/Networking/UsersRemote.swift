@@ -39,7 +39,7 @@ class UsersRemote: NetworkService {
     
     /// This function fetches list of all carriers available for a user.
     /// - Parameters:
-    ///   - request: Contians the query parameters required to paginated the carriers.
+    ///   - request: Contains the query parameters required to paginate the carriers.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
     func getUserCarriers(request: GetCarriersRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<GetCarriersResponse, Error>) -> Void){
