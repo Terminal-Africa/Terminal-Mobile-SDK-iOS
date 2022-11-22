@@ -740,7 +740,7 @@ The completion handler to call, passing the response status alongside an instanc
 
 ## Users
 
-Here you'll find information on how to create, update, fetch, arrange, track and cancel Shipments.
+Here you'll find information on how to get information related to the user.
 
 ### Get User's Profile
 
@@ -765,7 +765,7 @@ The unique string used to identify the user on the TShip API.
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void`
+`completion: @escaping(Result<User, Error>) -> Void`
 
 The completion handler to call, passing along the response status and the [user's profile](#user) if no error occurred.
 
@@ -775,7 +775,7 @@ The completion handler to call, passing along the response status and the [user'
 getUserWallet(
     userId: String, 
     runCompletionOnUIThread: Bool = true, 
-    completion: @escaping(Result<User, Error>) -> Void)
+    completion: @escaping(Result<Wallet, Error>) -> Void)
 ```
 
 ##### Description
@@ -792,7 +792,7 @@ The unique string used to identify the user on the TShip API.
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void`
+`completion: @escaping(Result<Wallet, Error>) -> Void`
 
 The completion handler to call, passing along the response status and the [user's wallet details](#wallet) if no error occurred.
 
@@ -819,9 +819,40 @@ Contians the query parameters required to paginated the carriers. This uses the 
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void`
+`completion: @escaping(Result<GetCarriersResponse, Error>) -> Void`
 
 The completion handler to call, passing along the response status and the user's [Carrier](#carrier)s if no error occurred.
+
+## Transactions
+
+Here you'll find information on how to get Transactions.
+
+### Get Wallet Transactions
+
+```
+getTransactions(
+    request: GetTransactionsRequest, 
+    runCompletionOnUIThread: Bool = true, 
+    completion: @escaping(Result<GetTransactionsResponse, Error>) -> Void)
+```
+
+##### Description
+
+This function fetches details of a User's account.
+
+##### Parameters
+
+`request: GetTransactionsRequest`
+
+Contians the query parameters required to paginated the transactions.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<GetTransactionsResponse, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the user's transactions if no error occurred. This passes an instance of [GetTransactionResponse](#gettransactionresponse) if no error occurs.
 
 
 ## Request Builders
@@ -2054,6 +2085,22 @@ Details about the page of data being returned.
 
 The list of paginated [ShipmentUnpopulated](#shipmentunpopulated).
 
+### GetTransactionsResponse
+
+#### Description
+
+Represents the response data for paginated transactions, featuring the page data.
+
+#### Properties
+
+`pagination: TShipPageData`
+
+Details about the page of data being returned.
+
+`transactions: [Transaction]`
+
+The list of paginated [Transaction](#transaction).
+
 ### Packaging
 
 #### Description
@@ -2538,6 +2585,50 @@ The unique Id used to identify the parcel that contains the Items to be shipped.
 
 Details about the carrier used to arrange the Shipment.
 
+### Transaction
+
+#### Description
+
+Data model containg details about a transaction.
+
+#### Properties
+
+`amount: Double`
+
+The amount of money moved on in the transaction.
+
+`currency: Currency`
+
+The currency the amount is represented in.
+
+`description: String`
+
+A short description about the transaction.
+
+`flow: TransactionFlow`
+
+The type of flow the transaction was.
+
+`referenceId: String`
+
+A unique string used to identify the transaction on the payment platform used to process it.
+
+`reversed: Bool`
+
+Indicates whether the transaction was reversed
+
+`shipmentId: String?`
+
+A unique string used to identify the shipment the transaction was used for if it is a payment for a transaction.
+
+`transactionId: String`
+
+A unique string used to identify the transaction.
+
+`createdAt: String`
+
+The datetime the transaction was created.
+
 ### TShipPageData
 
 #### Description
@@ -2860,6 +2951,22 @@ An enum representing the valid size units used on TShip.
 `cm`
 
 Represents the box Packaging type.
+
+### TransactionFlow
+
+#### Description
+
+An enum representing transaction flow types.
+
+#### Cases
+
+`inflow`
+
+Represents money going out of the wallet.
+
+`outflow`
+
+Represents money going into the wallet.
 
 ### WeightUnit
 
