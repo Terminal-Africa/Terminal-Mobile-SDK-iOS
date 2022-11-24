@@ -20,6 +20,17 @@ class NetworkService {
         self.bearerToken = bearerToken
     }
     
+    func reRequest<QueryParams: Encodable, RequestBody: Encodable, ResponseBody: Decodable>(
+        route: Route,
+        method: Method,
+        queryParameters: QueryParams? = nil as String?,
+        requestBody: RequestBody? = nil as String?,
+        runCompletionOnUIThread: Bool,
+        completion: @escaping(Result<ResponseBody, Error>) -> Void
+    ){
+        request(route: route, method: method, queryParameters: queryParameters?.toDict(), requestBody: requestBody?.toDict(), runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
     /// This function makes an API request.
     /// - Parameters:
     ///   - route: The path the the resource in the backend.
@@ -80,7 +91,18 @@ class NetworkService {
         
         if let parameters = queryParameters {
             var urlComponent = URLComponents(string: urlString)
-            urlComponent?.queryItems = parameters.map { URLQueryItem(name: $0, value: "\($1)") }
+            urlComponent?.queryItems = parameters.map {
+                let value = $1
+                if value is Bool {
+                    if (value as! Bool) {
+                        return URLQueryItem(name: $0, value: "true")
+                    }else{
+                        return URLQueryItem(name: $0, value: "false")
+                    }
+                }else{
+                    return URLQueryItem(name: $0, value: "\($1)")
+                }
+            }
             urlRequest.url = urlComponent?.url
         }
         

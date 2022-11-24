@@ -59,6 +59,9 @@ enum Route {
     /// Route used to fetch carriers.
     case carriers(String? = nil)
     
+    /// Route used to disable carriers.
+    case disableCarrier(String)
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -128,6 +131,9 @@ enum Route {
                 return "/carriers/\(carrierId)"
             }
             return "/carriers"
+           
+        case .disableCarrier(let carrierId):
+            return "/carriers/disable/\(carrierId)"
            
         }
     }

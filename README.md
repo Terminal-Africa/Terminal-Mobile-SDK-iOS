@@ -12,7 +12,7 @@
 8. [Models](#models)
 
 ## Overview
-The TShip SDK was built on top of the TShip API to make integrating the TShip API in your App easier. The TShip API is a JSON API that provides a single interface for integrating Nigerian shipping carriers such as DHL, Gokada, Sendbox with your applications. The API allows anyone to programatically get shipping rates and arrange pickup and delivery for a parcel. The TShip SDK enables you to easily do all of this in your iOS App. To use the TShip SDK, you need to [create an account on the Terminal website](https://app.terminal.africa/sign-up) and retrieve a Secret Key in your settings. 
+The TShip SDK was built on top of the TShip API to make integrating the TShip API in your App easier. The TShip API is a JSON API that provides a single interface for integrating Nigerian shipping carriers such as DHL, Gokada, Sendbox with your applications. The API allows anyone to programatically get shipping rates and arrange pickup and delivery for a parcel. The TShip SDK enables you to easily do all of this in your iOS App. To use the TShip SDK, you need to [create an account on the Terminal website](https://app.terminal.africa/sign-up) and retrieve a Secret Key in your settings.
 
 #### Technology
 TShip aggrevates multiple Shipment carriers operating in Nigeria, e.g. Gokada, Kwik, Sendbox, DHL Express and UPS. We've abstracted integration of the mentioned shipping carriers into a single interface, to provide an easy channel for anyone to build shipping into their products.
@@ -20,7 +20,7 @@ TShip aggrevates multiple Shipment carriers operating in Nigeria, e.g. Gokada, K
 In the future, we hope to expand our partnerships to include other shipping carriers outside Africa.
 
 ## Why TShip?
-We've spent a lot of time building several tools for businesses in the eCommerce space in Nigeria and always found it difficult to build shipping into our apps. Setting up an account with a logistics company in Nigeria still requires individuals to have registered businesses and also provide a lot of documentation. Many businesses in the region, also tend to use a combination of carriers for local and international deliveries, so the set up process can get exhausting. 
+We've spent a lot of time building several tools for businesses in the eCommerce space in Nigeria and always found it difficult to build shipping into our apps. Setting up an account with a logistics company in Nigeria still requires individuals to have registered businesses and also provide a lot of documentation. Many businesses in the region, also tend to use a combination of carriers for local and international deliveries, so the set up process can get exhausting.
 
 For developers with access, you also have to navigate through legacy API systems with often poorly written documentation to build shipping into your apps. We went through that and decided to make it a lot easier for other developers, this is why we created TShip.
 
@@ -45,7 +45,7 @@ You can create and maintain information about the different types of packaging y
 
 To use the TShip SDK, you will need to create an instance of the `TShipSDK` class by calling the `TShipSDK.createInstance(secretKey: String)` method which takes your Secret Key which can be found in the Api Keys section of the settings tab on the [Terminal dashboard](https://app.terminal.africa/) -> Api Keys. The `createInstance` method returns the new instance created.
 
-This method will create a static instance of the `TShipSDK` that can be accessed through the `TShipSDK.instance` property. The `TShipSDK.instance` is optional and will be nil until it is created. 
+This method will create a static instance of the `TShipSDK` that can be accessed through the `TShipSDK.instance` property. The `TShipSDK.instance` is optional and will be nil until it is created.
 
 Since the instance is static it would be best to call `createInstance` in your AppDelegate so you can retrieve the instance with `TShipSDK.instance` anywhere in your app.
 
@@ -57,8 +57,8 @@ Here you'll find information on how to create, update, fetch and validate addres
 
 ```
 TShipSDK.createAddress(
-    request: [String: Any], 
-    runCompletionOnUIThread: Bool = true, 
+    request: [String: Any],
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Address, Error>) -> Void
 )
 ```
@@ -85,8 +85,8 @@ The completion handler to call, passing along the response status and the newly 
 
 ```
 TShipSDK.getAddress(
-    request: [String: Any], 
-    runCompletionOnUIThread: Bool = true, 
+    request: [String: Any],
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Address, Error>) -> Void
 )
 ```
@@ -142,8 +142,8 @@ The completion handler to call, passing the response status alongside the [GetAd
 ```
 TShipSDK.updateAddress(
     addressId: String,
-    request: [String: Any], 
-    runCompletionOnUIThread: Bool = true, 
+    request: [String: Any],
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Address, Error>) -> Void
 )
 ```
@@ -178,8 +178,8 @@ Here you'll find information about miscellanous remote operations you can make t
 
 ```
 getValidCities(
-    request: [String: Any], 
-    runCompletionOnUIThread: Bool = true, 
+    request: [String: Any],
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<[City], Error>) -> Void)
 ```
 
@@ -205,7 +205,7 @@ The completion handler to call, passing along the response status and the array 
 
 ```
 getValidCountries(
-    runCompletionOnUIThread: Bool = true, 
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<[Country], Error>) -> Void)
 ```
 
@@ -227,8 +227,8 @@ The completion handler to call, passing along the response status and the array 
 
 ```
 getValidStates(
-    request: [String: Any], 
-    runCompletionOnUIThread: Bool = true, 
+    request: [String: Any],
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<[State], Error>) -> Void)
 ```
 
@@ -258,8 +258,8 @@ Here you'll find information on how to create, update and fetch Packaging.
 
 ```
 createPackaging(
-    request: PackagingRequest, 
-    runCompletionOnUIThread: Bool = true, 
+    request: PackagingRequest,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Packaging, Error>) -> Void)
 ```
 
@@ -285,8 +285,8 @@ The completion handler to call, passing along the response status and the newly 
 
 ```
 getPackaging(
-    packagingId: String, 
-    runCompletionOnUIThread: Bool = true, 
+    packagingId: String,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Packaging, Error>) -> Void)
 ```
 
@@ -312,8 +312,8 @@ The completion handler to call, passing along the response status and the [Packa
 
 ```
 getMultiplePackaging(
-    request: [String: Any], 
-    runCompletionOnUIThread: Bool = true, 
+    request: [String: Any],
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Packaging, Error>) -> Void)
 ```
 
@@ -340,8 +340,8 @@ The completion handler to call, passing the response status alongside the [GetMu
 ```
 updatePackaging(
     packagingId: String,
-    request: PackagingRequest, 
-    runCompletionOnUIThread: Bool = true, 
+    request: PackagingRequest,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Packaging, Error>) -> Void)
 ```
 
@@ -376,8 +376,8 @@ Here you'll find information on how to create, update and fetch Parcels.
 ```
 createParcel<T: Codable>(
     metadataType: T.Type = EmptyMetadata.self,
-    request: ParcelRequest<T>, 
-    runCompletionOnUIThread: Bool = true, 
+    request: ParcelRequest<T>,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Parcel<T>, Error>) -> Void)
 ```
 
@@ -408,8 +408,8 @@ The completion handler to call, passing along the response status and the newly 
 ```
 getParcel(
     metadataType: T.Type = EmptyMetadata.self,
-    packagingId: String, 
-    runCompletionOnUIThread: Bool = true, 
+    packagingId: String,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Parcel<T>, Error>) -> Void)
 ```
 
@@ -440,8 +440,8 @@ The completion handler to call, passing along the response status and the [Parce
 ```
 getParcels(
     metadataType: T.Type = EmptyMetadata.self,
-    request: [String: Any], 
-    runCompletionOnUIThread: Bool = true, 
+    request: [String: Any],
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<GetParcelsResponseData<T>, Error>) -> Void)
 ```
 
@@ -472,8 +472,8 @@ The completion handler to call, passing along the response status alongside the 
 ```
 updateParcel(
     metadataType: T.Type = EmptyMetadata.self,
-    request: ParcelRequest<T>, 
-    runCompletionOnUIThread: Bool = true, 
+    request: ParcelRequest<T>,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Parcel<T>, Error>) -> Void)
 ```
 
@@ -507,8 +507,8 @@ Here you'll find information on how to interact with the Rates endpoint throught
 
 ```
 getRatesForShipment<T: Codable>(
-    request: GetRateForShipmentRequest, 
-    runCompletionOnUIThread: Bool = true, 
+    request: GetRateForShipmentRequest,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<[Rate], Error>) -> Void)
 ```
 
@@ -538,9 +538,9 @@ Here you'll find information on how to create, update, fetch, arrange, track and
 
 ```
 createShipment<ParcelM: Codable>(
-    parcelMetadataType: ParcelM.Type = EmptyMetadata.self, 
-    request: ShipmentRequest, 
-    runCompletionOnUIThread: Bool = true, 
+    parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
+    request: ShipmentRequest,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void)
 ```
 
@@ -661,8 +661,8 @@ The completion handler to call, passing along the response status and an instanc
 
 ```
 trackShipment(
-    shipmentId: String, 
-    runCompletionOnUIThread: Bool = true, 
+    shipmentId: String,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<ShipmentTrackingInfo, Error>) -> Void)
 ```
 
@@ -688,8 +688,8 @@ The completion handler to call, passing the response status alongside an instanc
 
 ```
 arrangeShipment(
-    request: ArrangeShipmentRequest, 
-    runCompletionOnUIThread: Bool = true, 
+    request: ArrangeShipmentRequest,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void)
 ```
 
@@ -715,8 +715,8 @@ The completion handler to call, passing the response status alongside an instanc
 
 ```
 cancelShipment(
-    shipmentId: String, 
-    runCompletionOnUIThread: Bool = true, 
+    shipmentId: String,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void)
 ```
 
@@ -746,8 +746,8 @@ Here you'll find information on how to get information related to the user.
 
 ```
 getUserProfile(
-    userId: String, 
-    runCompletionOnUIThread: Bool = true, 
+    userId: String,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<User, Error>) -> Void)
 ```
 
@@ -773,8 +773,8 @@ The completion handler to call, passing along the response status and the [user'
 
 ```
 getUserWallet(
-    userId: String, 
-    runCompletionOnUIThread: Bool = true, 
+    userId: String,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Wallet, Error>) -> Void)
 ```
 
@@ -800,8 +800,8 @@ The completion handler to call, passing along the response status and the [user'
 
 ```
 getUserCarriers(
-    request: GetCarriersRequest, 
-    runCompletionOnUIThread: Bool = true, 
+    request: GetCarriersRequest,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<GetCarriersResponse, Error>) -> Void)
 ```
 
@@ -831,8 +831,8 @@ Here you'll find information on how to get Transactions.
 
 ```
 getTransactions(
-    request: GetTransactionsRequest, 
-    runCompletionOnUIThread: Bool = true, 
+    request: GetTransactionsRequest,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<GetTransactionsResponse, Error>) -> Void)
 ```
 
@@ -858,8 +858,8 @@ The completion handler to call, passing along the response status and the user's
 
 ```
 getTransaction(
-    transactionId: String, 
-    runCompletionOnUIThread: Bool = true, 
+    transactionId: String,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Transaction, Error>) -> Void)
 ```
 
@@ -889,8 +889,8 @@ Here you'll find information on how to get, enable and disable carriers.
 
 ```
 getCarriers(
-    request: GetCarriersRequest, 
-    runCompletionOnUIThread: Bool = true, 
+    request: GetCarriersRequest,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<GetCarriersResponse, Error>) -> Void)
 ```
 
@@ -916,8 +916,8 @@ The completion handler to call, passing along the response status and an instanc
 
 ```
 getCarrier(
-    carrierId: String, 
-    runCompletionOnUIThread: Bool = true, 
+    carrierId: String,
+    runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Carrier, Error>) -> Void)
 ```
 
@@ -939,6 +939,38 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the [Carrier](#carrier) if no error occurred.
 
+### Disable Carrier
+
+```
+disableCarrier(
+    carrierId: String,
+    request: DisableCarrierRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<Carrier, Error>) -> Void)
+```
+
+##### Description
+
+This function disables a carrier for a user on the TShip API.
+
+##### Parameters
+
+`carrierId: String`
+
+Unique string used to identify the carrier.
+
+`request: String`
+
+Uses the [DisableCarrierRequest](#disablecarrierrequest) class to pass the parameters required to disable a request.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<String, Error>) -> Void`
+
+The completion handler to call, passing along the response status and a success message if no error occurred.
+
 
 ## Request Builders
 
@@ -950,8 +982,8 @@ This class helps create the request body needed to create or update an address.
 
 ```
 init(
-    city: String, 
-    country: String, 
+    city: String,
+    country: String,
     state: String
 )
 ```
@@ -992,8 +1024,8 @@ Returns a dictionary containing the parameters provided to the builder.
 
 ```
 withDetailsForUserAtAddress(
-    firstName: String? = nil, 
-    lastName: String? = nil, 
+    firstName: String? = nil,
+    lastName: String? = nil,
     email: String? = nil,
     phone: String? = nil
 )
@@ -1025,7 +1057,7 @@ Phone number of the person at the location. It can be ignored if need be.
 
 ```
 withAddressLines(
-    line1: String, 
+    line1: String,
     line2: String? = nil
 )
 ```
@@ -1195,7 +1227,7 @@ This class helps create the request body needed to fetch States in a Country or 
 
 ```
 init(
-    countryCode: String, 
+    countryCode: String,
     stateCode: String? = nil
 )
 ```
@@ -1264,6 +1296,38 @@ This function adds the state code to use in request.
 
 The state code of the state whose cities you want to fetch. Can  be omitted if you want to fetch list of states.
 
+### DisableCarrierRequest
+
+Contains the parameters required to disable a request.
+
+#### Initialising DisableCarrierRequest
+
+```
+init(
+    disableForDomesticShipments: Bool = false,
+    disableForRegionalShipments: Bool = false,
+    disableForInternationalShipments: Bool = false
+)
+```
+
+##### Description
+
+Default Initializer taking in the parameters required to disable a request.
+
+##### Parameters
+
+`disableForDomesticShipments: Bool = false`
+
+Indicates whether to disable the carrier for domestic shipments. This is false by default.
+
+`disableForRegionalShipments: Bool = false`
+
+Indicates whether to disable the carrier for regional shipments. This is false by default.
+
+`disableForInternationalShipments: Bool = false`
+
+Indicates whether to disable the carrier for international shipments. This is false by default.
+
 ### GetCarriersRequest: PaginatedRequestBuilder
 
 This class houses the parameters required for a carriers paginated request.
@@ -1272,9 +1336,9 @@ This class houses the parameters required for a carriers paginated request.
 
 ```
 init(
-    perPage: Int = 15, 
-    page: Int = 1, 
-    active: Bool? = nil, 
+    perPage: Int = 15,
+    page: Int = 1,
+    active: Bool? = nil,
     type: CarrierServiceType? = nil
 )
 ```
@@ -1484,9 +1548,9 @@ The instance of PackagingRequest.
 
 ```
 withSizeDimensions(
-    height: Double? = nil, 
-    width: Double? = nil, 
-    length: Double? = nil, 
+    height: Double? = nil,
+    width: Double? = nil,
+    length: Double? = nil,
     sizeUnit: SizeUnit = .cm
 )
 ```
@@ -1521,7 +1585,7 @@ The instance of PackagingRequest.
 
 ```
 withWeight(
-    weight: Double, 
+    weight: Double,
     weightUnit: WeightUnit = .kg
 )
 ```
@@ -1552,7 +1616,7 @@ This class helps create the parameters required for a base paginated request.
 
 ```
 init(
-    perPage: Int = 15, 
+    perPage: Int = 15,
     page: Int = 1
 )
 ```
@@ -1641,7 +1705,7 @@ The unit used to measure the weight of the packaging. The unit 'kg' is the only 
 
 `currency: String`
 
-The [Currency](#currency) the value of the items are stored in. 
+The [Currency](#currency) the value of the items are stored in.
 
 `metadata: T? = nil`
 
@@ -1655,9 +1719,9 @@ The [items](#parcelitem) that are in the Parcel. This can be read but not writen
 
 ```
 init(
-    description: String, 
-    packagingId: String, 
-    currency: Currency, 
+    description: String,
+    packagingId: String,
+    currency: Currency,
     weightUnit: WeightUnit = .kg
 )
 ```
@@ -1706,10 +1770,10 @@ The Parcel you are trying to update or Clone.
 
 ```
 withItem(
-    name: String, 
-    description: String, 
-    quantity: Int, 
-    value: Double, 
+    name: String,
+    description: String,
+    quantity: Int,
+    value: Double,
     weight: Double
 ) -> ParcelRequest
 ```
@@ -1792,9 +1856,9 @@ Returns the Instance of the ParcelRequest.
 
 ```
 with(
-    description: String, 
-    packagingId: String, 
-    currency: Currency, 
+    description: String,
+    packagingId: String,
+    currency: Currency,
     weightUnit: WeightUnit
 )
 ```
@@ -1845,7 +1909,7 @@ The unique id used to identify the return address.
 
 `parcelId: String`
 
-The unique id used to identify the parcel. 
+The unique id used to identify the parcel.
 
 `shipmentPurpose: ShipmentPurpose`
 
