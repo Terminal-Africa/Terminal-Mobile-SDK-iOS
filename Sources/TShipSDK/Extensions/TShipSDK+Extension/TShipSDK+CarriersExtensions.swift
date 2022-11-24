@@ -29,4 +29,14 @@ public extension TShipSDK {
         carriersRemote.disableCarrier(carrierId: carrierId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    ///This function enable a carrier for a user on the TShip API.
+    /// - Parameters:
+    ///   - carrierId: The unique string used to identify a carrier.
+    ///   - request: Contains the parameters required to enable a request.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing along the response status and a the carrier that was enabled if no error occurred.
+    func enableCarrier(carrierId: String, request: EnableCarrierRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Carrier, Error>) -> Void){
+        carriersRemote.enableCarrier(carrierId: carrierId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

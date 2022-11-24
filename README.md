@@ -946,7 +946,7 @@ disableCarrier(
     carrierId: String,
     request: DisableCarrierRequest,
     runCompletionOnUIThread: Bool = true,
-    completion: @escaping(Result<Carrier, Error>) -> Void)
+    completion: @escaping(Result<String, Error>) -> Void)
 ```
 
 ##### Description
@@ -959,7 +959,7 @@ This function disables a carrier for a user on the TShip API.
 
 Unique string used to identify the carrier.
 
-`request: String`
+`request: DisableCarrierRequest`
 
 Uses the [DisableCarrierRequest](#disablecarrierrequest) class to pass the parameters required to disable a request.
 
@@ -970,6 +970,38 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 `completion: @escaping(Result<String, Error>) -> Void`
 
 The completion handler to call, passing along the response status and a success message if no error occurred.
+
+### Enable Carrier
+
+```
+enableCarrier(
+    carrierId: String,
+    request: EnableCarrierRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<Carrier, Error>) -> Void)
+```
+
+##### Description
+
+This function enables a carrier for a user on the TShip API.
+
+##### Parameters
+
+`carrierId: String`
+
+Unique string used to identify the carrier.
+
+`request: EnableCarrierRequest`
+
+Uses the [EnableCarrierRequest](#enablecarrierrequest) class to pass the parameters required to enable a request.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Carrier, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [Carrier](#carrier) that was enabled if no error occurred.
 
 
 ## Request Builders
@@ -1327,6 +1359,38 @@ Indicates whether to disable the carrier for regional shipments. This is false b
 `disableForInternationalShipments: Bool = false`
 
 Indicates whether to disable the carrier for international shipments. This is false by default.
+
+### EnableCarrierRequest
+
+Contains the parameters required to disable a request.
+
+#### Initialising EnableCarrierRequest
+
+```
+init(
+    enableForDomesticShipments: Bool = false,
+    enableForRegionalShipments: Bool = false,
+    enableForInternationalShipments: Bool = false
+)
+```
+
+##### Description
+
+Default Initializer taking in the parameters required to enable a request.
+
+##### Parameters
+
+`enableForDomesticShipments: Bool = false`
+
+Indicates whether to enable the carrier for domestic shipments. This is false by default.
+
+`enableForRegionalShipments: Bool = false`
+
+Indicates whether to enable the carrier for regional shipments. This is false by default.
+
+`enableForInternationalShipments: Bool = false`
+
+Indicates whether to enable the carrier for international shipments. This is false by default.
 
 ### GetCarriersRequest: PaginatedRequestBuilder
 
