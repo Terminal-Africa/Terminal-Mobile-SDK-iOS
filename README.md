@@ -539,7 +539,7 @@ Here you'll find information on how to create, update, fetch, arrange, track and
 ```
 createShipment<ParcelM: Codable>(
     parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
-    request: ShipmentRequest,
+    request: CreateShipmentRequest,
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void)
 ```
@@ -554,7 +554,7 @@ This function creates a Shipment on the TShip API.
 
 The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel or you don't need it. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
 
-`request: ShipmentRequest`
+`request: CreateShipmentRequest`
 
 Request body with details used to create a Shipment. This takes in an instance of the [ShipmentRequest](#shipmentrequest) class.
 
@@ -734,9 +734,41 @@ The id of the Shipment to track.
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<ShipmentTrackingInfo, Error>) -> Void`
+`completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void`
 
 The completion handler to call, passing the response status alongside an instance of [ShipmentUnpopulated](#shipmentunpopulated) which contains information about the cancelled shipment, if no error occurred.
+
+### Update Shipment
+
+```
+updateShipment(
+    shipmentId: String,
+    request: UpdateShipmentRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void)
+```
+
+##### Description
+
+This function updates a Shipment previously created on the TShip API. Note that shipments that have already been arranged can't be updated.
+
+##### Parameters
+
+`shipmentId: String`
+
+The id of the Shipment to update.
+
+`request: UpdateShipmentRequest`
+
+An instance of [UpdateShipmentRequest](#updateshipmentrequest) that contains all the information required to update a shipment.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void`
+
+The completion handler to call, passing the response status alongside an instance of [ShipmentUnpopulated](#shipmentunpopulated) which contains information about the updated shipment, if no error occurred.
 
 ## Users
 
@@ -1666,7 +1698,7 @@ The weight of the packaging.
 
 `weightUnit: WeightUnit = .kg`
 
-The weight unit used for the size dimensions of the packaging. The default value for this is cm which is also the only suppported weight unit for now.
+The weight unit used for the size dimensions of the packaging. The default value for this is cm which is also the only supported weight unit for now.
 
 ##### Returns
 
@@ -1953,9 +1985,9 @@ The unit used to measure the weight of the packaging. The unit 'kg' is the only 
 
 Returns the Instance of the ParcelRequest.
 
-### ShipmentRequest
+### CreateShipmentRequest
 
-This class is used to make Create and Update requests for Shipments
+This class is used to make Create requests for Shipments
 
 #### Properties
 
@@ -1979,7 +2011,7 @@ The unique id used to identify the parcel.
 
 The purpose for shipping the parcel. This uses the enum [ShipmentPurpose](#shipmentpurpose).
 
-#### Initialising ShipmentRequest
+#### Initialising CreateShipmentRequest
 
 ```
 init(
@@ -2016,6 +2048,98 @@ The unique id used to identify the return address. If this is not set the addres
 `shipmentPurpose: ShipmentPurpose = .personal`
 
 The purpose for shipping the parcel. This takes in the [ShipmentPurpose](#shipmentpurpose). The default value is personal.
+
+### UpdateShipmentRequest
+
+This class is used to make Create requests for Shipments
+
+#### Setting the new Pickup Address id
+
+```
+withPickupAddressId(
+    pickupAddressId: String
+) -> UpdateShipmentRequest
+```
+
+##### Description
+
+This function sets the pickup address id to update the shipment to.
+
+##### Parameters
+
+`pickupAddressId: String`
+
+The unique string used to identify the new pickup address to use for the shipment.
+
+##### Returns
+
+Returns this Instance of the UpdateShipmentRequest.
+
+#### Setting the new Delivery Address id
+
+```
+withDeliveryAddressId(
+    deliveryAddressId: String
+) -> UpdateShipmentRequest
+```
+
+##### Description
+
+This function sets the delivery address id to update the shipment to.
+
+##### Parameters
+
+`pickupAddressId: String`
+
+The unique string used to identify the new delivery address to use for the shipment.
+
+##### Returns
+
+Returns this Instance of the UpdateShipmentRequest.
+
+#### Setting the new Return Address id
+
+```
+withReturnAddressId(
+    returnAddressId: String
+) -> UpdateShipmentRequest
+```
+
+##### Description
+
+This function sets the return address id to update the shipment to.
+
+##### Parameters
+
+`returnAddressId: String`
+
+The unique string used to identify the new return address to use for the shipment.
+
+##### Returns
+
+Returns this Instance of the UpdateShipmentRequest.
+
+#### Setting the new Shipment Purpose
+
+```
+withShipmentPurpose(
+    shipmentPurpose: ShipmentPurpose
+) -> UpdateShipmentRequest
+```
+
+##### Description
+
+This function sets the [shipment purpose](#shipmentpurpose) to update the shipment to.
+
+##### Parameters
+
+`shipmentPurpose: ShipmentPurpose`
+
+The new shipment purpose to use for the shipment.
+
+##### Returns
+
+Returns this Instance of the UpdateShipmentRequest.
 
 
 ## Models

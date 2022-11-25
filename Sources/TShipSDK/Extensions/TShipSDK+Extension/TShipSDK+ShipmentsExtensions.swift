@@ -7,7 +7,7 @@ public extension TShipSDK {
     ///   - request: Request body with details used to create a Shipment.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the newly created Shipment if no error occurred.
-    func createShipment<ParcelM: Codable>(_ parcelMetadataType: ParcelM.Type = EmptyMetadata.self, request: ShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<ParcelM>, Error>) -> Void){
+    func createShipment<ParcelM: Codable>(_ parcelMetadataType: ParcelM.Type = EmptyMetadata.self, request: CreateShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<ParcelM>, Error>) -> Void){
         shipmentsRemote.createShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
@@ -65,6 +65,16 @@ public extension TShipSDK {
     ///   - completion: The completion handler to call, passing the response status alongside an instance of ShipmentUnpopulated which contains information about the cancelled shipment, if no error occurred.
     func cancelShipment(shipmentId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void){
         shipmentsRemote.cancelShipment(request: CancelShipmentRequest(shipmentId: shipmentId), runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
+    /// This function updates a Shipment previously created on the TShip API. Note that shipments that have already been arranged can't be updated.
+    /// - Parameters:
+    ///   - shipmentId: The id of the Shipment to update.
+    ///   - request: An instance of UpdateShipmentRequest that contains all the information required to update a shipment..
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing the response status alongside an instance of ShipmentUnpopulated which contains information about the updated shipment, if no error occurred.
+    func updateShipment(shipmentId: String, request: UpdateShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void){
+        shipmentsRemote.updateShipment( shipmentId: shipmentId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
 }
