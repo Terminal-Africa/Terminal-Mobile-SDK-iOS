@@ -8,18 +8,14 @@
 public extension TShipSDK {
     
     //TODO: Replace packaging id with the correct packagin
-    func getRatesForShipmentShorthand(pickupCity: String, pickupState: String, pickupCountry: String, deliveryCity: String, deliveryState: String, deliveryCountry: String, weight: Double, packagingId: String = "PA-12668277208", runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[Rate], Error>) -> Void){
+    func getRatesForShipmentShorthand(pickupAddress: AddressRequestBuilder, deliveryAddress: AddressRequestBuilder, weight: Double, packagingId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[Rate], Error>) -> Void){
         let fillerParcelItemDesc = "Dummy parcel for getting rates quickly before user login"
         var pickupAddressId = ""
         var deliveryAddressId = ""
         createAddress(
             request:
-                AddressRequestBuilder(
-                    city: pickupCity,
-                    country: pickupCountry,
-                    state: pickupState
-                ).build(),
-            runCompletionOnUIThread: false
+                pickupAddress.build(),
+            runCompletionOnUIThread: runCompletionOnUIThread
         ) {
             (result) in
                 switch result {
@@ -27,12 +23,8 @@ public extension TShipSDK {
                     pickupAddressId = response.addressId
                     self.createAddress(
                         request:
-                            AddressRequestBuilder(
-                                city: deliveryCity,
-                                country: deliveryCountry,
-                                state: deliveryState
-                            ).build(),
-                        runCompletionOnUIThread: false
+                            deliveryAddress.build(),
+                        runCompletionOnUIThread: runCompletionOnUIThread
                     ){
                         (result) in
                         switch result {

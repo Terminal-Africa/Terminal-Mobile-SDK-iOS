@@ -7,9 +7,9 @@ public class AddressRequestBuilder {
     /// Default initializer taking in the required parameters for the create address request
     /// - Parameters:
     ///   - city: Name of the city the address is located in.
-    ///   - country: Name of the country the address is located in.
     ///   - state: Name of the state the address is located in.
-    public init (city: String, country: String, state: String){
+    ///   - country: Name of the country the address is located in.
+    public init (city: String, state: String, country: String){
         request[PARAM_CITY] = city
         request[PARAM_COUNTRY] = country
         request[PARAM_STATE] = state
@@ -79,6 +79,28 @@ public class AddressRequestBuilder {
     @discardableResult
     public func withMetaData(_ metadata: [String: Any]) -> AddressRequestBuilder {
         request[PARAM_METADATA] = metadata
+        return self
+    }
+    
+    /// This function updates the city, state and country of the address object. If a parameter is ignored it is not updated.
+    /// - Parameters:
+    ///   - city: Name of the city the address is located in.
+    ///   - country: Name of the country the address is located in.
+    ///   - state: Name of the state the address is located in.
+    @discardableResult
+    public func with(city: String = "", state: String = "", country: String = "") -> AddressRequestBuilder {
+        if !city.isEmpty {
+            request[PARAM_CITY] = city
+        }
+        
+        if !state.isEmpty {
+            request[PARAM_STATE] = state
+        }
+        
+        if !country.isEmpty {
+            request[PARAM_COUNTRY] = country
+        }
+        
         return self
     }
     
