@@ -11,8 +11,8 @@ public struct State: Codable {
     public let countryCode: String
     
     /// The state's latitude.
-    public let latitude: String
+    public let latitude: String?
     
     /// The state's longitude.
-    public let longitude: String
+    public let longitude: String?
 }
