@@ -31,7 +31,7 @@ public extension TShipSDK {
                         case .success(let response):
                             deliveryAddressId = response.addressId
                             self.createParcel(
-                                request: ParcelRequest(
+                                request: ParcelRequestWithMetadata(
                                     description: fillerParcelItemDesc,
                                     packagingId: packagingId,
                                     currency: .NGN)

@@ -8,7 +8,7 @@ public struct ParcelItem: Codable {
     public var name: String
     
     /// The currency the value of the item is stored in.
-    internal(set) public var currency: String
+    internal(set) public var currency: Currency = .NGN
     
     /// The quantity of the item in the parcel.
     public var quantity: Int
@@ -18,5 +18,17 @@ public struct ParcelItem: Codable {
     
     /// The weight of the item. Note that this is the weight per item multiplied by the quantity.
     public var weight: Double
+    
+    public var hscode: String?
+    
+    public init(description: String, name: String, currency: Currency, quantity: Int, value: Double, weight: Double, hscode: String? = nil) {
+        self.description = description
+        self.name = name
+        self.currency = currency
+        self.quantity = quantity
+        self.value = value
+        self.weight = weight
+        self.hscode = hscode
+    }
     
 }

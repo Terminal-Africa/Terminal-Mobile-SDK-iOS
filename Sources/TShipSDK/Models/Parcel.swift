@@ -14,7 +14,7 @@ public class Parcel<T: Codable>: Decodable {
     public let totalWeight: Double
     
     /// The currency the value of the items are stored in. The default value for this is Nigerian Naira.
-    public var currency: String? {
+    public var currency: Currency? {
         if items.count == 0 {
             return nil
         }

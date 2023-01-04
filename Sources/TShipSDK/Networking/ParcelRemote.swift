@@ -6,7 +6,7 @@ class ParcelRemote: NetworkService {
     ///   - request: Request body with details used to create a Parcel.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the newly created Parcel if no error occurred.
-    func createParcel<T: Codable>(request: ParcelRequest<T>, runCompletionOnUIThread: Bool, completion: @escaping(Result<ParcelWithoutPackagingData<T>, Error>) -> Void){
+    func createParcel<T: Codable>(request: ParcelRequestWithMetadata<T>, runCompletionOnUIThread: Bool, completion: @escaping(Result<ParcelWithoutPackagingData<T>, Error>) -> Void){
         self.request(route: Route.parcels(), method: Method.post, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<ParcelWithoutPackagingData<T>>, Error>) in
             switch(result) {
@@ -61,7 +61,7 @@ class ParcelRemote: NetworkService {
     ///   - request: Request body with all the Parcel details to update the Parcel.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the updated Parcel if no error occurred.
-    func updateParcel<T: Codable>(parcelId: String, request: ParcelRequest<T>, runCompletionOnUIThread: Bool, completion: @escaping(Result<ParcelWithoutPackagingData<T>, Error>) -> Void){
+    func updateParcel<T: Codable>(parcelId: String, request: ParcelRequestWithMetadata<T>, runCompletionOnUIThread: Bool, completion: @escaping(Result<ParcelWithoutPackagingData<T>, Error>) -> Void){
         self.request(route: Route.parcels(parcelId), method: Method.put, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<ParcelWithoutPackagingData<T>>, Error>) in
             switch(result) {

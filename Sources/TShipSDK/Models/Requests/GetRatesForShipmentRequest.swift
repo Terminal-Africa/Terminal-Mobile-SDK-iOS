@@ -8,7 +8,7 @@ public class GetRateForShipmentRequest: Codable{
     public var deliveryAddressId: String?
     
     /// The unique id used to identify the parcel.
-    public var parcelId: String
+    public var parcelId: String?
     
     /// The currency the rates should be returned in.
     public var currency: String
@@ -32,11 +32,9 @@ public class GetRateForShipmentRequest: Codable{
     /// Default initializer taking in the details required to get shipment rates using a shipment id.
     /// - Parameters:
     ///   - shipmentId: The unique id used to identify the shipment whose rates you want to fetch.
-    ///   - parcelId: The unique id used to identify the parcel.
     ///   - currency: The currency the rates should be returned in. The default value for this is NGN.
-    public init (shipmentId: String, parcelId: String, currency: Currency = .NGN){
+    public init (shipmentId: String, currency: Currency = .NGN){
         self.shipmentId = shipmentId
-        self.parcelId = parcelId
         self.currency = currency.rawValue
     }
     
