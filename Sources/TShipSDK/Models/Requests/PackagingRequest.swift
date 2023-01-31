@@ -61,7 +61,7 @@ public class PackagingRequest{
     ///     - weightUnit: the weight unit used for the size dimensions of the packaging. The default value for this is cm which is also the only suppported weight unit for now.
     /// - returns the instance of PackagingRequest
     @discardableResult
-    public func withWeight(weight: Float, weightUnit: WeightUnit = .kg) -> PackagingRequest
+    public func withWeight(weight: Double, weightUnit: WeightUnit = .kg) -> PackagingRequest
     {
         request[PARAM_WEIGHT] = weight
         request[PARAM_WEIGHT_UNIT] = weightUnit.rawValue

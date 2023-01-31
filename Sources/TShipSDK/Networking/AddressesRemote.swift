@@ -6,8 +6,8 @@ class AddresssesRemote: NetworkService {
     ///   - request: Request body with details used to create Address.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
-    func createAddress(request: [String: Any], runCompletionOnUIThread: Bool, completion: @escaping(Result<Address, Error>) -> Void){
-        self.request(route: Route.address(), method: Method.post, requestBody: request, runCompletionOnUIThread: runCompletionOnUIThread) {
+    func createAddress(request: AddressRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<Address, Error>) -> Void){
+        self.request(route: Route.address(), method: Method.post, requestBody: request.build(), runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<Address>, Error>) in
             switch(result) {
             case .success(let response):
@@ -61,8 +61,8 @@ class AddresssesRemote: NetworkService {
     ///   - request: Request body with the Address details you want to update.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
-    func updateAddress(addressId: String, request: [String: Any], runCompletionOnUIThread: Bool, completion: @escaping(Result<Address, Error>) -> Void){
-        self.request(route: Route.address(addressId), method: Method.put, requestBody: request, runCompletionOnUIThread: runCompletionOnUIThread) {
+    func updateAddress(addressId: String, request: AddressRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<Address, Error>) -> Void){
+        self.request(route: Route.address(addressId), method: Method.put, requestBody: request.build(), runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<Address>, Error>) in
             switch(result) {
             case .success(let response):

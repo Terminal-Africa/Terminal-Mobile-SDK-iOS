@@ -26,7 +26,7 @@ public extension TShipSDK {
     ///   - request: Contains the query parameters for paginating through the Shipments. This should be created with the PaginatedRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
     ///   - completion: The completion handler to call, passing the response status alongside an instance of GetShipmentsResponseData which contains the paginated ShipmentPopulatedWithoutPackagingData, if no error occurred.
-    func getShipments(request: PaginatedRequestBuilder, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetShipmentsResponseData, Error>) -> Void){
+    func getShipments(request: GetShipmentsRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetShipmentsResponseData, Error>) -> Void){
         shipmentsRemote.getShipments(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
@@ -36,7 +36,7 @@ public extension TShipSDK {
     ///   - request: Contains the query parameters for paginating through the Shipments. This should be created with the PaginatedRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
     ///   - completion: The completion handler to call, passing the response status alongside an instance of GetShipmentsResponseData which contains the paginated ShipmentPopulatedWithoutPackagingData, if no error occurred.
-    func getPopulatedShipments<ParcelM: Codable>(_ parcelMetadataType: ParcelM.Type = EmptyMetadata.self, request: PaginatedRequestBuilder, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetPopulatedShipmentsResponseData<ParcelM>, Error>) -> Void){
+    func getPopulatedShipments<ParcelM: Codable>(_ parcelMetadataType: ParcelM.Type = EmptyMetadata.self, request: GetShipmentsRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetPopulatedShipmentsResponseData<ParcelM>, Error>) -> Void){
         shipmentsRemote.getPopulatedShipments(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     

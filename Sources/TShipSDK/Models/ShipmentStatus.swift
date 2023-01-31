@@ -18,4 +18,11 @@ public enum ShipmentStatus: String, Codable {
     
     /// Represents when a shipment is yet to be confirmed by the carrier.
     case pending
+    
+    public var title: String{
+        get {
+            self.rawValue.capitalized
+        }
+    }
+    
 }

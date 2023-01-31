@@ -42,7 +42,7 @@ class ShipmentsRemote: NetworkService {
     ///   - request: Contain the query parameters for paginating through the Shipments.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
-    func getShipments(request: PaginatedRequestBuilder, runCompletionOnUIThread: Bool, completion: @escaping(Result<GetShipmentsResponseData, Error>) -> Void){
+    func getShipments(request: GetShipmentsRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<GetShipmentsResponseData, Error>) -> Void){
         self.request(route: Route.shipments(), method: Method.get, queryParameters: request.build(),runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<GetShipmentsResponseData>, Error>) in
             switch(result) {
@@ -60,7 +60,7 @@ class ShipmentsRemote: NetworkService {
     ///   - request: Contain the query parameters for paginating through the Shipments.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
-    func getPopulatedShipments<ParcelM: Codable>(request: PaginatedRequestBuilder, runCompletionOnUIThread: Bool, completion: @escaping(Result<GetPopulatedShipmentsResponseData<ParcelM>, Error>) -> Void){
+    func getPopulatedShipments<ParcelM: Codable>(request: GetShipmentsRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<GetPopulatedShipmentsResponseData<ParcelM>, Error>) -> Void){
         var queryParams = request.build()
         queryParams["populate"] = true
         self.request(route: Route.shipments(), method: Method.get, queryParameters: queryParams,runCompletionOnUIThread: runCompletionOnUIThread) {

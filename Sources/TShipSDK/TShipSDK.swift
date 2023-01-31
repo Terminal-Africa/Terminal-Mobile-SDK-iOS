@@ -66,6 +66,10 @@ public class TShipSDK {
         return CarriersRemote(baseUrl: baseUrl, bearerToken: secretKey)
     }
     
+    var insuranceRemote: InsuranceRemote{
+        return InsuranceRemote(baseUrl: baseUrl, bearerToken: secretKey)
+    }
+    
     /// Initializes the TShipSDK with secret key which is required for all calls to the TShipAPI.
     /// - Parameters:
     ///  - secretKey: User's TShipAPI Secret key.

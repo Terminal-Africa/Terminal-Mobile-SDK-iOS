@@ -14,29 +14,42 @@ public struct Carrier: Codable {
     public let carrierId: String?
     
     /// Indicates whether the carrier offers domestic shipments.
-    public let domestic: Bool
+    public let domestic: Bool?
     
     /// Indicates whether the carrier offers regional shipments.
-    public let regional: Bool
+    public let regional: Bool?
     
     /// Indicates whether the carrier offers international shipments.
-    public let international: Bool
+    public let international: Bool?
     
     /// Indicates whether the carrier requires that the commercial invoice is attached to the parcel to be shipped.
-    public let requiresInvoice: Bool
+    public let requiresInvoice: Bool?
     
     /// Indicates whether the carrier requires that the waybill is attached to the parcel to be shipped
-    public let requiresWaybill: Bool
+    public let requiresWaybill: Bool?
     
     /// List of countries(ISO2) that the carrier is available in.
-    public let availableCountries: [String]
+    public let availableCountries: [String]?
+    
+    /// Indicates whether if the carrier is active
+    public let active: Bool?
+    
+    public let contact: Contact?
     
     private enum CodingKeys: String, CodingKey {
         case carrierId = "carrier_id"
         case requiresInvoice = "requires_invoice"
         case requiresWaybill = "requires_waybill"
         case availableCountries = "available_countries"
-        case name, logo, slug, domestic, regional, international
+        case name, logo, slug, domestic, regional, international, contact, active
     }
+    
+}
+
+public struct Contact: Codable {
+    
+    public let email: String?
+    
+    public let phone: String?
     
 }

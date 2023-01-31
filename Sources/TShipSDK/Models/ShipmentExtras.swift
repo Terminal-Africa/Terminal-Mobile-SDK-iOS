@@ -5,7 +5,7 @@ public struct ShipmentExtras: Codable {
     public let carrierTrackingUrl: String?
     
     /// Booking reference id used to identify the shipment on the Carrier's website.
-    public let bookingReference: String?
+//    public let bookingReference: Int?
     
     /// URL liinking to the shipping label.
     public let shippingLabelURL: String?
@@ -21,7 +21,7 @@ public struct ShipmentExtras: Codable {
     
     private enum CodingKeys: String, CodingKey {
         case carrierTrackingUrl = "carrier_tracking_url"
-        case bookingReference = "reference"
+//        case bookingReference = "reference"
         case shippingLabelURL = "shipping_label_url"
         case trackingUrl = "tracking_url"
         case carrierTrackingNumber = "tracking_number"

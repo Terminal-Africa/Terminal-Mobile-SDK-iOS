@@ -6,7 +6,7 @@ public extension TShipSDK {
     ///   - request: Request body with details used to create Address. This should be created with the AddressRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the newly created Address if no error occurred.
-    func createAddress(request: [String: Any], runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
+    func createAddress(request: AddressRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
         addressesRemote.createAddress(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
@@ -34,7 +34,7 @@ public extension TShipSDK {
     ///   - request: Request body with the Address details you want to update. This should be created with the AddressRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the updated Address if no error occurred.
-    func updateAddress(addressId: String, request: [String: Any], runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
+    func updateAddress(addressId: String, request: AddressRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
         addressesRemote.updateAddress(addressId: addressId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     

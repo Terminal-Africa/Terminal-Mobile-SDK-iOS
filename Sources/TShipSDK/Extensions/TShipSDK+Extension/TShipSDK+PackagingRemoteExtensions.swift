@@ -38,4 +38,13 @@ public extension TShipSDK {
         packagingRemote.updatePackaging(packagingId: packagingId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function deletes a Packaging previously created on the TShip API.
+    /// - Parameters:
+    ///   - packagingId: Unique id used to identify the packaging.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing along the response status and the deleted Packaging if no error occurred.
+    func deletePackaging(packagingId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Packaging, Error>) -> Void){
+        packagingRemote.deletePackaging(packagingId: packagingId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

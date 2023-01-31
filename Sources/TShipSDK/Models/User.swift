@@ -1,5 +1,5 @@
 /// Data model representing information about a User.
-public struct User: Decodable {
+open class User: Codable {
     
     /// The name of the user's company.
     public let companyName: String
@@ -37,6 +37,24 @@ public struct User: Decodable {
     /// The state the user's company is based in.
     public let state: String
     
+    /// The ids of carriers enabled for a user
+    public let enabledCarriers: EnabledCarriers
+    
+    public init(companyName: String, country: String, email: String, firstName: String, lastName: String, metadata: UserMetadata, phoneNumber: String, walletId: String, userId: String, createdAt: String, businessCategory: String, state: String, enabledCarriers: EnabledCarriers) {
+        self.companyName = companyName
+        self.country = country
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.metadata = metadata
+        self.phoneNumber = phoneNumber
+        self.walletId = walletId
+        self.userId = userId
+        self.createdAt = createdAt
+        self.businessCategory = businessCategory
+        self.state = state
+        self.enabledCarriers = enabledCarriers
+    }
     
     private enum CodingKeys: String, CodingKey {
         
@@ -57,6 +75,8 @@ public struct User: Decodable {
         case businessCategory = "business_category"
         
         case state = "country_state"
+        
+        case enabledCarriers = "carriers"
         
         case country, email, metadata
     }

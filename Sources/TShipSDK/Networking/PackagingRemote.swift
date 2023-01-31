@@ -80,4 +80,21 @@ class PackagingRemote: NetworkService {
         }
     }
     
+    /// This function deletes a Packaging previously created on the TShip API.
+    /// - Parameters:
+    ///   - packagingId: Unique id used to identify the packaing.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func deletePackaging(packagingId: String, runCompletionOnUIThread: Bool, completion: @escaping(Result<Packaging, Error>) -> Void){
+        self.request(route: Route.packaging(packagingId), method: Method.delete, runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<Packaging>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
 }

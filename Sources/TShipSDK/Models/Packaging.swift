@@ -20,7 +20,7 @@ public struct Packaging: Decodable {
     public let weightUnit: String
     
     /// The type of the packaging
-    public let type: String
+    public let type: PackagingType
     
     /// The unique id used to identify the packaging.
     public let packagingId: String

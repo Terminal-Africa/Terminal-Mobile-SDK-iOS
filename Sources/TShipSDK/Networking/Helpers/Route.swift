@@ -65,6 +65,8 @@ enum Route {
     /// Route used to enable carriers.
     case enableCarrier(String)
     
+    case insurancePremium
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -140,6 +142,9 @@ enum Route {
            
         case .enableCarrier(let carrierId):
             return "/carriers/enable/\(carrierId)"
+           
+        case .insurancePremium:
+            return "/insurance/premium"
            
         }
     }

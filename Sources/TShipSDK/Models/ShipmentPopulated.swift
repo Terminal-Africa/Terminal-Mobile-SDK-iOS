@@ -13,12 +13,15 @@ public class ShipmentPopulated: Shipment {
     /// Details about the carrier used to arrange the Shipment.
     public let carrier: Carrier?
     
+    public let rate: Rate?
+    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         deliveryAddress = try container.decode(Address.self, forKey: .deliveryAddress)
         pickupAddress = try container.decode(Address.self, forKey: .pickupAddress)
         returnAddress = try container.decode(Address.self, forKey: .returnAddress)
         carrier = try container.decodeIfPresent(Carrier.self, forKey: .carrier)
+        rate = try container.decodeIfPresent(Rate.self, forKey: .rate)
         try super.init(from: decoder)
     }
     
@@ -26,7 +29,7 @@ public class ShipmentPopulated: Shipment {
         case deliveryAddress = "address_to"
         case pickupAddress = "address_from"
         case returnAddress = "address_return"
-        case carrier
+        case carrier, rate
     }
     
 }
