@@ -7,4 +7,6 @@ public struct UserMetadata: Codable {
     /// Total amount of money spent on shipment.
     public let totalShipmentAmount: Double?
     
+    public let storeId: String
+    
 }

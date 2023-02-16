@@ -1,5 +1,5 @@
 /// Data model containing the details about an Item.
-public struct ParcelItem: Codable {
+public struct ParcelItem: Codable, Equatable {
     
     /// A short description of the item.
     public var description: String
@@ -29,6 +29,10 @@ public struct ParcelItem: Codable {
         self.value = value
         self.weight = weight
         self.hscode = hscode
+    }
+    
+    public static func == (lhs: ParcelItem, rhs: ParcelItem) -> Bool {
+        return lhs.description == rhs.description && lhs.name == rhs.name && lhs.currency == rhs.currency && lhs.quantity == rhs.quantity && lhs.value == rhs.value && lhs.weight == rhs.weight && lhs.hscode == rhs.hscode
     }
     
 }

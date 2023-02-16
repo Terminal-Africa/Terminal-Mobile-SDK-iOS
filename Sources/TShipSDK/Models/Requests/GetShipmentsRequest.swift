@@ -16,7 +16,7 @@ public class GetShipmentsRequest: PaginatedRequestBuilder {
     
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(status, forKey: .status)
+        try container.encodeIfPresent(status, forKey: .status)
         try super.encode(to: encoder)
     }
     

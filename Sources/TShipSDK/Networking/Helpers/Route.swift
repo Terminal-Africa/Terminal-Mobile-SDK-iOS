@@ -32,6 +32,9 @@ enum Route {
     /// Route for getting rates for a shipment.
     case shipmentRates
     
+    /// Route for getting rates for a multi-parcel shipment.
+    case multiParcelShipmentRates
+    
     /// Route used to create shipment tasks, track status of shipments and retrieve information about shipments.
     case shipments(String? = nil)
     
@@ -100,6 +103,9 @@ enum Route {
             
         case .shipmentRates:
             return "/rates/shipment"
+            
+        case .multiParcelShipmentRates:
+            return "/rates/multi/shipment"
             
         case .shipments(let shipmentId):
             if let shipmentId = shipmentId {

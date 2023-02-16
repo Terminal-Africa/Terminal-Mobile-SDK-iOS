@@ -110,11 +110,15 @@ public class AddressRequest: Encodable {
         return self.toDict()
     }
     
+    enum CodingKeys: String, CodingKey {
+        case city, state, country, email, phone, line1, line2
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case zipCode = "zip"
+        case isResidential = "is_residential"
+    }
+    
     private let PARAM_IS_RESIDENTIAL = "is_residential"
-    private let PARAM_CITY = "city"
-    private let PARAM_STATE = "state"
-    private let PARAM_COUNTRY = "country"
-    private let PARAM_EMAIL = "email"
     private let PARAM_FIRST_NAME = "first_name"
     private let PARAM_LAST_NAME = "last_name"
     private let PARAM_LINE1 = "line1"

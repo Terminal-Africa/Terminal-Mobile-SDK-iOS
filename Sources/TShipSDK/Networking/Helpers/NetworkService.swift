@@ -149,7 +149,7 @@ class NetworkService {
                 do {
                     try decoder.decode(T.self, from: data)
                 } catch {
-//                    print(error.localizedDescription)
+                    print(error.localizedDescription)
                 }
                 
                 guard let response = try? decoder.decode(T.self, from: data) else {

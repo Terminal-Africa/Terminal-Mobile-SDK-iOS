@@ -11,7 +11,9 @@ public class ShipmentUnpopulated: Shipment {
     public let returnAddressId: String
     
     /// The unique Id used to identify the parcel that contains the Items to be shipped.
-    public let parcelId: String
+    public let parcelId: String?
+    
+    public let parcelIds: [String]?
     
     /// The unique id used to idetify the carrier used to arrange the Shipment.
     public let carrierId: String?
@@ -24,7 +26,8 @@ public class ShipmentUnpopulated: Shipment {
         deliveryAddressId = try container.decode(String.self, forKey: .deliveryAddressId)
         returnAddressId = try container.decode(String.self, forKey: .returnAddressId)
         pickupAddressId = try container.decode(String.self, forKey: .pickupAddressId)
-        parcelId = try container.decode(String.self, forKey: .parcelId)
+        parcelId = try container.decodeIfPresent(String.self, forKey: .parcelId)
+        parcelIds = try container.decodeIfPresent([String].self, forKey: .parcelIds)
         carrierId = try container.decodeIfPresent(String.self, forKey: .carrierId)
         rateId = try container.decodeIfPresent(String.self, forKey: .rateId)
         try super.init(from: decoder)
@@ -35,6 +38,7 @@ public class ShipmentUnpopulated: Shipment {
         case pickupAddressId = "address_from"
         case returnAddressId = "address_return"
         case parcelId = "parcel"
+        case parcelIds = "parcels"
         case carrierId = "carrier"
         case rateId = "rate"
     }

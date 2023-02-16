@@ -74,7 +74,7 @@ public class TShipSDK {
     /// - Parameters:
     ///  - secretKey: User's TShipAPI Secret key.
     ///  - useLiveEnvironment: Determines whether use the live or test endpoints.
-    init(secretKey: String, useLiveEnvironment: Bool = false) {
+    public init(secretKey: String, useLiveEnvironment: Bool = false) {
         self.secretKey = secretKey
         self.useLiveEnvironment = useLiveEnvironment
     }
