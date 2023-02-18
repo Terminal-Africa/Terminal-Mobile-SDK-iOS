@@ -11,4 +11,8 @@ public extension TShipSDK {
         insuranceRemote.getInsurancePremium(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    func getInsuranceDetails(shipmentId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Insurance, Error>) -> Void){
+        insuranceRemote.getInsuranceDetails(shipmentId: shipmentId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

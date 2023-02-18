@@ -1,6 +1,7 @@
 /// Data model containing information about a Shipment populated with details for addresses, carriers and parcel without the packaging details.
 public class ShipmentPopulatedWithoutPackagingData<ParcelMetadata: Codable>: ShipmentPopulated {
     
+    //TODO: This should be optional not the values inside the object
     /// Contains details about the parcel excuding the Packaging details but containing the packaging id.
     public let parcel: ParcelWithoutPackagingData<ParcelMetadata>?
     

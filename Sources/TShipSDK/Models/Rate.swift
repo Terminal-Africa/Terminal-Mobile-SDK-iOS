@@ -26,7 +26,7 @@ public struct Rate: Codable {
     public let deliveryDate: String?
     
     /// The estimated amount of time it would take to deliver the parcel in minutes.
-    public let deliveryEta: Int?
+    public let deliveryEta: Double?
     
     /// The estimated amount of time it would take to deliver the parcel in human readable text.
     public let deliveryTime: String?
@@ -38,7 +38,7 @@ public struct Rate: Codable {
     public let pickupDate: String?
     
     /// The estimated amount of time it would take to pick up the parcel in minutes.
-    public let pickupEta: Int?
+    public let pickupEta: Double?
     
     /// The estimated amount of time it would take to pick up the parcel in human readable text.
     public let pickupTime: String?
