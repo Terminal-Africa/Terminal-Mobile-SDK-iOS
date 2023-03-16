@@ -93,12 +93,17 @@ class NetworkService {
             var urlComponent = URLComponents(string: urlString)
             urlComponent?.queryItems = parameters.map {
                 let value = $1
-                if value is Bool {
-                    if (value as! Bool) {
-                        return URLQueryItem(name: $0, value: "true")
-                    }else{
-                        return URLQueryItem(name: $0, value: "false")
+                if let isLikedCF = value as CFTypeRef?,
+                    CFGetTypeID(isLikedCF) == CFBooleanGetTypeID()
+                {
+                    if let value = value as? Bool {
+                        if value {
+                            return URLQueryItem(name: $0, value: "true")
+                        }else{
+                            return URLQueryItem(name: $0, value: "false")
+                        }
                     }
+                    return URLQueryItem(name: $0, value: "\($1)")
                 }else{
                     return URLQueryItem(name: $0, value: "\($1)")
                 }

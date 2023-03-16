@@ -19,6 +19,12 @@ public class Shipment: Decodable{
     /// Details about the carrier used to arrange the Shipment.
     public let extras: ShipmentExtras?
     
+    /// The cost of shipping.
+    public let shipmentCost: Double?
+    
+    /// The currenct of cost of shipping.
+    public let shipmentCostCurrency: Currency?
+    
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         shipmentId = try container.decode(String.self, forKey: .shipmentId)
@@ -27,12 +33,16 @@ public class Shipment: Decodable{
         status = try container.decode(ShipmentStatus.self, forKey: .status)
         events = try container.decode([ShipmentEvent].self, forKey: .events)
         extras = try container.decodeIfPresent(ShipmentExtras.self, forKey: .extras)
+        shipmentCost = try container.decodeIfPresent(Double.self, forKey: .shipmentCost)
+        shipmentCostCurrency = try container.decodeIfPresent(Currency.self, forKey: .shipmentCostCurrency)
     }
     
     private enum CodingKeys: String, CodingKey {
         case shipmentId = "shipment_id"
         case pickupDate = "pickup_date"
         case shipmentPurpose = "shipment_purpose"
+        case shipmentCost = "shipment_cost"
+        case shipmentCostCurrency = "shipment_cost_currency"
         case status, events, extras
     }
     

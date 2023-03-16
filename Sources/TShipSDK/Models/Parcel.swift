@@ -21,6 +21,8 @@ public class Parcel<T: Codable>: Decodable {
         return items[0].currency
     }
     
+    public var proofOfPayments: [String] = []
+    
     /// Metadata to be attached to the Parcel.
     public var metadata: T? = nil
     

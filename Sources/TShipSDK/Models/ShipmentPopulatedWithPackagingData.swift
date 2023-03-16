@@ -8,7 +8,7 @@ public class ShipmentPopulatedWithPackagingData<ParcelMetadata: Codable>: Shipme
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        parcel = try container.decodeIfPresent(ParcelWithPackagingData.self, forKey: .parcel)
+        parcel = try? container.decodeIfPresent(ParcelWithPackagingData.self, forKey: .parcel)
 //        parcels = try container.decodeIfPresent([ParcelWithPackagingData].self, forKey: .parcels)
         try super.init(from: decoder)
     }

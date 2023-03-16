@@ -13,6 +13,8 @@ public class ParcelRequestWithMetadata<T: Codable>: Codable {
     /// The currency the value of the items are stored in. The default value for this is Nigerian Naira.
     public var currency: Currency
     
+    public var proofOfPayments: [String]
+    
     /// Additional metadata you want to attach to the Parcel.
     public var metadata: T? = nil
     
@@ -25,11 +27,12 @@ public class ParcelRequestWithMetadata<T: Codable>: Codable {
     ///   - packagingId: The unique Id used to identify the Packaging used to keep the Items in the Parcel.
     ///   - currency: The currency the value of the items are stored in.
     ///   - weightUnit: The unit used to measure the weight of the packaging. The default value, 'kg', is the only weight unit supported at this time.
-    public init(description: String, packagingId: String, currency: Currency, weightUnit: WeightUnit = .kg) {
+    public init(description: String, packagingId: String, currency: Currency, weightUnit: WeightUnit = .kg, proofOfPayments: [String] = []) {
         self.description = description
         self.packagingId = packagingId
         self.weightUnit = weightUnit.rawValue
         self.currency = currency
+        self.proofOfPayments = proofOfPayments
     }
     
     /// Initializer taking in a Parcel whose details you want to copy in order to update or clone it.
@@ -50,6 +53,7 @@ public class ParcelRequestWithMetadata<T: Codable>: Codable {
         self.currency = parcel.currency ?? Currency.NGN
         self.items = parcel.items
         self.metadata = parcel.metadata
+        self.proofOfPayments = parcel.proofOfPayments
     }
     
     /// This function adds an Item to the Parcel.
@@ -114,6 +118,10 @@ public class ParcelRequestWithMetadata<T: Codable>: Codable {
         return self
     }
     
+    public func withProofOfPayments(_ proofOfPayments: [String]){
+        self.proofOfPayments = proofOfPayments
+    }
+    
     public func getSumOfItemsWeight() -> Double{
         var sum: Double = 0
         for item in items {
@@ -126,6 +134,7 @@ public class ParcelRequestWithMetadata<T: Codable>: Codable {
         case description, items, currency, metadata
         case packagingId = "packaging"
         case weightUnit = "weight_unit"
+        case proofOfPayments = "proof_of_payments"
     }
     
 }
