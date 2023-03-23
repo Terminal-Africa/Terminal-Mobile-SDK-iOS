@@ -1,5 +1,5 @@
 ///Address data model containing all information needed about an Address to arrange a shipping.
-public struct Address: Decodable {
+public struct Address: Decodable, Equatable {
     
     /// Unique id used to identify the address
     public let addressId : String
@@ -49,4 +49,9 @@ public struct Address: Decodable {
         case isResidential = "is_residential"
         case city, country , email, line1, line2, state, coordinates
     }
+    
+    public static func == (lhs: Address, rhs: Address) -> Bool {
+        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential
+    }
+    
 }

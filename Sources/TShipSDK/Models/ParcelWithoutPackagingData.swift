@@ -10,6 +10,15 @@ public class ParcelWithoutPackagingData<T: Codable>: Parcel<T> {
         try super.init(from: decoder)
     }
     
+    init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String], metadata: T? = nil, items: [ParcelItem], packagingId: String) {
+        self.packagingId = packagingId
+        super.init(parcelId: parcelId, description: description, weightUnit: weightUnit, totalWeight: totalWeight, proofOfPayments: proofOfPayments, metadata: metadata, items: items)
+    }
+    
+    public func toParcelWithPackagingData(packaging: Packaging) -> ParcelWithPackagingData<T> {
+        return ParcelWithPackagingData(parcelId: parcelId, description: description, weightUnit: weightUnit, totalWeight: totalWeight, proofOfPayments: proofOfPayments, metadata: metadata, items: items, packaging: packaging)
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case packagingId = "packaging"
     }

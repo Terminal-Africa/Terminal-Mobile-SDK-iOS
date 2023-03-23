@@ -2,7 +2,7 @@
 public class ShipmentPopulatedWithPackagingData<ParcelMetadata: Codable>: ShipmentPopulated {
     
     /// Contains details about the parcel containing the Packaging details.
-    public let parcel: ParcelWithPackagingData<ParcelMetadata>?
+    public var parcel: ParcelWithPackagingData<ParcelMetadata>?
     
 //    public let parcels: [ParcelWithPackagingData<ParcelMetadata>]?
     

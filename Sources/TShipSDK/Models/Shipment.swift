@@ -25,6 +25,8 @@ public class Shipment: Decodable{
     /// The currenct of cost of shipping.
     public let shipmentCostCurrency: Currency?
     
+    public let cancellationRequest: Bool?
+    
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         shipmentId = try container.decode(String.self, forKey: .shipmentId)
@@ -35,6 +37,7 @@ public class Shipment: Decodable{
         extras = try container.decodeIfPresent(ShipmentExtras.self, forKey: .extras)
         shipmentCost = try container.decodeIfPresent(Double.self, forKey: .shipmentCost)
         shipmentCostCurrency = try container.decodeIfPresent(Currency.self, forKey: .shipmentCostCurrency)
+        cancellationRequest = try container.decodeIfPresent(Bool.self, forKey: .cancellationRequest)
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -43,6 +46,7 @@ public class Shipment: Decodable{
         case shipmentPurpose = "shipment_purpose"
         case shipmentCost = "shipment_cost"
         case shipmentCostCurrency = "shipment_cost_currency"
+        case cancellationRequest = "cancellation_request"
         case status, events, extras
     }
     

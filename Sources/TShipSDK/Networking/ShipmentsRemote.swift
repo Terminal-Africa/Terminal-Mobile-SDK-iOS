@@ -135,9 +135,9 @@ class ShipmentsRemote: NetworkService {
     ///   - request: An instance of UpdateShipmentRequest that contains all the information required to update a shipment..
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
-    func updateShipment(shipmentId: String, request: UpdateShipmentRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void){
-        self.request(route: Route.shipments(shipmentId), method: Method.post, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
-            (result: Result<GenericTShipResponse<ShipmentUnpopulated>, Error>) in
+    func updateShipment(shipmentId: String, request: UpdateShipmentRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<EmptyMetadata>, Error>) -> Void){
+        self.request(route: Route.shipments(shipmentId), method: Method.put, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<ShipmentPopulatedWithPackagingData<EmptyMetadata>>, Error>) in
             switch(result) {
             case .success(let response):
                 completion(.success(response.data))

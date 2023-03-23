@@ -13,6 +13,8 @@ public class UpdateShipmentRequest: Encodable {
     /// The unique string used to identify the new shipment purpose to use for the shipment.
     public var shipmentPurpose: ShipmentPurpose?
     
+    public var parcels: [String]?
+    
     public init() {}
     
     /// This function sets the pickup address id to update the shipment to.
@@ -44,6 +46,11 @@ public class UpdateShipmentRequest: Encodable {
     /// - Returns: This instance of UpdateShipmentRequest.
     public func withShipmentPurpose(_ shipmentPurpose: ShipmentPurpose) -> UpdateShipmentRequest {
         self.shipmentPurpose = shipmentPurpose
+        return self
+    }
+    
+    public func withParcels(_ parcels: [String]) -> UpdateShipmentRequest {
+        self.parcels = parcels
         return self
     }
     

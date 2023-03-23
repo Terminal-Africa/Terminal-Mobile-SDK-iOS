@@ -29,6 +29,16 @@ public class Parcel<T: Codable>: Decodable {
     /// A list of items in the Parcel.
     public let items: [ParcelItem]
     
+    init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String], metadata: T? = nil, items: [ParcelItem]) {
+        self.parcelId = parcelId
+        self.description = description
+        self.weightUnit = weightUnit
+        self.totalWeight = totalWeight
+        self.proofOfPayments = proofOfPayments
+        self.metadata = metadata
+        self.items = items
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case parcelId = "parcel_id"
         case weightUnit = "weight_unit"

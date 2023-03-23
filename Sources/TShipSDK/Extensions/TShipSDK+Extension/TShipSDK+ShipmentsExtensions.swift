@@ -73,7 +73,7 @@ public extension TShipSDK {
     ///   - request: An instance of UpdateShipmentRequest that contains all the information required to update a shipment..
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
     ///   - completion: The completion handler to call, passing the response status alongside an instance of ShipmentUnpopulated which contains information about the updated shipment, if no error occurred.
-    func updateShipment(shipmentId: String, request: UpdateShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void){
+    func updateShipment(shipmentId: String, request: UpdateShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<EmptyMetadata>, Error>) -> Void){
         shipmentsRemote.updateShipment( shipmentId: shipmentId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
