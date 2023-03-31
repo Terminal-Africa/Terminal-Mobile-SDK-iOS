@@ -40,7 +40,11 @@ open class User: Codable {
     /// The ids of carriers enabled for a user
     public let enabledCarriers: EnabledCarriers
     
-    public init(companyName: String, country: String, email: String, firstName: String, lastName: String, metadata: UserMetadata, phoneNumber: String, walletId: String, userId: String, createdAt: String, businessCategory: String, state: String, enabledCarriers: EnabledCarriers) {
+    public let accountActive: Bool
+    
+    public let walletEnabled: Bool
+    
+    public init(companyName: String, country: String, email: String, firstName: String, lastName: String, metadata: UserMetadata, phoneNumber: String, walletId: String, userId: String, createdAt: String, businessCategory: String, state: String, enabledCarriers: EnabledCarriers, accountActive: Bool, walletEnabled: Bool) {
         self.companyName = companyName
         self.country = country
         self.email = email
@@ -54,6 +58,8 @@ open class User: Codable {
         self.businessCategory = businessCategory
         self.state = state
         self.enabledCarriers = enabledCarriers
+        self.accountActive = accountActive
+        self.walletEnabled = walletEnabled
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -77,6 +83,10 @@ open class User: Codable {
         case state = "country_state"
         
         case enabledCarriers = "carriers"
+        
+        case accountActive = "account_active"
+        
+        case walletEnabled = "wallet_enabled"
         
         case country, email, metadata
     }
