@@ -43,6 +43,7 @@ public class Parcel<T: Codable>: Decodable {
         case parcelId = "parcel_id"
         case weightUnit = "weight_unit"
         case totalWeight = "total_weight"
+        case proofOfPayments = "proof_of_payments"
         case description, metadata, items
     }
     
