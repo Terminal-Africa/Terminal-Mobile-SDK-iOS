@@ -53,7 +53,7 @@ public class ParcelRequestWithMetadata<T: Codable>: Codable {
         self.currency = parcel.currency ?? Currency.NGN
         self.items = parcel.items
         self.metadata = parcel.metadata
-        self.proofOfPayments = parcel.proofOfPayments
+        self.proofOfPayments = parcel.proofOfPayments ?? []
     }
     
     /// This function adds an Item to the Parcel.

@@ -21,7 +21,7 @@ public class Parcel<T: Codable>: Decodable {
         return items[0].currency
     }
     
-    public var proofOfPayments: [String] = []
+    public var proofOfPayments: [String]?
     
     /// Metadata to be attached to the Parcel.
     public var metadata: T? = nil
@@ -29,7 +29,7 @@ public class Parcel<T: Codable>: Decodable {
     /// A list of items in the Parcel.
     public let items: [ParcelItem]
     
-    init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String], metadata: T? = nil, items: [ParcelItem]) {
+    init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String]?, metadata: T? = nil, items: [ParcelItem]) {
         self.parcelId = parcelId
         self.description = description
         self.weightUnit = weightUnit

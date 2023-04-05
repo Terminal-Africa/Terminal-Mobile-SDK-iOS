@@ -10,7 +10,7 @@ public class ParcelWithPackagingData<T: Codable>: Parcel<T> {
         try super.init(from: decoder)
     }
     
-    init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String], metadata: T? = nil, items: [ParcelItem], packaging: Packaging) {
+    init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String]?, metadata: T? = nil, items: [ParcelItem], packaging: Packaging) {
         self.packaging = packaging
         super.init(parcelId: parcelId, description: description, weightUnit: weightUnit, totalWeight: totalWeight, proofOfPayments: proofOfPayments, metadata: metadata, items: items)
     }
