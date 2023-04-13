@@ -43,6 +43,19 @@ public class Shipment: Decodable{
         metadata = try container.decodeIfPresent(ShipmentMetadata.self, forKey: .metadata)
     }
     
+    init(shipmentId: String, pickupDate: String?, shipmentPurpose: ShipmentPurpose, status: ShipmentStatus, events: [ShipmentEvent], extras: ShipmentExtras?, shipmentCost: Double?, shipmentCostCurrency: Currency?, cancellationRequest: Bool?, metadata: ShipmentMetadata?){
+        self.shipmentId = shipmentId
+        self.pickupDate = pickupDate
+        self.shipmentPurpose = shipmentPurpose
+        self.status = status
+        self.events = events
+        self.extras = extras
+        self.shipmentCost = shipmentCost
+        self.shipmentCostCurrency = shipmentCostCurrency
+        self.cancellationRequest = cancellationRequest
+        self.metadata = metadata
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case shipmentId = "shipment_id"
         case pickupDate = "pickup_date"

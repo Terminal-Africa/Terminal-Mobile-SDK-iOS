@@ -13,6 +13,15 @@ public class ShipmentPopulatedWithPackagingData<ParcelMetadata: Codable>: Shipme
         try super.init(from: decoder)
     }
     
+    init(shipmentId: String, pickupDate: String?, shipmentPurpose: ShipmentPurpose, status: ShipmentStatus, events: [ShipmentEvent], extras: ShipmentExtras?, shipmentCost: Double?, shipmentCostCurrency: Currency?, cancellationRequest: Bool?, metadata: ShipmentMetadata?, deliveryAddress: Address, pickupAddress: Address, returnAddress: Address, carrier: Carrier?, rate: Rate?, parcel: ParcelWithPackagingData<ParcelMetadata>?) {
+        super.init(shipmentId: shipmentId, pickupDate: pickupDate, shipmentPurpose: shipmentPurpose, status: status, events: events, extras: extras, shipmentCost: shipmentCost, shipmentCostCurrency: shipmentCostCurrency, cancellationRequest: cancellationRequest, metadata: metadata, deliveryAddress: deliveryAddress, pickupAddress: pickupAddress, returnAddress: returnAddress, carrier: carrier, rate: rate)
+        self.parcel = parcel
+    }
+    
+    public func toShipmentPopulatedWithoutPackagingData() -> ShipmentPopulatedWithoutPackagingData<ParcelMetadata>{
+        return ShipmentPopulatedWithoutPackagingData<ParcelMetadata>(shipmentId: shipmentId, pickupDate: pickupDate, shipmentPurpose: shipmentPurpose, status: status, events: events, extras: extras, shipmentCost: shipmentCost, shipmentCostCurrency: shipmentCostCurrency, cancellationRequest: cancellationRequest, metadata: metadata, deliveryAddress: deliveryAddress, pickupAddress: pickupAddress, returnAddress: returnAddress, carrier: carrier, rate: rate, parcel: parcel?.toParcelWithoutPackagingData())
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case parcel
 //        , parcels
