@@ -76,6 +76,8 @@ enum Route {
     
     case claim(String)
     
+    case tShopCountries
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -166,6 +168,9 @@ enum Route {
            
         case .claim(let id):
             return "/claims/\(id)"
+            
+        case .tShopCountries:
+            return "/shopship/countries"
            
         }
     }

@@ -19,6 +19,8 @@ public class CreateShipmentRequest: Codable{
     /// The purpose for shipping the parcel. This uses the enum ShipmentPurpose.
     public var shipmentPurpose: ShipmentPurpose
     
+    public var source: String = "ios_sdk"
+    
     let metadata = EmptyMetadata()
     
     /// Default initializer taking in the details required to get shipment rates without using a shipment id.
@@ -69,6 +71,7 @@ public class CreateShipmentRequest: Codable{
         try container.encodeIfPresent(self.parcelId, forKey: .parcelId)
         try container.encode(self.shipmentPurpose, forKey: .shipmentPurpose)
         try container.encodeIfPresent(self.parcels, forKey: .parcels)
+        try container.encode(self.source, forKey: .source)
         try container.encode(self.metadata, forKey: .metadata)
     }
     
@@ -84,7 +87,7 @@ public class CreateShipmentRequest: Codable{
         
         case shipmentPurpose = "shipment_purpose"
         
-        case parcels, metadata
+        case parcels, metadata, source
         
     }
     

@@ -15,4 +15,10 @@ public struct State: Codable {
     
     /// The state's longitude.
     public let longitude: String?
+    
+    public func getDefaultCity() -> City {
+        return City(
+            name: name, stateCode: isoCode, countryCode: countryCode, latitude: latitude ?? "0", longitude: longitude ?? "0"
+        )
+    }
 }

@@ -74,6 +74,10 @@ public class TShipSDK {
         return ClaimsRemote(baseUrl: baseUrl, bearerToken: secretKey)
     }
     
+    var tShopRemote: TShopRemote{
+        return TShopRemote(baseUrl: baseUrl, bearerToken: secretKey)
+    }
+    
     /// Initializes the TShipSDK with secret key which is required for all calls to the TShipAPI.
     /// - Parameters:
     ///  - secretKey: User's TShipAPI Secret key.
