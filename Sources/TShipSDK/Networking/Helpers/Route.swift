@@ -78,6 +78,8 @@ enum Route {
     
     case tShopCountries
     
+    case terminalReferenceAddress(String)
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -171,7 +173,10 @@ enum Route {
             
         case .tShopCountries:
             return "/shopship/countries"
-           
+            
+        case .terminalReferenceAddress(let tShopId):
+            return "/shopship/terminal-address/\(tShopId)"
+            
         }
     }
     

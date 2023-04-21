@@ -20,4 +20,17 @@ class TShopRemote: NetworkService {
         }
     }
     
+    func getTerminalReferenceAddress(tShopId: String, runCompletionOnUIThread: Bool, completion: @escaping(Result<Address, Error>) -> Void){
+        self.request(route: Route.terminalReferenceAddress(tShopId), method: Method.get, runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<Address>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }

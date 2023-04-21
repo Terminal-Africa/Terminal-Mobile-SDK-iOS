@@ -12,4 +12,8 @@ public extension TShipSDK {
         tShopRemote.getAvailableAddresses(runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    func getTShopTerminalReferenceAddress(tShopId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
+        tShopRemote.getTerminalReferenceAddress(tShopId: tShopId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }
