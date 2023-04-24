@@ -33,4 +33,17 @@ class TShopRemote: NetworkService {
         }
     }
     
+    func getRate(request: GetTShopRateRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<[Rate], Error>) -> Void){
+        self.request(route: Route.tShopRate, method: Method.post, queryParameters: request.toDict(), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<[Rate]>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }
