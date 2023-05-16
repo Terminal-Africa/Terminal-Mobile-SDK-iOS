@@ -23,7 +23,7 @@ public struct SelectedRate: Decodable {
     public let carrierSlug: String?
     
     /// The currency the rate's amount is in.
-    public let currency: String?
+    public let currency: Currency?
     
     /// The unique id used to identify the previously stored address to deliver the parcel to.
     public let deliveryAddress: Address?

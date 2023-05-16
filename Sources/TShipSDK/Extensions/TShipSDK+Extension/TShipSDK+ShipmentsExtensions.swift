@@ -77,4 +77,8 @@ public extension TShipSDK {
         shipmentsRemote.updateShipment( shipmentId: shipmentId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    func reportShipmentPickupDelay(request: ReportShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
+        shipmentsRemote.reportShipmentPickupDelay( request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

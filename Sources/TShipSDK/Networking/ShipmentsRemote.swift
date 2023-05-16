@@ -148,4 +148,17 @@ class ShipmentsRemote: NetworkService {
         }
     }
     
+    func reportShipmentPickupDelay(request: ReportShipmentRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
+        self.request(route: Route.reportShipmentPickupDelay, method: Method.post, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<EmptyTShipResponse, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }

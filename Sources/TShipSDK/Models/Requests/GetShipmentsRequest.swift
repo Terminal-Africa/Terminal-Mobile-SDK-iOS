@@ -7,10 +7,13 @@
 
 public class GetShipmentsRequest: PaginatedRequestBuilder {
     
-    public let status: ShipmentStatus?
+    public var status: ShipmentStatus?
     
-    public init(status: ShipmentStatus? = nil, perPage: Int = 15, page: Int = 1) {
+    public var shipmentType: ShipmentType
+    
+    public init(status: ShipmentStatus? = nil, perPage: Int = 15, page: Int = 1, shipmentType: ShipmentType = .terminal) {
         self.status = status
+        self.shipmentType = shipmentType
         super.init(perPage: perPage, page: page)
     }
     
@@ -21,6 +24,7 @@ public class GetShipmentsRequest: PaginatedRequestBuilder {
     }
     
     private enum CodingKeys: String, CodingKey {
+        case shiipmentType = "shipment_type"
         case status
     }
 }

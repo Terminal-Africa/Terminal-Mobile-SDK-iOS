@@ -20,4 +20,8 @@ public extension TShipSDK {
         tShopRemote.getRate(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    func chargeTShopShipment(request: ChargeTShopShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ChargeTShopShipmentResponse, Error>) -> Void){
+        tShopRemote.chargeShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

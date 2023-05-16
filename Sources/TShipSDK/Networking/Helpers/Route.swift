@@ -82,6 +82,10 @@ enum Route {
     
     case tShopRate
     
+    case tShopChargeShipment
+    
+    case reportShipmentPickupDelay
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -181,6 +185,12 @@ enum Route {
             
         case .tShopRate:
             return "/shopship/rate"
+            
+        case .tShopChargeShipment:
+            return "/shopship/charge"
+            
+        case .reportShipmentPickupDelay:
+            return "/shipments/pickup-delay-report"
             
         }
     }

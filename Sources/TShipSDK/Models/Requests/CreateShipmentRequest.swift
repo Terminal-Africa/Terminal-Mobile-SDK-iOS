@@ -1,5 +1,5 @@
 /// This class is used to make Create requests for Shipments.
-public class CreateShipmentRequest: Codable{
+public class CreateShipmentRequest: Encodable{
     
     /// The unique id used to identify the pickup address.
     public var pickupAddressId: String
@@ -19,9 +19,9 @@ public class CreateShipmentRequest: Codable{
     /// The purpose for shipping the parcel. This uses the enum ShipmentPurpose.
     public var shipmentPurpose: ShipmentPurpose
     
-    public var source: String = "ios_sdk"
+    public var source: String
     
-    let metadata = EmptyMetadata()
+    public var type: ShipmentType?
     
     /// Default initializer taking in the details required to get shipment rates without using a shipment id.
     /// - Parameters:
@@ -35,6 +35,7 @@ public class CreateShipmentRequest: Codable{
         self.deliveryAddressId = deliveryAddressId
         self.parcelId = parcelId
         self.shipmentPurpose = shipmentPurpose
+        self.source = "ios_sdk"
         
         if let returnAddressId = returnAddressId {
             self.returnAddressId = returnAddressId
@@ -55,6 +56,7 @@ public class CreateShipmentRequest: Codable{
         self.deliveryAddressId = deliveryAddressId
         self.parcels = parcels
         self.shipmentPurpose = shipmentPurpose
+        self.source = "ios_sdk"
         
         if let returnAddressId = returnAddressId {
             self.returnAddressId = returnAddressId
@@ -72,7 +74,7 @@ public class CreateShipmentRequest: Codable{
         try container.encode(self.shipmentPurpose, forKey: .shipmentPurpose)
         try container.encodeIfPresent(self.parcels, forKey: .parcels)
         try container.encode(self.source, forKey: .source)
-        try container.encode(self.metadata, forKey: .metadata)
+        try container.encode(self.type, forKey: .type)
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -87,7 +89,7 @@ public class CreateShipmentRequest: Codable{
         
         case shipmentPurpose = "shipment_purpose"
         
-        case parcels, metadata, source
+        case parcels, metadata, source, type
         
     }
     

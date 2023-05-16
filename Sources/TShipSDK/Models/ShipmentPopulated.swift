@@ -25,13 +25,13 @@ public class ShipmentPopulated: Shipment {
         try super.init(from: decoder)
     }
     
-    init(shipmentId: String, pickupDate: String?, shipmentPurpose: ShipmentPurpose, status: ShipmentStatus, events: [ShipmentEvent], extras: ShipmentExtras?, shipmentCost: Double?, shipmentCostCurrency: Currency?, cancellationRequest: Bool?, metadata: ShipmentMetadata?, deliveryAddress: Address, pickupAddress: Address, returnAddress: Address, carrier: Carrier?, rate: Rate?) {
+    init(shipmentId: String, pickupDate: String?, shipmentPurpose: ShipmentPurpose, status: ShipmentStatus, events: [ShipmentEvent], extras: ShipmentExtras?, shipmentCost: Double?, shipmentCostCurrency: Currency?, cancellationRequest: Bool?, metadata: ShipmentMetadata?, deliveryAddress: Address, pickupAddress: Address, returnAddress: Address, carrier: Carrier?, rate: Rate?, transactionReference: String?, createdAt: String, type: ShipmentType) {
         self.deliveryAddress = deliveryAddress
         self.pickupAddress = pickupAddress
         self.returnAddress = returnAddress
         self.carrier = carrier
         self.rate = rate
-        super.init(shipmentId: shipmentId, pickupDate: pickupDate, shipmentPurpose: shipmentPurpose, status: status, events: events, extras: extras, shipmentCost: shipmentCost, shipmentCostCurrency: shipmentCostCurrency, cancellationRequest: cancellationRequest, metadata: metadata)
+        super.init(shipmentId: shipmentId, pickupDate: pickupDate, shipmentPurpose: shipmentPurpose, status: status, events: events, extras: extras, shipmentCost: shipmentCost, shipmentCostCurrency: shipmentCostCurrency, cancellationRequest: cancellationRequest, metadata: metadata, transactionReference: transactionReference, createdAt: createdAt, type: type)
     }
     
     private enum CodingKeys: String, CodingKey {

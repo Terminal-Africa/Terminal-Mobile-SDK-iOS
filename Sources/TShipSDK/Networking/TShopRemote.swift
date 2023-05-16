@@ -42,7 +42,18 @@ class TShopRemote: NetworkService {
             case .failure(let error):
                 completion(.failure(error))
             }
-            
+        }
+    }
+    
+    func chargeShipment(request: ChargeTShopShipmentRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<ChargeTShopShipmentResponse, Error>) -> Void){
+        self.request(route: Route.tShopChargeShipment, method: Method.post, requestBody: request.toDict(), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<ChargeTShopShipmentResponse>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
     
