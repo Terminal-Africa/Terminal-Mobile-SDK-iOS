@@ -20,11 +20,12 @@ public class GetShipmentsRequest: PaginatedRequestBuilder {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(status, forKey: .status)
+        try container.encodeIfPresent(shipmentType, forKey: .shipmentType)
         try super.encode(to: encoder)
     }
     
     private enum CodingKeys: String, CodingKey {
-        case shiipmentType = "shipment_type"
+        case shipmentType = "type"
         case status
     }
 }
