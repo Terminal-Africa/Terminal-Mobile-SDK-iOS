@@ -43,6 +43,17 @@ You can create and maintain information about the different types of packaging y
 
 ## Getting Started
 
+### Installation 
+
+#### Swift Package Manager
+
+- File > Swift Packages > Add Package Dependency
+- Add `https://github.com/Terminal-Africa/Terminal-Mobile-SDK-iOS.git`
+- Select "Up to Next Major" with "1.0.0"
+
+
+### Usuage 
+
 To use the TShip SDK, you will need to create an instance of the `TShipSDK` class by calling the `TShipSDK.createInstance(secretKey: String)` method which takes your Secret Key which can be found in the Api Keys section of the settings tab on the [Terminal dashboard](https://app.terminal.africa/) -> Api Keys. The `createInstance` method returns the new instance created.
 
 This method will create a static instance of the `TShipSDK` that can be accessed through the `TShipSDK.instance` property. The `TShipSDK.instance` is optional and will be nil until it is created.
