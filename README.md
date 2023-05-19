@@ -3316,3 +3316,7 @@ An enum representing the valid size units used on TShip.
 `kg`
 
 Represents kilogram weight unit.
+
+## License
+
+The TShip SDK is released under the MIT license.
