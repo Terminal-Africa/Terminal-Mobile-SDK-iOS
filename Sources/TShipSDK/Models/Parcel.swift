@@ -39,6 +39,14 @@ public class Parcel<T: Codable>: Decodable {
         self.items = items
     }
     
+    public func getTotalItemValue() -> Double{
+        var totalValue: Double = 0
+        for item in items {
+            totalValue += item.value
+        }
+        return totalValue
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case parcelId = "parcel_id"
         case weightUnit = "weight_unit"

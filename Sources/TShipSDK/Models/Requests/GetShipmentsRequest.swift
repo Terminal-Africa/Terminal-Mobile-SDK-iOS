@@ -9,9 +9,9 @@ public class GetShipmentsRequest: PaginatedRequestBuilder {
     
     public var status: ShipmentStatus?
     
-    public var shipmentType: ShipmentType
+    public var shipmentType: ShipmentType?
     
-    public init(status: ShipmentStatus? = nil, perPage: Int = 15, page: Int = 1, shipmentType: ShipmentType = .terminal) {
+    public init(status: ShipmentStatus? = nil, perPage: Int = 15, page: Int = 1, shipmentType: ShipmentType? = nil) {
         self.status = status
         self.shipmentType = shipmentType
         super.init(perPage: perPage, page: page)

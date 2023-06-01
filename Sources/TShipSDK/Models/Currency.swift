@@ -1,5 +1,5 @@
 /// An enum representing the currency types supported by the TShip API.
-public enum Currency: String, Codable {
+public enum Currency: String, Codable, CaseIterable {
     
     /// United Arab Emirates Dirham
     case AED

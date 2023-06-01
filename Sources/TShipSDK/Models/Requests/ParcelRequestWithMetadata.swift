@@ -5,7 +5,7 @@ public class ParcelRequestWithMetadata<T: Codable>: Codable {
     public var description: String
     
     /// The unique Id used to identify the Packaging used to keep the Items in the Parcel.
-    public var packagingId: String
+    public var packagingId: String?
     
     /// The unit used to measure the weight of the packaging. Only 'kg' is supported at this time.
     public var weightUnit: String
@@ -27,7 +27,7 @@ public class ParcelRequestWithMetadata<T: Codable>: Codable {
     ///   - packagingId: The unique Id used to identify the Packaging used to keep the Items in the Parcel.
     ///   - currency: The currency the value of the items are stored in.
     ///   - weightUnit: The unit used to measure the weight of the packaging. The default value, 'kg', is the only weight unit supported at this time.
-    public init(description: String, packagingId: String, currency: Currency, weightUnit: WeightUnit = .kg, proofOfPayments: [String] = []) {
+    public init(description: String, packagingId: String? = nil, currency: Currency, weightUnit: WeightUnit = .kg, proofOfPayments: [String] = []) {
         self.description = description
         self.packagingId = packagingId
         self.weightUnit = weightUnit.rawValue
