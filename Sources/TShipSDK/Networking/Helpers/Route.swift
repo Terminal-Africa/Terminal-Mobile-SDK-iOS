@@ -14,6 +14,9 @@ enum Route {
     /// Address Route for creating, fetching and updating Addresses. Pass in the address id to add it to the url.
     case address(String? = nil)
     
+    /// Address Route for setting and getting default Address.
+    case defaultAddress
+    
     /// Route for fetching list of countries valid on TShip.
     case countries
     
@@ -86,6 +89,10 @@ enum Route {
     
     case reportShipmentPickupDelay
     
+    case getDropOffLocations
+    
+    case getHSCodeChapters
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -95,6 +102,9 @@ enum Route {
                 return "/addresses/\(addressId)"
             }
             return "/addresses"
+            
+        case .defaultAddress:
+            return "/addresses/default/sender"
             
         case .countries:
             return "/countries"
@@ -191,6 +201,12 @@ enum Route {
             
         case .reportShipmentPickupDelay:
             return "/shipments/pickup-delay-report"
+             
+        case .getDropOffLocations:
+            return "/carriers/locations/drop-off"
+            
+        case .getHSCodeChapters:
+            return "/hs-codes/chapters"
             
         }
     }

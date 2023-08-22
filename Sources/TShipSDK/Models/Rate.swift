@@ -49,6 +49,8 @@ public struct Rate: Codable {
     /// The unique Id used to identify the parcel that contains the Items to be shipped.
     public let parcelId: String?
     
+    public let dropoffAvailable: Bool?
+    
     private enum CodingKeys: String, CodingKey {
         case carrierLogo = "carrier_logo"
         case carrierName = "carrier_name"
@@ -64,6 +66,7 @@ public struct Rate: Codable {
         case pickupTime = "pickup_time"
         case pickupAddressId = "pickup_address"
         case parcelId = "parcel"
+        case dropoffAvailable = "dropoff_available"
         case amount, currency
     }
     

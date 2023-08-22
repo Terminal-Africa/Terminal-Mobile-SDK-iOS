@@ -5,7 +5,7 @@ public struct ShipmentEvent: Codable {
     public let createdAt: String
     
     /// A short description of the Event.
-    public let description: String
+    public let description: String?
     
     /// Human readable version of the location the Event happened.
     public let location: String

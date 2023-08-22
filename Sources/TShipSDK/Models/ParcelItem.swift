@@ -8,7 +8,7 @@ public struct ParcelItem: Codable, Equatable {
     public var name: String
     
     /// The currency the value of the item is stored in.
-    internal(set) public var currency: Currency = .NGN
+    public var currency: Currency = .NGN
     
     /// The quantity of the item in the parcel.
     public var quantity: Int

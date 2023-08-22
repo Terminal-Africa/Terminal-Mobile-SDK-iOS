@@ -75,4 +75,17 @@ class CarriersRemote: NetworkService {
         }
     }
     
+    func getDropOffLocations(request: GetDropOffLocationsRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<[DropOffLocation], Error>) -> Void){
+        self.reRequest(route: Route.getDropOffLocations, method: Method.get, queryParameters: request, runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<[DropOffLocation]>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }

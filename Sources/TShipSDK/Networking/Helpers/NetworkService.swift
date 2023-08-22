@@ -154,6 +154,8 @@ class NetworkService {
                 do {
                     try decoder.decode(T.self, from: data)
                 } catch {
+                    let dat = error as? DecodingError
+                    print(dat.debugDescription)
                     print(error.localizedDescription)
                 }
                 

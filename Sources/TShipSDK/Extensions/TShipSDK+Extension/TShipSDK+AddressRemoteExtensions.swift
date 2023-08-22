@@ -38,4 +38,14 @@ public extension TShipSDK {
         addressesRemote.updateAddress(addressId: addressId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This sets an Address previously created on the TShip API as the default address.
+    /// - Parameters:
+    ///   - addressId: Unique id used to identify the address.
+    ///   - request: Request body with the Address details you want to update. This should be created with the AddressRequestBuilder class.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and the updated Address if no error occurred.
+    func setDefaultAddress(addressId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
+        addressesRemote.setDefaultAddress(addressId: addressId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

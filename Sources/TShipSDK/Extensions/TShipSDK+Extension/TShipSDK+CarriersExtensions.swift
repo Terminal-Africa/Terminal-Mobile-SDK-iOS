@@ -39,4 +39,8 @@ public extension TShipSDK {
         carriersRemote.enableCarrier(carrierId: carrierId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    func getDropOffLocations(request: GetDropOffLocationsRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[DropOffLocation], Error>) -> Void){
+        carriersRemote.getDropOffLocations(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

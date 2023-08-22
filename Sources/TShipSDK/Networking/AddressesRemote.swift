@@ -57,12 +57,31 @@ class AddresssesRemote: NetworkService {
     
     /// This updates an Address previously created on the TShip API.
     /// - Parameters:
-    ///   - addressId: Unique id used to identify the address.   
+    ///   - addressId: Unique id used to identify the address.
     ///   - request: Request body with the Address details you want to update.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
     func updateAddress(addressId: String, request: AddressRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<Address, Error>) -> Void){
         self.request(route: Route.address(addressId), method: Method.put, requestBody: request.build(), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<Address>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+   
+    /// This sets an Address previously created on the TShip API as the default address.
+    /// - Parameters:
+    ///   - addressId: Unique id used to identify the address.   
+    ///   - request: Request body with the Address details you want to update.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func setDefaultAddress(addressId: String, runCompletionOnUIThread: Bool, completion: @escaping(Result<Address, Error>) -> Void){
+        self.request(route: Route.defaultAddress, method: Method.post, requestBody: [ "address_id": addressId ], runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<Address>, Error>) in
             switch(result) {
             case .success(let response):
