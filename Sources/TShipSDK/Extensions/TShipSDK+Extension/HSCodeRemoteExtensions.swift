@@ -11,4 +11,12 @@ public extension TShipSDK {
         hsCodeRemote.getHSCodeChapters(runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    func getHSCodeCategories(chapterId: String? = nil, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[HSCodeCategory], Error>) -> Void){
+        hsCodeRemote.getHSCodeCategories(chapterId: chapterId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
+    func searchHSCodes(request: SearchHSCodeRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<SearchHSCodesResponseData, Error>) -> Void){
+        hsCodeRemote.searchHSCode(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

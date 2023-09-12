@@ -93,6 +93,10 @@ enum Route {
     
     case getHSCodeChapters
     
+    case getHSCodeCategories
+    
+    case searchHSCode
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -207,6 +211,12 @@ enum Route {
             
         case .getHSCodeChapters:
             return "/hs-codes/chapters"
+            
+        case .getHSCodeCategories:
+            return "/hs-codes/category"
+            
+        case .searchHSCode:
+            return "/hs-codes/search/query"
             
         }
     }

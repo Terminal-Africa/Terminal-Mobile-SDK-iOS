@@ -15,4 +15,7 @@ public enum AccountType: String, Codable {
     case tpl = "3pl"
     
     case platform
+    
+    case empty = ""
+    
 }

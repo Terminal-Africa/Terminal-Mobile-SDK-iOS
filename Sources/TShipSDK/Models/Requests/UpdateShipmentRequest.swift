@@ -15,6 +15,8 @@ public class UpdateShipmentRequest: Encodable {
     
     public var parcels: [String]?
     
+    public var parcel: String?
+    
     public init() {}
     
     /// This function sets the pickup address id to update the shipment to.
@@ -59,6 +61,7 @@ public class UpdateShipmentRequest: Encodable {
         case deliveryAddressId = "address_to"
         case returnAddressId = "address_return"
         case shipmentPurpose = "shipment_purpose"
+        case parcels, parcel
     }
     
 }

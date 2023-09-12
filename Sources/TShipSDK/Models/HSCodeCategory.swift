@@ -1,15 +1,15 @@
 //
-//  HSCodeChapter.swift
+//  HSCodeCategory.swift
 //  
 //
-//  Created by maxSpane on 22/08/2023.
+//  Created by maxSpane on 23/08/2023.
 //
 
-public struct HSCodeChapter: Decodable {
+public struct HSCodeCategory: Decodable {
     
     public let id: String
     
-    public let chapterName: String
+    public let name: String
     
     public let keywords: [String]
     
@@ -17,7 +17,7 @@ public struct HSCodeChapter: Decodable {
         
         case id = "_id"
         
-        case chapterName = "chapter_name"
+        case name = "category"
         
         case keywords
         

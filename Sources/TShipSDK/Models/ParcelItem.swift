@@ -19,20 +19,25 @@ public struct ParcelItem: Codable, Equatable {
     /// The weight of the item. Note that this is the weight per item multiplied by the quantity.
     public var weight: Double
     
-    public var hscode: String?
+    public var hsCode: String?
     
-    public init(description: String, name: String, currency: Currency, quantity: Int, value: Double, weight: Double, hscode: String? = nil) {
+    public init(description: String, name: String, currency: Currency, quantity: Int, value: Double, weight: Double, hsCode: String? = nil) {
         self.description = description
         self.name = name
         self.currency = currency
         self.quantity = quantity
         self.value = value
         self.weight = weight
-        self.hscode = hscode
+        self.hsCode = hsCode
     }
     
     public static func == (lhs: ParcelItem, rhs: ParcelItem) -> Bool {
-        return lhs.description == rhs.description && lhs.name == rhs.name && lhs.currency == rhs.currency && lhs.quantity == rhs.quantity && lhs.value == rhs.value && lhs.weight == rhs.weight && lhs.hscode == rhs.hscode
+        return lhs.description == rhs.description && lhs.name == rhs.name && lhs.currency == rhs.currency && lhs.quantity == rhs.quantity && lhs.value == rhs.value && lhs.weight == rhs.weight && lhs.hsCode == rhs.hsCode
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case description, name, currency, quantity, value, weight
+        case hsCode = "hs_code"
     }
     
 }
