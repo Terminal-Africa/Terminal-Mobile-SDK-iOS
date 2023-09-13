@@ -22,6 +22,8 @@ public class GetRatesForMultiParcelShipmentRequest: Codable {
     /// The unique id used to identify the shipment.
     public var shipmentId: String?
     
+    public var source: String
+    
     /// Default initializer taking in the details required to get shipment rates without using a shipment id.
     /// - Parameters:
     ///   - pickupAddressId: The unique id used to identify the previously stored address to pickup the parcel.
@@ -33,6 +35,7 @@ public class GetRatesForMultiParcelShipmentRequest: Codable {
         self.deliveryAddressId = deliveryAddressId
         self.parcelIds = parcelIds
         self.currency = currency.rawValue
+        self.source = "ios_sdk"
     }
     
     /// Default initializer taking in the details required to get shipment rates using a shipment id.
@@ -42,6 +45,12 @@ public class GetRatesForMultiParcelShipmentRequest: Codable {
     public init (shipmentId: String, currency: Currency = .NGN){
         self.shipmentId = shipmentId
         self.currency = currency.rawValue
+        self.source = "ios_sdk"
+    }
+    
+    public func withSource(_ source: String) -> GetRatesForMultiParcelShipmentRequest{
+        self.source = source
+        return self
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -49,7 +58,7 @@ public class GetRatesForMultiParcelShipmentRequest: Codable {
         case deliveryAddressId = "delivery_address"
         case parcelIds = "parcels"
         case shipmentId = "shipment_id"
-        case currency
+        case currency, source
     }
     
 }
