@@ -28,7 +28,7 @@ public struct DropOffLocation: Decodable {
     private enum CodingKeys: String, CodingKey {
         case address, city, state, country, email, phone, carrier
         
-        case dropOffLocationId = "drop_off_location_id"
+        case dropOffLocationId = "dropoff_id"
     }
     
 }
