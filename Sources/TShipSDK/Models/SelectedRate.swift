@@ -55,6 +55,8 @@ public struct SelectedRate: Decodable {
     /// The unique Id used to identify the parcel that contains the Items to be shipped.
     public let parcel: ParcelWithPackagingData<EmptyMetadata>?
     
+    public let breakdown: RateBreakdown?
+    
     private enum CodingKeys: String, CodingKey {
         case carrierLogo = "carrier_logo"
         case carrierName = "carrier_name"
@@ -69,7 +71,7 @@ public struct SelectedRate: Decodable {
         case pickupEta = "pickup_eta"
         case pickupTime = "pickup_time"
         case pickupAddress = "pickup_address"
-        case amount, currency, parcel
+        case amount, currency, parcel, breakdown
     }
     
 }

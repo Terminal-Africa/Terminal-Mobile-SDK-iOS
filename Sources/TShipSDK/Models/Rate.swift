@@ -51,6 +51,8 @@ public struct Rate: Codable {
     
     public let dropoffAvailable: Bool?
     
+    public let breakdown: RateBreakdown?
+    
     private enum CodingKeys: String, CodingKey {
         case carrierLogo = "carrier_logo"
         case carrierName = "carrier_name"
@@ -67,7 +69,7 @@ public struct Rate: Codable {
         case pickupAddressId = "pickup_address"
         case parcelId = "parcel"
         case dropoffAvailable = "dropoff_available"
-        case amount, currency
+        case amount, currency, breakdown
     }
     
 }
