@@ -11,6 +11,9 @@ enum Route {
     /// Base Url for the TShipAPI
     static let baseUrl = "https://sandbox.terminal.africa/v1"
     
+    /// Base Url for the TShipAPI v2
+    static let baseUrlV2 = "https://sandbox.terminal.africa/v2"
+    
     /// Address Route for creating, fetching and updating Addresses. Pass in the address id to add it to the url.
     case address(String? = nil)
     
@@ -86,6 +89,10 @@ enum Route {
     case tShopRate
     
     case tShopChargeShipment
+    
+    case verifyReferralCodeUsed
+    
+    case tShopQuote
     
     case reportShipmentPickupDelay
     
@@ -200,6 +207,9 @@ enum Route {
         case .tShopRate:
             return "/shopship/rate"
             
+        case .tShopQuote:
+            return "/shopship/quote"
+            
         case .tShopChargeShipment:
             return "/shopship/charge"
             
@@ -217,6 +227,9 @@ enum Route {
             
         case .searchHSCode:
             return "/hs-codes/search/query"
+            
+        case .verifyReferralCodeUsed:
+            return "/shopship/rate/referral-code/verify"
             
         }
     }

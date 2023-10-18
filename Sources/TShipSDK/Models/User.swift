@@ -46,7 +46,9 @@ open class User: Codable {
     
     public var accountType: AccountType?
     
-    public init(companyName: String, country: String, email: String, firstName: String, lastName: String, metadata: UserMetadata, phoneNumber: String, walletId: String, userId: String, createdAt: String, businessCategory: String, state: String, enabledCarriers: EnabledCarriers, accountActive: Bool, walletEnabled: Bool, accountType: AccountType?) {
+    public var referredBy: String?
+    
+    public init(companyName: String, country: String, email: String, firstName: String, lastName: String, metadata: UserMetadata, phoneNumber: String, walletId: String, userId: String, createdAt: String, businessCategory: String, state: String, enabledCarriers: EnabledCarriers, accountActive: Bool, walletEnabled: Bool, accountType: AccountType?, referredBy: String?) {
         self.companyName = companyName
         self.country = country
         self.email = email
@@ -63,6 +65,7 @@ open class User: Codable {
         self.accountActive = accountActive
         self.walletEnabled = walletEnabled
         self.accountType = accountType
+        self.referredBy = referredBy
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -93,7 +96,7 @@ open class User: Codable {
         
         case accountType = "account_type"
         
-        case country, email, metadata
+        case country, email, metadata, referredBy
     }
     
 }

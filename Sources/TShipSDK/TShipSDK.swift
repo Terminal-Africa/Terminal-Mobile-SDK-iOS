@@ -2,6 +2,8 @@
 let TSHIP_API_LIVE_ENV_BASE_URL = "https://api.terminal.africa/v1"
 let TSHIP_API_DEV_ENV_BASE_URL = "https://sandbox.terminal.africa/v1"
 
+let TSHIP_API_LIVE_ENV_BASE_URL_V2 = "https://api.terminal.africa/v2"
+let TSHIP_API_DEV_ENV_BASE_URL_V2 = "https://sandbox.terminal.africa/v2"
 
 /// The TShipSDK class allows you to perform any operation you would want to perform on TShipAPI.
 public class TShipSDK {
@@ -18,6 +20,15 @@ public class TShipSDK {
             return TSHIP_API_LIVE_ENV_BASE_URL
         }else{
             return TSHIP_API_DEV_ENV_BASE_URL
+        }
+    }
+    
+    /// The Base Url to use for the remote operations.
+    private var baseUrlV2: String {
+        if useLiveEnvironment {
+            return TSHIP_API_LIVE_ENV_BASE_URL_V2
+        }else{
+            return TSHIP_API_DEV_ENV_BASE_URL_V2
         }
     }
     
@@ -49,6 +60,11 @@ public class TShipSDK {
     /// Instance of ShipmentsRemote class for performing remote operations that involve Shipments.
     var shipmentsRemote: ShipmentsRemote{
         return ShipmentsRemote(baseUrl: baseUrl, bearerToken: secretKey)
+    }
+    
+    /// Instance of ShipmentsRemote class for performing remote operations that involve Shipments on v2.
+    var shipmentsV2Remote: ShipmentsV2Remote{
+        return ShipmentsV2Remote(baseUrl: baseUrlV2, bearerToken: secretKey)
     }
     
     /// Instance of UsersRemote class for performing remote operations that involve Users.

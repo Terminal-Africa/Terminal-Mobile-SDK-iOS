@@ -24,4 +24,12 @@ public extension TShipSDK {
         tShopRemote.chargeShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    func verifyReferralCodeUsed(referralCode: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<VerifyReferralCodeUsedResponse, Error>) -> Void){
+        tShopRemote.verifyReferralCodeUsed(referralCode: referralCode, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
+    func getTShopQuickQuote(request: GetTShopQuickQuoteRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[Rate], Error>) -> Void){
+        tShopRemote.getQuote(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

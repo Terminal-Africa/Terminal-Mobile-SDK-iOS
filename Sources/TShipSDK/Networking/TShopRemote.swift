@@ -57,4 +57,28 @@ class TShopRemote: NetworkService {
         }
     }
     
+    func verifyReferralCodeUsed(referralCode: String, runCompletionOnUIThread: Bool, completion: @escaping(Result<VerifyReferralCodeUsedResponse, Error>) -> Void){
+        self.request(route: Route.verifyReferralCodeUsed, method: Method.post, requestBody: ["referral_code": referralCode], runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<VerifyReferralCodeUsedResponse>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func getQuote(request: GetTShopQuickQuoteRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<[Rate], Error>) -> Void){
+        self.request(route: Route.tShopQuote, method: Method.post, requestBody: request.toDict(), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<[Rate]>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
 }
