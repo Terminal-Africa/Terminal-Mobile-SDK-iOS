@@ -2,7 +2,7 @@
 public struct ShipmentEvent: Codable {
     
     /// The datetime the Event occurred.
-    public let createdAt: String
+    public let createdAt: String?
     
     /// A short description of the Event.
     public let description: String?
