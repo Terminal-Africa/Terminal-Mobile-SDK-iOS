@@ -118,8 +118,9 @@ public class ParcelRequestWithMetadata<T: Codable>: Codable {
         return self
     }
     
-    public func withProofOfPayments(_ proofOfPayments: [String]){
+    public func withProofOfPayments(_ proofOfPayments: [String]) -> ParcelRequestWithMetadata{
         self.proofOfPayments = proofOfPayments
+        return self
     }
     
     public func getSumOfItemsWeight() -> Double{

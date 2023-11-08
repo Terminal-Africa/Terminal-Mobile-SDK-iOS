@@ -38,6 +38,9 @@ enum Route {
     /// Route for getting rates for a shipment.
     case shipmentRates
     
+    /// Route for getting quote for a shipment.
+    case shipmentQuotes
+    
     /// Route for getting rates for a multi-parcel shipment.
     case multiParcelShipmentRates
     
@@ -140,6 +143,9 @@ enum Route {
             
         case .shipmentRates:
             return "/rates/shipment"
+            
+        case .shipmentQuotes:
+            return "/rates/shipment/quotes"
             
         case .multiParcelShipmentRates:
             return "/rates/multi/shipment"

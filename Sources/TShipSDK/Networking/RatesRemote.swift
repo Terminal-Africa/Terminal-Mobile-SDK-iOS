@@ -32,4 +32,17 @@ class RatesRemote: NetworkService {
         }
     }
     
+    func getQuotesForShipment(request: GetShipmentQuotesRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<[Rate], Error>) -> Void){
+        self.request(route: Route.shipmentQuotes, method: Method.post, requestBody: request.toDict(),runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<[Rate]>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }

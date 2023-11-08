@@ -14,4 +14,8 @@ public extension TShipSDK {
         ratesRemote.getRatesForMultiParcelShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    func getQuotesForShipment(request: GetShipmentQuotesRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[Rate], Error>) -> Void){
+        ratesRemote.getQuotesForShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }
