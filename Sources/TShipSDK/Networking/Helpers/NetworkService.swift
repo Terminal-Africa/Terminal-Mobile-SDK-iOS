@@ -52,6 +52,7 @@ class NetworkService {
             completion(.failure(TShipSDKError.unknownError))
             return
         }
+//        print("request is \(requestBody as AnyObject)")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             self.runInBackgroundOrUIThread(runOnUIThread: runCompletionOnUIThread) {
