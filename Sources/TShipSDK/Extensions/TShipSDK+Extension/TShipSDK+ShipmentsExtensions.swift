@@ -81,4 +81,8 @@ public extension TShipSDK {
         shipmentsRemote.reportShipmentPickupDelay( request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    func duplicateShipment(request: DuplicateShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<EmptyMetadata>, Error>) -> Void){
+        shipmentsRemote.duplicateShipment( request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

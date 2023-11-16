@@ -99,6 +99,8 @@ enum Route {
     
     case reportShipmentPickupDelay
     
+    case duplicateShipment
+    
     case getDropOffLocations
     
     case getHSCodeChapters
@@ -221,6 +223,9 @@ enum Route {
             
         case .reportShipmentPickupDelay:
             return "/shipments/pickup-delay-report"
+            
+        case .duplicateShipment:
+            return "/shipments/duplicate"
              
         case .getDropOffLocations:
             return "/carriers/locations/drop-off"

@@ -161,4 +161,17 @@ class ShipmentsRemote: NetworkService {
         }
     }
     
+    func duplicateShipment<ParcelM: Codable>(request: DuplicateShipmentRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<ParcelM>, Error>) -> Void){
+        self.request(route: Route.duplicateShipment, method: Method.post, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<ShipmentPopulatedWithPackagingData<ParcelM>>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }
