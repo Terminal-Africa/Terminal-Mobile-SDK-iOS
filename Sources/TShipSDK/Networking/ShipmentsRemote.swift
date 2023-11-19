@@ -174,4 +174,17 @@ class ShipmentsRemote: NetworkService {
         }
     }
     
+    func deleteShipment(request: DeleteShipmenRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
+        self.request(route: Route.deleteShipment, method: Method.delete, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<EmptyTShipResponse, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }

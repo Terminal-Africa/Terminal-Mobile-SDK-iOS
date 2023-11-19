@@ -101,6 +101,8 @@ enum Route {
     
     case duplicateShipment
     
+    case deleteShipment
+    
     case getDropOffLocations
     
     case getHSCodeChapters
@@ -226,6 +228,9 @@ enum Route {
             
         case .duplicateShipment:
             return "/shipments/duplicate"
+             
+        case .deleteShipment:
+            return "/shipments"
              
         case .getDropOffLocations:
             return "/carriers/locations/drop-off"

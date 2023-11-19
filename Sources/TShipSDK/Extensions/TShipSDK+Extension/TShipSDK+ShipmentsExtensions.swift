@@ -85,4 +85,14 @@ public extension TShipSDK {
         shipmentsRemote.duplicateShipment( request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    func deleteShipment(shipmentId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
+        shipmentsRemote.deleteShipment(
+            request: DeleteShipmenRequest(
+                shipmentId: shipmentId
+            ),
+            runCompletionOnUIThread: runCompletionOnUIThread,
+            completion: completion
+        )
+    }
+    
 }
