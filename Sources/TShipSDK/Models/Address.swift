@@ -42,6 +42,8 @@ public struct Address: Decodable, Equatable {
     
     public let tShopId: String?
     
+    public let alias: String?
+    
     private enum CodingKeys : String, CodingKey {
         case addressId = "address_id"
         case firstName = "first_name"
@@ -50,11 +52,11 @@ public struct Address: Decodable, Equatable {
         case zipCode = "zip"
         case isResidential = "is_residential"
         case tShopId = "shop_ship"
-        case city, country , email, line1, line2, state, coordinates
+        case city, country , email, line1, line2, state, coordinates, alias
     }
     
     public static func == (lhs: Address, rhs: Address) -> Bool {
-        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId
+        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId && lhs.alias == rhs.alias
     }
     
 }

@@ -23,6 +23,8 @@ public class AddressRequest: Encodable {
     
     public var isResidential: Bool = true
     
+    public var alias: String?
+    
     /// Default initializer taking in the required parameters for the create address request
     /// - Parameters:
     ///   - city: Name of the city the address is located in.
@@ -104,6 +106,12 @@ public class AddressRequest: Encodable {
         return self
     }
     
+    @discardableResult
+    public func withAlias(_ alias: String) -> AddressRequest {
+        self.alias = alias
+        return self
+    }
+    
     /// This function returns the built create address request.
     /// - Returns: [String:  Any] a dictionary containing the parameters provided to the builder.
     public func build() -> [String: Any] {
@@ -111,7 +119,7 @@ public class AddressRequest: Encodable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case city, state, country, email, phone, line1, line2
+        case city, state, country, email, phone, line1, line2, alias
         case firstName = "first_name"
         case lastName = "last_name"
         case zipCode = "zip"
