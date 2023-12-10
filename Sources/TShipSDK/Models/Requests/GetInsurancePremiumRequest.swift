@@ -11,13 +11,13 @@ public class GetInsurancePremiumRequest: Encodable{
     public var parcelValue: Double?
     public var insuranceType: InsuranceType
     
-    public init(parcelId: String, currency: Currency = .NGN, insuranceType: InsuranceType = .local) {
+    public init(parcelId: String, currency: Currency = .NGN, insuranceType: InsuranceType) {
         self.parcelId = parcelId
         self.currency = currency
         self.insuranceType = insuranceType
     }
     
-    public init(parcelValue: Double, currency: Currency = .NGN, insuranceType: InsuranceType = .local) {
+    public init(parcelValue: Double, currency: Currency = .NGN, insuranceType: InsuranceType) {
         self.parcelValue = parcelValue
         self.currency = currency
         self.insuranceType = insuranceType
