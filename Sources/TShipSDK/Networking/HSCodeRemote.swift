@@ -30,15 +30,15 @@ class HSCodeRemote: NetworkService {
     ///   - completion: The completion handler to call, passing along the response status and response data.
     func getHSCodeCategories(chapterId: String? = nil, runCompletionOnUIThread: Bool, completion: @escaping(Result<[HSCodeCategory], Error>) -> Void){
         
-        let request: [String: String]? = {
+        let request: GetHSCodeCategoriesRequest? = {
             if let chapterId = chapterId {
-                return ["chapter": chapterId]
+                return GetHSCodeCategoriesRequest(chapterId: chapterId)
             }else{
                 return nil
             }
         }()
         
-        self.request(route: Route.getHSCodeCategories, method: Method.get, queryParameters: request, runCompletionOnUIThread: runCompletionOnUIThread) {
+        self.request(route: Route.getHSCodeCategories, method: Method.get, queryParameters: request?.toDict(), runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<[HSCodeCategory]>, Error>) in
             switch(result) {
             case .success(let response):

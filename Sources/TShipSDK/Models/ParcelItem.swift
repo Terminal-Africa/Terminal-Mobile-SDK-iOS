@@ -21,7 +21,9 @@ public struct ParcelItem: Codable, Equatable {
     
     public var hsCode: String?
     
-    public init(description: String, name: String, currency: Currency, quantity: Int, value: Double, weight: Double, hsCode: String? = nil) {
+    public var hsCodeId: String?
+    
+    public init(description: String, name: String, currency: Currency, quantity: Int, value: Double, weight: Double, hsCode: String? = nil, hsCodeId: String? = nil) {
         self.description = description
         self.name = name
         self.currency = currency
@@ -29,15 +31,17 @@ public struct ParcelItem: Codable, Equatable {
         self.value = value
         self.weight = weight
         self.hsCode = hsCode
+        self.hsCodeId = hsCodeId
     }
     
     public static func == (lhs: ParcelItem, rhs: ParcelItem) -> Bool {
-        return lhs.description == rhs.description && lhs.name == rhs.name && lhs.currency == rhs.currency && lhs.quantity == rhs.quantity && lhs.value == rhs.value && lhs.weight == rhs.weight && lhs.hsCode == rhs.hsCode
+        return lhs.description == rhs.description && lhs.name == rhs.name && lhs.currency == rhs.currency && lhs.quantity == rhs.quantity && lhs.value == rhs.value && lhs.weight == rhs.weight && lhs.hsCode == rhs.hsCode && lhs.hsCodeId == rhs.hsCodeId
     }
     
     private enum CodingKeys: String, CodingKey {
         case description, name, currency, quantity, value, weight
         case hsCode = "hs_code"
+        case hsCodeId = "hs_code_id"
     }
     
 }

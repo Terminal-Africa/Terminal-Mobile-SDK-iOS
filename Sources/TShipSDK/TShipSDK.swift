@@ -98,6 +98,10 @@ public class TShipSDK {
         return HSCodeRemote(baseUrl: baseUrl, bearerToken: secretKey)
     }
     
+    var simplifiedHSCodeRemote: SimplifiedHSCodeRemote{
+        return SimplifiedHSCodeRemote(baseUrl: baseUrl, bearerToken: secretKey)
+    }
+    
     /// Initializes the TShipSDK with secret key which is required for all calls to the TShipAPI.
     /// - Parameters:
     ///  - secretKey: User's TShipAPI Secret key.

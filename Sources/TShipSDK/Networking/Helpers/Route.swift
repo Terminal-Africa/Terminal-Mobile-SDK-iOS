@@ -111,6 +111,14 @@ enum Route {
     
     case searchHSCode
     
+    case simplifiedHSCodeChapters
+    
+    case simplifiedHSCodeCategories
+    
+    case searchSimplifiedHSCodes
+    
+    case simplifiedHSCodes(String? = nil)
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -246,6 +254,21 @@ enum Route {
             
         case .verifyReferralCodeUsed:
             return "/shopship/rate/referral-code/verify"
+            
+        case .simplifiedHSCodeChapters:
+            return "/hs-codes/simplified/chapters"
+            
+        case .simplifiedHSCodeCategories:
+            return "/hs-codes/simplified/category"
+            
+        case .searchSimplifiedHSCodes:
+            return "/hs-codes/simplified/search/query"
+            
+        case .simplifiedHSCodes(let hsCodeId):
+            if let hsCodeId = hsCodeId {
+                return "/hs-codes/simplified/\(hsCodeId)"
+            }
+            return "/hs-codes/simplified"
             
         }
     }
