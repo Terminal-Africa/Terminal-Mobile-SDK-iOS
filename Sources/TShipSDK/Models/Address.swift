@@ -1,5 +1,5 @@
 ///Address data model containing all information needed about an Address to arrange a shipping.
-public struct Address: Decodable, Equatable {
+public struct Address: Codable, Equatable {
     
     /// Unique id used to identify the address
     public let addressId : String

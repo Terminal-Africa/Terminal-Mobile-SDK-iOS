@@ -1,5 +1,5 @@
 /// This class is used to make Create and Update requests for Parcels.
-public class ParcelRequestWithMetadata<T: Codable>: Codable {
+open class ParcelRequestWithMetadata<T: Codable>: Codable {
     
     /// A short description with details about the Parcel and it's content.
     public var description: String
