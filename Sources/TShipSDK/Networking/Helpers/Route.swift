@@ -59,8 +59,11 @@ enum Route {
     /// Route used to fetch a user's profile.
     case users(String)
     
-    /// Route used to fetch the user's wallet details.
+    /// Route used to fetch the details about a user's wallet.
     case userWallet
+    
+    /// Route used to fetch the user's wallets.
+    case userWallets
     
     /// Route used to fetch the user's wallet details.
     case userCarriers
@@ -182,6 +185,9 @@ enum Route {
             
         case .userWallet:
             return "/users/wallet-balance"
+            
+        case .userWallets:
+            return "/users/wallets"
             
         case .userCarriers:
             return "/users/carriers"

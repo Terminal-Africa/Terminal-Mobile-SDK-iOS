@@ -55,4 +55,22 @@ class UsersRemote: NetworkService {
         }
     }
     
+    /// This function fetches all the wallets under the user's account.
+    /// - Parameters:
+    ///   - walletType: The wallet type to filter the response by.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func getUserWallets(walletType: WalletType = .staticWallet, runCompletionOnUIThread: Bool, completion: @escaping(Result<[TShipWallet], Error>) -> Void){
+        self.request(route: Route.userWallets, method: Method.get, queryParameters: ["type": walletType.rawValue], runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<GetUserWalletsResponseData>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data.wallets))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }

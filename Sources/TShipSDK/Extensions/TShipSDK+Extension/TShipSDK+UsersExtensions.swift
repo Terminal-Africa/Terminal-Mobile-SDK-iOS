@@ -28,4 +28,13 @@ public extension TShipSDK {
         usersRemote.getUserCarriers(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function fetches all the wallets under the user's account.
+    /// - Parameters:
+    ///   - walletType: The wallet type to filter the response by.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func getUserWallets(walletType: WalletType = .staticWallet, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[TShipWallet], Error>) -> Void){
+        usersRemote.getUserWallets(walletType: walletType, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

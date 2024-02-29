@@ -14,7 +14,7 @@ public struct Transaction: Decodable{
     public let flow: TransactionFlow
     
     /// A unique string used to identify the transaction on the payment platform used to process it.
-    public let referenceId: String
+    public let referenceId: String?
     
     /// Indicates whether the transaction was reversed
     public let reversed: Bool
@@ -23,7 +23,7 @@ public struct Transaction: Decodable{
     public let shipmentId: String?
     
     /// A unique string used to identify the transaction.
-    public let transactionId: String
+    public let transactionId: String?
     
     /// The datetime the transaction was created.
     public let createdAt: String

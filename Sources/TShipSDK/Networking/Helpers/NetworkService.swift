@@ -152,13 +152,13 @@ class NetworkService {
             if let data = data {
                 let decoder = JSONDecoder()
                 
-//                do {
-//                    try decoder.decode(T.self, from: data)
-//                } catch {
-//                    let dat = error as? DecodingError
-//                    print(dat.debugDescription)
-//                    print(error.localizedDescription)
-//                }
+                do {
+                    try decoder.decode(T.self, from: data)
+                } catch {
+                    let dat = error as? DecodingError
+                    print(dat.debugDescription)
+                    print(error.localizedDescription)
+                }
                 
                 guard let response = try? decoder.decode(T.self, from: data) else {
                     completion(.failure(TShipSDKError.errorDecoding))
