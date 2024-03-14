@@ -11,13 +11,17 @@ class NetworkService {
     /// The bearer token for API access. Usually access token or a secret/public key. 'Bearer' is added for you so you need only provide the key/token.
     private let bearerToken: String
     
+    /// Identifier for the app using the TShipSDK
+    private let appIdentifier: String
+    
     /// Initialises the NetworkService with the baseUrl
     /// - Parameters:
     ///  - baseUrl: Base url to use to make requests to routes
     ///  - bearerToken: The bearer token for API access. Usually access token or a secret/public key. 'Bearer' is added for you so you need only provide the key/token.
-    init(baseUrl: String, bearerToken: String) {
+    init(baseUrl: String, bearerToken: String, appIdentifier: String) {
         self.baseUrl = baseUrl
         self.bearerToken = bearerToken
+        self.appIdentifier = appIdentifier
     }
     
     func reRequest<QueryParams: Encodable, RequestBody: Encodable, ResponseBody: Decodable>(
@@ -89,6 +93,8 @@ class NetworkService {
         if let bearerToken = bearerToken {
             urlRequest.addValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
         }
+        
+        urlRequest.addValue(appIdentifier, forHTTPHeaderField: "mobile-auth")
         
         if let parameters = queryParameters {
             var urlComponent = URLComponents(string: urlString)
