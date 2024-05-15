@@ -1,4 +1,6 @@
 /// Remote class that provides functions to make requests to the address route.
+
+import Foundation
 class AddresssesRemote: NetworkService {
     
     /// This creates an Address on the TShip API.
@@ -42,8 +44,8 @@ class AddresssesRemote: NetworkService {
     ///   - request: Should contain the query parameters for paginating through the Addresses. This should be created with the PaginatedRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
-    func getAddresses(request: [String: Any], runCompletionOnUIThread: Bool, completion: @escaping(Result<GetAddressResponseData, Error>) -> Void){
-        self.request(route: Route.address(), method: Method.get, queryParameters: request,runCompletionOnUIThread: runCompletionOnUIThread) {
+    func getAddresses(request: [String: Any], runCompletionOnUIThread: Bool, completion: @escaping(Result<GetAddressResponseData, Error>) -> Void) -> URLSessionTask?{
+        return self.request(route: Route.address(), method: Method.get, queryParameters: request,runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<GetAddressResponseData>, Error>) in
             switch(result) {
             case .success(let response):

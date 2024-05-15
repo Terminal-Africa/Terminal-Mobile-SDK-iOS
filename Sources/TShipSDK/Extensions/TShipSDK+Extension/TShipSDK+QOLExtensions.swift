@@ -7,13 +7,13 @@
 
 public extension TShipSDK {
     
-    func getRatesForShipmentShorthand(pickupAddress: AddressRequest, deliveryAddress: AddressRequest, weight: Double, packagingId: String? = nil, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[Rate], Error>) -> Void){
+    func getRatesForShipmentShorthand(pickupAddress: AddressRequest, deliveryAddress: AddressRequest, weight: Double, packagingId: String? = nil, itemType: ParcelItemType = .parcel, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[Rate], Error>) -> Void){
         let fillerParcelItemDesc = "Dummy parcel for getting rates quickly before user login"
         let parcel: ParcelRequest = ParcelRequest(
             description: fillerParcelItemDesc,
             packagingId: packagingId,
             currency: .NGN)
-            .withItem(name: fillerParcelItemDesc, description: fillerParcelItemDesc, quantity: 1, value: 10, weight: weight)
+            .withItem(name: fillerParcelItemDesc, description: fillerParcelItemDesc, quantity: 1, value: 10, weight: weight, type: itemType)
         
         getQuotesForShipment(
             request: GetShipmentQuotesRequest(
@@ -27,13 +27,13 @@ public extension TShipSDK {
         
     }
     
-    func generateGetShipmentQuotesRequest(pickupAddress: AddressRequest, deliveryAddress: AddressRequest, weight: Double, packagingId: String? = nil) -> GetShipmentQuotesRequest{
+    func generateGetShipmentQuotesRequest(pickupAddress: AddressRequest, deliveryAddress: AddressRequest, weight: Double, packagingId: String? = nil, itemType: ParcelItemType = .parcel) -> GetShipmentQuotesRequest{
         let fillerParcelItemDesc = "Dummy parcel for getting rates quickly before user login"
         let parcel: ParcelRequest = ParcelRequest(
             description: fillerParcelItemDesc,
             packagingId: packagingId,
             currency: .NGN)
-            .withItem(name: fillerParcelItemDesc, description: fillerParcelItemDesc, quantity: 1, value: 10, weight: weight)
+            .withItem(name: fillerParcelItemDesc, description: fillerParcelItemDesc, quantity: 1, value: 10, weight: weight, type: itemType)
         
         return GetShipmentQuotesRequest(
             pickupAddress: pickupAddress,

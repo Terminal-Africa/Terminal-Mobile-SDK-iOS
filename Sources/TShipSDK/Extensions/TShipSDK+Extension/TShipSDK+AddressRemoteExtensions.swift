@@ -1,4 +1,6 @@
 /// Extensions for Address remote methods on TshipSDK
+
+import Foundation
 public extension TShipSDK {
     
     /// This function creates an Address on the TShip API.
@@ -24,8 +26,8 @@ public extension TShipSDK {
     ///   - request: Should contain the query parameters for paginating through the Addresses. This should be created with the PaginatedRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
     ///   - completion: The completion handler to call, passing the response status alongside the GetAddressResponseData which contains the paginated Address, if no error occurred.
-    func getAddresses(request: GetAddressesRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetAddressResponseData, Error>) -> Void){
-        addressesRemote.getAddresses(request: request.toDict(), runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    func getAddresses(request: GetAddressesRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<GetAddressResponseData, Error>) -> Void) -> URLSessionTask?{
+        return addressesRemote.getAddresses(request: request.toDict(), runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
     /// This updates an Address previously created on the TShip API.

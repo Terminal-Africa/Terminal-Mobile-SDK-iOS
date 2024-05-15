@@ -1,5 +1,9 @@
 /// Country data model containing in formation about a country.
-public struct Country: Codable {
+public struct Country: Codable, Equatable {
+    
+    public static func == (lhs: Country, rhs: Country) -> Bool {
+        lhs.isoCode == rhs.isoCode
+    }
     
     /// The country's iso code.
     public let isoCode: String

@@ -51,14 +51,14 @@ class NetworkService {
         requestBody: [String: Any]? = nil,
         runCompletionOnUIThread: Bool,
         completion: @escaping(Result<T, Error>) -> Void
-    ) {
+    ) -> URLSessionTask? {
         guard let request = createRequest(route: route, method: method, bearerToken: bearerToken, queryParameters: queryParameters, requestBody: requestBody) else {
             completion(.failure(TShipSDKError.unknownError))
-            return
+            return nil
         }
 //        print("request is \(requestBody as AnyObject)")
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             self.runInBackgroundOrUIThread(runOnUIThread: runCompletionOnUIThread) {
                 if let data = data {
                     let response = String(data: data, encoding: .utf8) ?? "Could not stringify our data"
@@ -68,7 +68,11 @@ class NetworkService {
                 }
                 self.handleResponse(response: response, data: data, completion: completion)
             }
-        }.resume()
+        }
+        
+        task.resume()
+        
+        return task
     }
     
     /// This function generates a urlRequest.

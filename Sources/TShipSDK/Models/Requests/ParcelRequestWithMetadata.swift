@@ -64,10 +64,10 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
     ///   - value: The total monetary value of the item. Note that this is the cost per item multiplied by the quantity.
     ///   - weight: The weight of the item. Note that this is the weight per item multiplied by the quantity.
     /// - Returns: The Instance of the ParcelRequest.
-    public func withItem(name: String, description: String, quantity: Int, value: Double, weight: Double) -> ParcelRequestWithMetadata{
+    public func withItem(name: String, description: String, quantity: Int, value: Double, weight: Double, type: ParcelItemType) -> ParcelRequestWithMetadata{
         self.items.append(
             ParcelItem(
-                description: description, name: name, currency: currency, quantity: quantity, value: value, weight: weight
+                description: description, name: name, currency: currency, quantity: quantity, value: value, weight: weight, type: type
             )
         )
         return self
