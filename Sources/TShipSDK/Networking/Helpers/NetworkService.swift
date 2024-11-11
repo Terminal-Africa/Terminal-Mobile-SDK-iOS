@@ -192,6 +192,19 @@ class NetworkService {
                 completion(.failure(TShipSDKError.unknownError))
             }
             
+//        case HttpStatusCode.INVALID_TOKEN.rawValue:
+//            
+////            if let data = data {
+////                let decoder = JSONDecoder()
+////                guard let response = try? decoder.decode(TShipResponseWithoutData.self, from: data) else {
+////                    completion(.failure(TShipSDKError.errorDecoding))
+////                    return
+////                }
+////                completion(.failure(TShipSDKError.serverError(response.message)))
+////            }else{
+//                completion(.failure(TShipSDKError.invalidTokenError))
+////            }
+            
         default:
             completion(.failure(TShipSDKError.unknownError))
             

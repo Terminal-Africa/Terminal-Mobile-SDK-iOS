@@ -50,4 +50,12 @@ public extension TShipSDK {
         addressesRemote.setDefaultAddress(addressId: addressId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This gets the Address previously set on the TShip API as the default address.
+    /// - Parameters:
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and the updated Address if no error occurred.
+    func getDefaultAddress(runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
+        addressesRemote.getDefaultAddress(runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

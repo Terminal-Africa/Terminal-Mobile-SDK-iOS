@@ -21,11 +21,15 @@ public struct Claim: Decodable {
     
     public let claimId: String
     
+    public let createdAt: String
+    
     private enum CodingKeys: String, CodingKey {
         
         case description, reason, signature, status, witnesses
         
         case claimId = "claim_id"
+        
+        case createdAt = "created_at"
         
     }
     

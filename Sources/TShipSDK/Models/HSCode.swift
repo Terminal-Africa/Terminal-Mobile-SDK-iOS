@@ -17,7 +17,7 @@ public struct HSCode: Decodable {
     
     public let subCategoryName: String
     
-    public let keywords: String
+    public let keywords: String?
     
     public let hsCode: String
     

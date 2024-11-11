@@ -27,7 +27,7 @@ public extension TShipSDK {
         
     }
     
-    func generateGetShipmentQuotesRequest(pickupAddress: AddressRequest, deliveryAddress: AddressRequest, weight: Double, packagingId: String? = nil, itemType: ParcelItemType = .parcel) -> GetShipmentQuotesRequest{
+    func generateGetShipmentQuotesRequest(pickupAddress: AddressRequest, deliveryAddress: AddressRequest, weight: Double, packagingId: String? = nil, itemType: ParcelItemType = .parcel, currency: Currency = .NGN) -> GetShipmentQuotesRequest{
         let fillerParcelItemDesc = "Dummy parcel for getting rates quickly before user login"
         let parcel: ParcelRequest = ParcelRequest(
             description: fillerParcelItemDesc,
@@ -38,7 +38,8 @@ public extension TShipSDK {
         return GetShipmentQuotesRequest(
             pickupAddress: pickupAddress,
             deliveryAddress: deliveryAddress,
-            parcel: parcel
+            parcel: parcel,
+            currency: currency
         )
     }
     

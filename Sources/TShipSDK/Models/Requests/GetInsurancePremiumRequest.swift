@@ -10,23 +10,27 @@ public class GetInsurancePremiumRequest: Encodable{
     public var currency: Currency
     public var parcelValue: Double?
     public var insuranceType: InsuranceType
+    public var shipmentCurrency: Currency
     
-    public init(parcelId: String, currency: Currency = .NGN, insuranceType: InsuranceType) {
+    public init(parcelId: String, currency: Currency = .NGN, insuranceType: InsuranceType, shipmentCurrency: Currency = .NGN) {
         self.parcelId = parcelId
         self.currency = currency
         self.insuranceType = insuranceType
+        self.shipmentCurrency = shipmentCurrency
     }
     
-    public init(parcelValue: Double, currency: Currency = .NGN, insuranceType: InsuranceType) {
+    public init(parcelValue: Double, currency: Currency = .NGN, insuranceType: InsuranceType, shipmentCurrency: Currency = .NGN) {
         self.parcelValue = parcelValue
         self.currency = currency
         self.insuranceType = insuranceType
+        self.shipmentCurrency = shipmentCurrency
     }
     
     private enum CodingKeys: String, CodingKey {
         case parcelId = "parcel"
         case parcelValue = "parcel_value"
         case insuranceType = "insurance_type"
+        case shipmentCurrency = "shipment_currency"
         case currency
     }
     

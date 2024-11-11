@@ -67,10 +67,19 @@ public extension TShipSDK {
         shipmentsRemote.cancelShipment(request: CancelShipmentRequest(shipmentId: shipmentId), runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function cancels a Shipment previously created on the TShip API.
+    /// - Parameters:
+    ///   - request: An instance of CancelShipmentRequest that contains all the information required to cancel a shipment.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+    ///   - completion: The completion handler to call, passing the response status alongside an instance of ShipmentUnpopulated which contains information about the cancelled shipment, if no error occurred.
+    func cancelShipment(request: CancelShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void){
+        shipmentsRemote.cancelShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
     /// This function updates a Shipment previously created on the TShip API. Note that shipments that have already been arranged can't be updated.
     /// - Parameters:
     ///   - shipmentId: The id of the Shipment to update.
-    ///   - request: An instance of UpdateShipmentRequest that contains all the information required to update a shipment..
+    ///   - request: An instance of UpdateShipmentRequest that contains all the information required to update a shipment.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
     ///   - completion: The completion handler to call, passing the response status alongside an instance of ShipmentUnpopulated which contains information about the updated shipment, if no error occurred.
     func updateShipment(shipmentId: String, request: UpdateShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<EmptyMetadata>, Error>) -> Void){

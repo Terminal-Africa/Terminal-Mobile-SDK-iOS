@@ -15,6 +15,9 @@ enum TShipSDKError: LocalizedError {
     /// Error returned from the TShipSDK. It contains an error message detailing what went wrong.
     case tShipSDKError(String)
     
+    /// Error that occurs when the secret key is invalid.
+    case invalidTokenError
+    
     /// Description of the error that occurred.
     var errorDescription: String? {
         switch self {
@@ -26,6 +29,8 @@ enum TShipSDKError: LocalizedError {
             return error
         case .tShipSDKError(let error):
             return error
+        case .invalidTokenError:
+            return "Token is invalid. Please try again."
         }
     }
 }

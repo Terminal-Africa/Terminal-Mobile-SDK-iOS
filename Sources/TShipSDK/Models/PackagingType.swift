@@ -1,5 +1,5 @@
 /// An enum representing the valid Packaging types on TShip
-public enum PackagingType: String, Codable {
+public enum PackagingType: String, Codable, CaseIterable {
     
     /// Represents the box Packaging type.
     case box

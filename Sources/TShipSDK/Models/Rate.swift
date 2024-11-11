@@ -17,7 +17,7 @@ public struct Rate: Decodable {
     public let carrierSlug: String?
     
     /// The currency the rate's amount is in.
-    public let currency: String?
+    public let currency: Currency?
     
     /// The unique id used to identify the previously stored address to deliver the parcel to.
     public let deliveryAddressId: String?
@@ -32,7 +32,7 @@ public struct Rate: Decodable {
     public let deliveryTime: String?
     
     /// The unique Id used to identify the rate.
-    public let rateId: String?
+    public var rateId: String?
     
     /// The datetime the delivery is expected to have been picked up.
     public let pickupDate: String?
@@ -51,7 +51,13 @@ public struct Rate: Decodable {
     
     public let dropoffAvailable: Bool?
     
+    public let dropOffOnly: Bool?
+    
+    public let dropOffRequired: Bool?
+    
     public let breakdown: RateBreakdown?
+    
+    public let metadata: RateMetadata?
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -60,7 +66,7 @@ public struct Rate: Decodable {
         carrierName = try container.decodeIfPresent(String.self, forKey: .carrierName)
         carrierRateDescription = try container.decodeIfPresent(String.self, forKey: .carrierRateDescription)
         carrierSlug = try container.decodeIfPresent(String.self, forKey: .carrierSlug)
-        currency = try container.decodeIfPresent(String.self, forKey: .currency)
+        currency = try container.decodeIfPresent(Currency.self, forKey: .currency)
         deliveryAddressId = try container.decodeIfPresent(String.self, forKey: .deliveryAddressId)
         deliveryDate = try container.decodeIfPresent(String.self, forKey: .deliveryDate)
         deliveryEta = try container.decodeIfPresent(Double.self, forKey: .deliveryEta)
@@ -72,6 +78,8 @@ public struct Rate: Decodable {
         pickupAddressId = try container.decodeIfPresent(String.self, forKey: .pickupAddressId)
         parcelId = try container.decodeIfPresent(String.self, forKey: .parcelId)
         dropoffAvailable = try container.decodeIfPresent(Bool.self, forKey: .dropoffAvailable)
+        dropOffOnly = try container.decodeIfPresent(Bool.self, forKey: .dropOffOnly)
+        dropOffRequired = try container.decodeIfPresent(Bool.self, forKey: .dropOffRequired)
         breakdown = {
             do {
                 return try container.decodeIfPresent(RateBreakdown.self, forKey: .breakdown)
@@ -79,6 +87,7 @@ public struct Rate: Decodable {
                 return nil
             }
         }()
+        metadata = try container.decodeIfPresent(RateMetadata.self, forKey: .metadata)
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -97,7 +106,9 @@ public struct Rate: Decodable {
         case pickupAddressId = "pickup_address"
         case parcelId = "parcel"
         case dropoffAvailable = "dropoff_available"
-        case amount, currency, breakdown
+        case dropOffOnly = "dropoff_only"
+        case dropOffRequired = "dropoff_required"
+        case amount, currency, breakdown, metadata
     }
     
 }

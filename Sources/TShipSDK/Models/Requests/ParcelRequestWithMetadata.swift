@@ -15,6 +15,8 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
     
     public var proofOfPayments: [String]
     
+    public var proofOfWeights: [String]
+    
     /// Additional metadata you want to attach to the Parcel.
     public var metadata: T? = nil
     
@@ -27,12 +29,13 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
     ///   - packagingId: The unique Id used to identify the Packaging used to keep the Items in the Parcel.
     ///   - currency: The currency the value of the items are stored in.
     ///   - weightUnit: The unit used to measure the weight of the packaging. The default value, 'kg', is the only weight unit supported at this time.
-    public init(description: String, packagingId: String? = nil, currency: Currency, weightUnit: WeightUnit = .kg, proofOfPayments: [String] = []) {
+    public init(description: String, packagingId: String? = nil, currency: Currency, weightUnit: WeightUnit = .kg, proofOfPayments: [String] = [], proofOfWeights: [String] = []) {
         self.description = description
         self.packagingId = packagingId
         self.weightUnit = weightUnit.rawValue
         self.currency = currency
         self.proofOfPayments = proofOfPayments
+        self.proofOfWeights = proofOfWeights
     }
     
     /// Initializer taking in a Parcel whose details you want to copy in order to update or clone it.
@@ -54,6 +57,7 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
         self.items = parcel.items
         self.metadata = parcel.metadata
         self.proofOfPayments = parcel.proofOfPayments ?? []
+        self.proofOfWeights = parcel.proofOfWeights ?? []
     }
     
     /// This function adds an Item to the Parcel.
@@ -123,10 +127,23 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
         return self
     }
     
+    public func withProofOfWeights(_ proofOfWeights: [String]) -> ParcelRequestWithMetadata{
+        self.proofOfWeights = proofOfWeights
+        return self
+    }
+    
     public func getSumOfItemsWeight() -> Double{
         var sum: Double = 0
         for item in items {
             sum += item.weight
+        }
+        return sum
+    }
+    
+    public func getSumOfItemsValue() -> Double{
+        var sum: Double = 0
+        for item in items {
+            sum += item.value
         }
         return sum
     }
@@ -136,6 +153,7 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
         case packagingId = "packaging"
         case weightUnit = "weight_unit"
         case proofOfPayments = "proof_of_payments"
+        case proofOfWeights = "proofOfWeights"
     }
     
 }

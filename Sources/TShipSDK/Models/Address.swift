@@ -44,6 +44,10 @@ public struct Address: Codable, Equatable {
     
     public let alias: String?
     
+    public let createdAt: String
+    
+    public let updatedAt: String
+    
     private enum CodingKeys : String, CodingKey {
         case addressId = "address_id"
         case firstName = "first_name"
@@ -52,11 +56,34 @@ public struct Address: Codable, Equatable {
         case zipCode = "zip"
         case isResidential = "is_residential"
         case tShopId = "shop_ship"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
         case city, country , email, line1, line2, state, coordinates, alias
     }
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.addressId = try container.decodeIfPresent(String.self, forKey: .addressId) ?? ""
+        self.firstName = try container.decodeIfPresent(String.self, forKey: .firstName) ?? ""
+        self.lastName = try container.decodeIfPresent(String.self, forKey: .lastName) ?? ""
+        self.phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber) ?? ""
+        self.zipCode = try container.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
+        self.isResidential = try container.decodeIfPresent(Bool.self, forKey: .isResidential) ?? true
+        self.coordinates = (try? container.decodeIfPresent(Coordinates.self, forKey: .coordinates)) ?? .init(lat: 0, lng: 0)
+        self.tShopId = try container.decodeIfPresent(String.self, forKey: .tShopId) ?? ""
+        self.alias = try container.decodeIfPresent(String.self, forKey: .alias) ?? ""
+        self.createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt) ?? ""
+        self.updatedAt = try container.decodeIfPresent(String.self, forKey: .updatedAt) ?? ""
+        self.country = try container.decodeIfPresent(String.self, forKey: .country) ?? ""
+        self.state = try container.decodeIfPresent(String.self, forKey: .state) ?? ""
+        self.city = try container.decodeIfPresent(String.self, forKey: .city) ?? ""
+        self.email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
+        self.line1 = try container.decodeIfPresent(String.self, forKey: .line1) ?? ""
+        self.line2 = try container.decodeIfPresent(String.self, forKey: .line2) ?? ""
+    }
+    
     public static func == (lhs: Address, rhs: Address) -> Bool {
-        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId && lhs.alias == rhs.alias
+        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId && lhs.alias == rhs.alias && lhs.updatedAt == rhs.updatedAt
     }
     
 }

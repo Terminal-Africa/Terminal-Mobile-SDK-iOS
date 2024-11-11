@@ -10,6 +10,11 @@ public class Coordinates: Codable{
         lng = (try? container.decodeIfPresent(Double.self, forKey: .lng)) ?? 0
     }
     
+    init (lat: Double, lng: Double){
+        self.lat = lat
+        self.lng = lng
+    }
+    
     private enum CodingKeys: CodingKey {
         case lat
         case lng

@@ -37,4 +37,11 @@ public extension TShipSDK {
         usersRemote.getUserWallets(walletType: walletType, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This function sends a referral email with a signup link that has your referral code .
+    /// - Parameters:
+    ///   - email: The email address you want to send your referral email to.
+    func sendReferralEmal(email: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
+        usersRemote.sendReferralEmail(email: email, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

@@ -1,5 +1,5 @@
 /// Data model containing information about the parcel to be shipped.
-public class Parcel<T: Codable>: Decodable {
+public class Parcel<T: Codable>: Codable {
     
     /// The unique Id used to identify the Parcel .
     public let parcelId: String
@@ -22,6 +22,8 @@ public class Parcel<T: Codable>: Decodable {
     }
     
     public var proofOfPayments: [String]?
+    
+    public var proofOfWeights: [String]?
     
     /// Metadata to be attached to the Parcel.
     public var metadata: T? = nil
@@ -52,6 +54,7 @@ public class Parcel<T: Codable>: Decodable {
         case weightUnit = "weight_unit"
         case totalWeight = "total_weight"
         case proofOfPayments = "proof_of_payments"
+        case proofOfWeights = "proofOfWeights"
         case description, metadata, items
     }
     

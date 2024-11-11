@@ -73,4 +73,20 @@ class UsersRemote: NetworkService {
         }
     }
     
+    /// This function sends a referral email with a signup link that has your referral code .
+    /// - Parameters:
+    ///   - email: The email address you want to send your referral email to.
+    func sendReferralEmail(email: String, runCompletionOnUIThread: Bool, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
+        self.request(route: Route.sendReferralEmail, method: Method.post, requestBody: SendReferralEmailRequest(email: email).toDict(), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<EmptyTShipResponse, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }

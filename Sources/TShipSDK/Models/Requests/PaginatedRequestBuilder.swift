@@ -1,5 +1,5 @@
 /// This class helps create the parameters required for a base paginated request.
-public class PaginatedRequestBuilder: Encodable {
+open class PaginatedRequestBuilder: Encodable {
     
     /// The number of items to return in the response per request. The default number is 15.
     public var perPage: Int

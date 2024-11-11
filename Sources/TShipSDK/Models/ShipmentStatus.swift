@@ -1,5 +1,5 @@
 /// An enum representing the various shipment status
-public enum ShipmentStatus: String, Codable {
+public enum ShipmentStatus: String, Codable, CaseIterable {
     
     /// Represents when the shipment has been cancelled.
     case cancelled

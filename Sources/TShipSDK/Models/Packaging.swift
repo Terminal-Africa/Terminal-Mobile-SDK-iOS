@@ -1,5 +1,5 @@
 /// Packaging data model containing information about packaging used to ship items.
-public struct Packaging: Decodable {
+public struct Packaging: Codable {
     
     /// The height of the packaging.
     public let height: Double

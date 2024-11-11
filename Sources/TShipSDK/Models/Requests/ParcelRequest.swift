@@ -42,5 +42,10 @@ open class ParcelRequest: ParcelRequestWithMetadata<EmptyMetadata> {
         return self
     }
     
+    override public func withProofOfWeights(_ proofOfWeights: [String]) -> ParcelRequest {
+        super.withProofOfWeights(proofOfWeights)
+        return self
+    }
+    
 }
  

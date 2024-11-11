@@ -6,7 +6,7 @@
 //
 
 /// Data model representing a TShip Wallet
-public struct TShipWallet: Decodable {
+public struct TShipWallet: Decodable, Equatable {
     
     /// The wallet's id
     public let id: String

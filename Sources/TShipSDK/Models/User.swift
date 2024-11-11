@@ -32,7 +32,7 @@ open class User: Codable {
     public let createdAt: String
     
     /// The category the user's category falls into.
-    public let businessCategory: String
+    public let businessCategory: String?
     
     /// The state the user's company is based in.
     public let state: String
@@ -50,7 +50,13 @@ open class User: Codable {
     
     public var isPassCodeSet: Bool?
     
-    public init(companyName: String, country: String, email: String, firstName: String, lastName: String, metadata: UserMetadata, phoneNumber: String, walletId: String, userId: String, createdAt: String, businessCategory: String, state: String, enabledCarriers: EnabledCarriers, accountActive: Bool, walletEnabled: Bool, accountType: AccountType?, referredBy: String?, isPassCodeSet: Bool?) {
+    public var staffNumber: Int?
+    
+    public var businessType: String?
+    
+    public var referralCode: String?
+    
+    public init(companyName: String, country: String, email: String, firstName: String, lastName: String, metadata: UserMetadata, phoneNumber: String, walletId: String, userId: String, createdAt: String, businessCategory: String?, state: String, enabledCarriers: EnabledCarriers, accountActive: Bool, walletEnabled: Bool, accountType: AccountType?, referredBy: String?, isPassCodeSet: Bool?, staffNumber: Int?, businessType: String?, referralCode: String?) {
         self.companyName = companyName
         self.country = country
         self.email = email
@@ -69,6 +75,9 @@ open class User: Codable {
         self.accountType = accountType
         self.referredBy = referredBy
         self.isPassCodeSet = isPassCodeSet
+        self.staffNumber = staffNumber
+        self.businessType = businessType
+        self.referralCode = referralCode
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -99,7 +108,11 @@ open class User: Codable {
         
         case accountType = "account_type"
         
-        case country, email, metadata, referredBy, isPassCodeSet
+        case staffNumber = "staff_number"
+        
+        case businessType = "business_type"
+        
+        case country, email, metadata, referredBy, isPassCodeSet, referralCode
     }
     
 }

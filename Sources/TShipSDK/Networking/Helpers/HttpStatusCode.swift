@@ -11,4 +11,7 @@ enum HttpStatusCode: Int {
     
     /// Status code returned when the request sent to the API is not valid.
     case BAD_REQUEST = 400
+    
+    /// Status code returned when the request sent to the API is not valid.
+    case INVALID_TOKEN = 401
 }

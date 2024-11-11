@@ -74,6 +74,9 @@ enum Route {
     /// Route used to fetch carriers.
     case carriers(String? = nil)
     
+    /// Route used to send a referral email.
+    case sendReferralEmail
+    
     /// Route used to disable carriers.
     case disableCarrier(String)
     
@@ -191,6 +194,9 @@ enum Route {
             
         case .userCarriers:
             return "/users/carriers"
+            
+        case .sendReferralEmail:
+            return "/users/invite-user"
             
         case .transactions(let transactionId):
             if let transactionId = transactionId {

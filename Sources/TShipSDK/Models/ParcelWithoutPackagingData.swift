@@ -10,6 +10,12 @@ public class ParcelWithoutPackagingData<T: Codable>: Parcel<T> {
         try super.init(from: decoder)
     }
     
+    public override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(packagingId, forKey: .packagingId)
+        try super.encode(to: encoder) // Encode superclass properties
+    }
+    
     init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String]?, metadata: T? = nil, items: [ParcelItem], packagingId: String) {
         self.packagingId = packagingId
         super.init(parcelId: parcelId, description: description, weightUnit: weightUnit, totalWeight: totalWeight, proofOfPayments: proofOfPayments, metadata: metadata, items: items)

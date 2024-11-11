@@ -1,5 +1,5 @@
 /// This class is used to make Create requests for Shipments.
-public class CreateShipmentRequest: Encodable{
+open class CreateShipmentRequest: Encodable{
     
     /// The unique id used to identify the pickup address.
     public var pickupAddressId: String
@@ -65,7 +65,7 @@ public class CreateShipmentRequest: Encodable{
         }
     }
     
-    public func encode(to encoder: Encoder) throws {
+    open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.pickupAddressId, forKey: .pickupAddressId)
         try container.encode(self.deliveryAddressId, forKey: .deliveryAddressId)
@@ -89,7 +89,7 @@ public class CreateShipmentRequest: Encodable{
         
         case shipmentPurpose = "shipment_purpose"
         
-        case parcels, metadata, source, type
+        case parcels, source, type
         
     }
     

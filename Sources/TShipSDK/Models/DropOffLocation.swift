@@ -23,8 +23,10 @@ public struct DropOffLocation: Decodable {
     
     public let carrier: String
     
+    public let distance: Double?
+    
     private enum CodingKeys: String, CodingKey {
-        case address, city, state, country, email, phone, carrier
+        case address, city, state, country, email, phone, carrier, distance
         
         case dropOffLocationId = "dropoff_id"
     }

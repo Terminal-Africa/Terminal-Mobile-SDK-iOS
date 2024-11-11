@@ -13,7 +13,7 @@ public struct GetShipmentQuotesRequest: Encodable {
     
     public var parcel: ParcelRequest
     
-    public var currency: Currency = .NGN
+    public var currency: Currency?
     
     private enum CodingKeys: String, CodingKey {
         case pickupAddress = "pickup_address"
