@@ -23,6 +23,9 @@ public struct TShipWallet: Decodable, Equatable {
     /// The amount of money currently in the wallet
     public let amount: Double
     
+    /// The amount of money yet to be credited into the wallet
+    public let pendingBalance: Double?
+    
     /// The name of the bank attached to the account number used to fund the wallet
     public let bankName: String
     
@@ -40,6 +43,7 @@ public struct TShipWallet: Decodable, Equatable {
         case accountName = "account_name"
         case accountNumber = "account_number"
         case bankName = "bank_name"
+        case pendingBalance = "pending_balance"
         case id, amount, currency, topUpMethods, type
         
     }
