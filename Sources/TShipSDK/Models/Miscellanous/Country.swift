@@ -17,7 +17,7 @@ public struct Country: Codable, Equatable {
     /// An emoji of the country's Flag.
     public let flag: String
     
-    /// An emoji of the country's Flag.
+    /// The country's currency.
     public let currency: String
     
     /// The country's latitude.
@@ -28,6 +28,18 @@ public struct Country: Codable, Equatable {
     
     /// The details about the timezones that are in the country.
     public let timezones: [Timezone]
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.isoCode = (try? container.decode(String.self, forKey: .isoCode)) ?? ""
+        self.name = (try? container.decode(String.self, forKey: .name)) ?? ""
+        self.phoneCode = (try? container.decode(String.self, forKey: .phoneCode)) ?? ""
+        self.flag = (try? container.decode(String.self, forKey: .flag)) ?? ""
+        self.currency = (try? container.decode(String.self, forKey: .currency)) ?? ""
+        self.latitude = (try? container.decode(String.self, forKey: .latitude)) ?? ""
+        self.longitude = (try? container.decode(String.self, forKey: .longitude)) ?? ""
+        self.timezones = (try? container.decode([Timezone].self, forKey: .timezones)) ?? []
+    }
     
     private enum CodingKeys : String, CodingKey {
         case phoneCode = "phonecode"
