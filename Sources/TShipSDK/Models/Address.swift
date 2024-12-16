@@ -28,6 +28,9 @@ public struct Address: Codable, Equatable {
     /// Phone number of the person at the location
     public let phoneNumber : String
     
+    /// Alternate Phone number of the person at the location
+    public let altPhoneNumber : String
+    
     /// Name of the state the address is located in
     public let state : String
     
@@ -53,6 +56,7 @@ public struct Address: Codable, Equatable {
         case firstName = "first_name"
         case lastName = "last_name"
         case phoneNumber = "phone"
+        case altPhoneNumber = "alt_phone"
         case zipCode = "zip"
         case isResidential = "is_residential"
         case tShopId = "shop_ship"
@@ -67,6 +71,7 @@ public struct Address: Codable, Equatable {
         self.firstName = try container.decodeIfPresent(String.self, forKey: .firstName) ?? ""
         self.lastName = try container.decodeIfPresent(String.self, forKey: .lastName) ?? ""
         self.phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber) ?? ""
+        self.altPhoneNumber = try container.decodeIfPresent(String.self, forKey: .altPhoneNumber) ?? ""
         self.zipCode = try container.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
         self.isResidential = try container.decodeIfPresent(Bool.self, forKey: .isResidential) ?? true
         self.coordinates = (try? container.decodeIfPresent(Coordinates.self, forKey: .coordinates)) ?? .init(lat: 0, lng: 0)
@@ -83,7 +88,7 @@ public struct Address: Codable, Equatable {
     }
     
     public static func == (lhs: Address, rhs: Address) -> Bool {
-        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId && lhs.alias == rhs.alias && lhs.updatedAt == rhs.updatedAt
+        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.altPhoneNumber == rhs.altPhoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId && lhs.alias == rhs.alias && lhs.updatedAt == rhs.updatedAt
     }
     
 }

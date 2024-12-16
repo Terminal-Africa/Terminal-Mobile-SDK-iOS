@@ -13,7 +13,7 @@ public extension TShipSDK {
             description: fillerParcelItemDesc,
             packagingId: packagingId,
             currency: .NGN)
-            .withItem(name: fillerParcelItemDesc, description: fillerParcelItemDesc, quantity: 1, value: 10, weight: weight, type: itemType)
+            .withItem(name: fillerParcelItemDesc, description: fillerParcelItemDesc, quantity: 1, value: 10, weight: weight, type: itemType, manufacturerCountry: "NG")
         
         getQuotesForShipment(
             request: GetShipmentQuotesRequest(
@@ -33,7 +33,7 @@ public extension TShipSDK {
             description: fillerParcelItemDesc,
             packagingId: packagingId,
             currency: .NGN)
-            .withItem(name: fillerParcelItemDesc, description: fillerParcelItemDesc, quantity: 1, value: 10, weight: weight, type: itemType)
+            .withItem(name: fillerParcelItemDesc, description: fillerParcelItemDesc, quantity: 1, value: 10, weight: weight, type: itemType, manufacturerCountry: "NG")
         
         return GetShipmentQuotesRequest(
             pickupAddress: pickupAddress,

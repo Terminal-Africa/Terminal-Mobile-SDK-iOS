@@ -15,6 +15,8 @@ public class AddressRequest: Encodable {
     
     public var phone: String?
     
+    public var altPhoneNumber: String?
+    
     public var line1: String?
     
     public var line2: String?
@@ -123,6 +125,7 @@ public class AddressRequest: Encodable {
         case firstName = "first_name"
         case lastName = "last_name"
         case zipCode = "zip"
+        case altPhoneNumber = "alt_phone"
         case isResidential = "is_residential"
     }
     
