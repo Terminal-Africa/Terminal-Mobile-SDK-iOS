@@ -34,6 +34,21 @@ public struct Packaging: Codable {
     /// The date and time the Packaging was updated.
     public let updatedAt: String
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.height = (try? container.decode(Double.self, forKey: .height)) ?? 0
+        self.width = (try? container.decode(Double.self, forKey: .width)) ?? 0
+        self.length = (try? container.decode(Double.self, forKey: .length)) ?? 0
+        self.sizeUnit = (try? container.decode(String.self, forKey: .sizeUnit)) ?? ""
+        self.weightUnit = (try? container.decode(String.self, forKey: .weightUnit)) ?? ""
+        self.weight = (try? container.decode(Double.self, forKey: .weight)) ?? 0
+        self.type = (try? container.decode(PackagingType.self, forKey: .type)) ?? .box
+        self.packagingId = (try? container.decode(String.self, forKey: .packagingId)) ?? ""
+        self.name = (try? container.decode(String.self, forKey: .name)) ?? ""
+        self.createdAt = (try? container.decode(String.self, forKey: .createdAt)) ?? ""
+        self.updatedAt = (try? container.decode(String.self, forKey: .updatedAt)) ?? ""
+    }
+    
     private enum CodingKeys : String, CodingKey {
         case sizeUnit = "size_unit"
         case weightUnit = "weight_unit"
