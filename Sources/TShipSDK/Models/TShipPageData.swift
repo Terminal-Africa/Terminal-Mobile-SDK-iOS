@@ -25,4 +25,38 @@ public struct TShipPageData: Decodable{
     /// Indicates whether there is a next page.
     public let hasNextPage: Bool
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.total = (try? container.decode(Int.self, forKey: .total)) ?? 0
+        self.perPage = (try? container.decode(Int.self, forKey: .perPage)) ?? 0
+        self.currentPage = (try? container.decode(Int.self, forKey: .currentPage)) ?? 0
+        self.pageCount = (try? container.decode(Int.self, forKey: .pageCount)) ?? 0
+        self.prevPage = (try? container.decode(Int.self, forKey: .prevPage)) ?? nil
+        self.nextPage = (try? container.decode(Int.self, forKey: .nextPage)) ?? nil
+        self.hasPrevPage = (try? container.decode(Bool.self, forKey: .hasPrevPage)) ?? false
+        self.hasNextPage = (try? container.decode(Bool.self, forKey: .hasNextPage)) ?? false
+    }
+    
+    init(){
+        self.total = 0
+        self.perPage = 0
+        self.currentPage = 0
+        self.pageCount = 0
+        self.prevPage = nil
+        self.nextPage = nil
+        self.hasPrevPage = false
+        self.hasNextPage = false
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case total
+        case perPage
+        case currentPage
+        case pageCount
+        case prevPage
+        case nextPage
+        case hasPrevPage
+        case hasNextPage
+    }
+    
 }
