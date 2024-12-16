@@ -7,4 +7,15 @@ public struct GetAddressResponseData: Decodable {
     /// The list of paginated Addresses.
     public let addresses: [Address]
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.pagination = (try? container.decode(TShipPageData.self, forKey: .pagination)) ?? .init()
+        self.addresses = (try? container.decode([Address].self, forKey: .addresses)) ?? []
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case pagination
+        case addresses
+    }
+    
 }
