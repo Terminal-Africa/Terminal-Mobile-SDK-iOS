@@ -61,33 +61,27 @@ public struct Rate: Decodable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        amount = try container.decodeIfPresent(Double.self, forKey: .amount)
-        carrierLogo = try container.decodeIfPresent(String.self, forKey: .carrierLogo)
-        carrierName = try container.decodeIfPresent(String.self, forKey: .carrierName)
-        carrierRateDescription = try container.decodeIfPresent(String.self, forKey: .carrierRateDescription)
-        carrierSlug = try container.decodeIfPresent(String.self, forKey: .carrierSlug)
-        currency = try container.decodeIfPresent(Currency.self, forKey: .currency)
-        deliveryAddressId = try container.decodeIfPresent(String.self, forKey: .deliveryAddressId)
-        deliveryDate = try container.decodeIfPresent(String.self, forKey: .deliveryDate)
-        deliveryEta = try container.decodeIfPresent(Double.self, forKey: .deliveryEta)
-        deliveryTime = try container.decodeIfPresent(String.self, forKey: .deliveryTime)
-        rateId = try container.decodeIfPresent(String.self, forKey: .rateId)
-        pickupDate = try container.decodeIfPresent(String.self, forKey: .pickupDate)
-        pickupEta = try container.decodeIfPresent(Double.self, forKey: .pickupEta)
-        pickupTime = try container.decodeIfPresent(String.self, forKey: .pickupTime)
-        pickupAddressId = try container.decodeIfPresent(String.self, forKey: .pickupAddressId)
-        parcelId = try container.decodeIfPresent(String.self, forKey: .parcelId)
-        dropoffAvailable = try container.decodeIfPresent(Bool.self, forKey: .dropoffAvailable)
-        dropOffOnly = try container.decodeIfPresent(Bool.self, forKey: .dropOffOnly)
-        dropOffRequired = try container.decodeIfPresent(Bool.self, forKey: .dropOffRequired)
-        breakdown = {
-            do {
-                return try container.decodeIfPresent(RateBreakdown.self, forKey: .breakdown)
-            }catch{
-                return nil
-            }
-        }()
-        metadata = try container.decodeIfPresent(RateMetadata.self, forKey: .metadata)
+        amount = try? container.decodeIfPresent(Double.self, forKey: .amount)
+        carrierLogo = try? container.decodeIfPresent(String.self, forKey: .carrierLogo)
+        carrierName = try? container.decodeIfPresent(String.self, forKey: .carrierName)
+        carrierRateDescription = try? container.decodeIfPresent(String.self, forKey: .carrierRateDescription)
+        carrierSlug = try? container.decodeIfPresent(String.self, forKey: .carrierSlug)
+        currency = try? container.decodeIfPresent(Currency.self, forKey: .currency)
+        deliveryAddressId = try? container.decodeIfPresent(String.self, forKey: .deliveryAddressId)
+        deliveryDate = try? container.decodeIfPresent(String.self, forKey: .deliveryDate)
+        deliveryEta = try? container.decodeIfPresent(Double.self, forKey: .deliveryEta)
+        deliveryTime = try? container.decodeIfPresent(String.self, forKey: .deliveryTime)
+        rateId = try? container.decodeIfPresent(String.self, forKey: .rateId)
+        pickupDate = try? container.decodeIfPresent(String.self, forKey: .pickupDate)
+        pickupEta = try? container.decodeIfPresent(Double.self, forKey: .pickupEta)
+        pickupTime = try? container.decodeIfPresent(String.self, forKey: .pickupTime)
+        pickupAddressId = try? container.decodeIfPresent(String.self, forKey: .pickupAddressId)
+        parcelId = try? container.decodeIfPresent(String.self, forKey: .parcelId)
+        dropoffAvailable = try? container.decodeIfPresent(Bool.self, forKey: .dropoffAvailable)
+        dropOffOnly = try? container.decodeIfPresent(Bool.self, forKey: .dropOffOnly)
+        dropOffRequired = try? container.decodeIfPresent(Bool.self, forKey: .dropOffRequired)
+        breakdown = try? container.decodeIfPresent(RateBreakdown.self, forKey: .breakdown)
+        metadata = try? container.decodeIfPresent(RateMetadata.self, forKey: .metadata)
     }
     
     private enum CodingKeys: String, CodingKey {
