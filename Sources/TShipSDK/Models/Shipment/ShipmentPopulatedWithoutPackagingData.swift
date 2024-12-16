@@ -10,7 +10,7 @@ public class ShipmentPopulatedWithoutPackagingData<ParcelMetadata: Codable>: Shi
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         parcel = try? container.decodeIfPresent(ParcelWithoutPackagingData.self, forKey: .parcel)
-        parcels = try container.decodeIfPresent([ParcelWithoutPackagingData].self, forKey: .parcels)
+        parcels = try? container.decodeIfPresent([ParcelWithoutPackagingData].self, forKey: .parcels)
         try super.init(from: decoder)
     }
     

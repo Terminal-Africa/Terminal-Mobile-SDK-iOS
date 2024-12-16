@@ -87,6 +87,27 @@ public struct Address: Codable, Equatable {
         self.line2 = try container.decodeIfPresent(String.self, forKey: .line2) ?? ""
     }
     
+    init(addressId: String, firstName: String, lastName: String, email: String, line1: String, line2: String, phoneNumber: String, altPhoneNumber: String, state: String, zipCode: String, isResidential: Bool, tShopId: String, coordinates: Coordinates, alias: String, createdAt: String, updatedAt: String, country: String, city: String){
+        self.addressId = addressId
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.line1 = line1
+        self.line2 = line2
+        self.phoneNumber = phoneNumber
+        self.altPhoneNumber = altPhoneNumber
+        self.state = state
+        self.zipCode = zipCode
+        self.isResidential = isResidential
+        self.tShopId = tShopId
+        self.coordinates = coordinates
+        self.alias = alias
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.country = country
+        self.city = city
+    }
+    
     public static func == (lhs: Address, rhs: Address) -> Bool {
         return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.altPhoneNumber == rhs.altPhoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId && lhs.alias == rhs.alias && lhs.updatedAt == rhs.updatedAt
     }

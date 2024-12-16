@@ -37,19 +37,19 @@ public class Shipment: Decodable{
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        shipmentId = try container.decode(String.self, forKey: .shipmentId)
-        pickupDate = try container.decodeIfPresent(String.self, forKey: .pickupDate)
-        shipmentPurpose = try container.decode(ShipmentPurpose.self, forKey: .shipmentPurpose)
-        status = try container.decode(ShipmentStatus.self, forKey: .status)
-        events = try container.decode([ShipmentEvent].self, forKey: .events)
-        extras = try container.decodeIfPresent(ShipmentExtras.self, forKey: .extras)
-        shipmentCost = try container.decodeIfPresent(Double.self, forKey: .shipmentCost)
-        shipmentCostCurrency = try container.decodeIfPresent(Currency.self, forKey: .shipmentCostCurrency)
-        cancellationRequest = try container.decodeIfPresent(Bool.self, forKey: .cancellationRequest)
-        metadata = try container.decodeIfPresent(ShipmentMetadata.self, forKey: .metadata)
-        transactionReference = try container.decodeIfPresent(String.self, forKey: .transactionReference)
-        createdAt = (try container.decodeIfPresent(String.self, forKey: .createdAt)) ?? ""
-        type = (try container.decodeIfPresent(ShipmentType.self, forKey: .type)) ?? .terminal
+        shipmentId = (try? container.decode(String.self, forKey: .shipmentId)) ?? ""
+        pickupDate = try? container.decodeIfPresent(String.self, forKey: .pickupDate)
+        shipmentPurpose = (try? container.decode(ShipmentPurpose.self, forKey: .shipmentPurpose)) ?? .personal
+        status = (try? container.decode(ShipmentStatus.self, forKey: .status)) ?? .pending
+        events = (try? container.decode([ShipmentEvent].self, forKey: .events)) ?? []
+        extras = try? container.decodeIfPresent(ShipmentExtras.self, forKey: .extras)
+        shipmentCost = try? container.decodeIfPresent(Double.self, forKey: .shipmentCost)
+        shipmentCostCurrency = try? container.decodeIfPresent(Currency.self, forKey: .shipmentCostCurrency)
+        cancellationRequest = try? container.decodeIfPresent(Bool.self, forKey: .cancellationRequest)
+        metadata = try? container.decodeIfPresent(ShipmentMetadata.self, forKey: .metadata)
+        transactionReference = try? container.decodeIfPresent(String.self, forKey: .transactionReference)
+        createdAt = (try? container.decodeIfPresent(String.self, forKey: .createdAt)) ?? ""
+        type = (try? container.decodeIfPresent(ShipmentType.self, forKey: .type)) ?? .terminal
     }
     
     init(shipmentId: String, pickupDate: String?, shipmentPurpose: ShipmentPurpose, status: ShipmentStatus, events: [ShipmentEvent], extras: ShipmentExtras?, shipmentCost: Double?, shipmentCostCurrency: Currency?, cancellationRequest: Bool?, metadata: ShipmentMetadata?, transactionReference: String?, createdAt: String, type: ShipmentType){

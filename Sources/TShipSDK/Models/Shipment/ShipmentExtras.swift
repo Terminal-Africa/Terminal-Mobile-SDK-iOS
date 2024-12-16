@@ -19,6 +19,15 @@ public struct ShipmentExtras: Codable {
     /// URL to the commercial invoice generated for the shipment items by TShip.
     public let commercialInvoiceUrl: String?
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.carrierTrackingUrl = try? container.decodeIfPresent(String.self, forKey: .carrierTrackingUrl)
+        self.shippingLabelURL = try? container.decodeIfPresent(String.self, forKey: .shippingLabelURL)
+        self.trackingUrl = try container.decode(String.self, forKey: .trackingUrl)
+        self.carrierTrackingNumber = try? container.decodeIfPresent(String.self, forKey: .carrierTrackingNumber)
+        self.commercialInvoiceUrl = try? container.decodeIfPresent(String.self, forKey: .commercialInvoiceUrl)
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case carrierTrackingUrl = "carrier_tracking_url"
 //        case bookingReference = "reference"

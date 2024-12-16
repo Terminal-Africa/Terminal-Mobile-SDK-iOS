@@ -23,13 +23,13 @@ public class ShipmentUnpopulated: Shipment {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        deliveryAddressId = try container.decode(String.self, forKey: .deliveryAddressId)
-        returnAddressId = try container.decode(String.self, forKey: .returnAddressId)
-        pickupAddressId = try container.decode(String.self, forKey: .pickupAddressId)
-        parcelId = try container.decodeIfPresent(String.self, forKey: .parcelId)
-        parcelIds = try container.decodeIfPresent([String].self, forKey: .parcelIds)
-        carrierId = try container.decodeIfPresent(String.self, forKey: .carrierId)
-        rateId = try container.decodeIfPresent(String.self, forKey: .rateId)
+        deliveryAddressId = (try? container.decode(String.self, forKey: .deliveryAddressId)) ?? ""
+        returnAddressId = (try? container.decode(String.self, forKey: .returnAddressId)) ?? ""
+        pickupAddressId = (try? container.decode(String.self, forKey: .pickupAddressId)) ?? ""
+        parcelId = try? container.decodeIfPresent(String.self, forKey: .parcelId)
+        parcelIds = try? container.decodeIfPresent([String].self, forKey: .parcelIds)
+        carrierId = try? container.decodeIfPresent(String.self, forKey: .carrierId)
+        rateId = try? container.decodeIfPresent(String.self, forKey: .rateId)
         try super.init(from: decoder)
     }
     

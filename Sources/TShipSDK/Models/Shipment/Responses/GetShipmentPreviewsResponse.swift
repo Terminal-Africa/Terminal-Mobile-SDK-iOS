@@ -20,4 +20,15 @@ public struct GetShipmentPreviewsResponse{
         }
     }
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.pagination = (try? container.decode(TShipPageData.self, forKey: .pagination)) ?? .init()
+        self.shipments = (try? container.decode([ShipmentPreview].self, forKey: .shipments)) ?? []
+    }
+    
+    enum CodingKeys: String, CodingKey{
+        case pagination
+        case shipments
+    }
+    
 }

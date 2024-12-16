@@ -21,13 +21,13 @@ public class ShipmentPopulated: Shipment {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        deliveryAddress = try container.decode(Address.self, forKey: .deliveryAddress)
-        pickupAddress = try container.decode(Address.self, forKey: .pickupAddress)
-        returnAddress = try container.decode(Address.self, forKey: .returnAddress)
-        carrier = try container.decodeIfPresent(Carrier.self, forKey: .carrier)
-        rate = try container.decodeIfPresent(Rate.self, forKey: .rate)
-        insurance = try container.decodeIfPresent(InsuranceUnpopulated.self, forKey: .insurance)
-        feedback = try container.decodeIfPresent(Feedback.self, forKey: .feedback)
+        deliveryAddress = (try? container.decode(Address.self, forKey: .deliveryAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "")
+        pickupAddress = (try? container.decode(Address.self, forKey: .pickupAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "")
+        returnAddress = (try? container.decode(Address.self, forKey: .returnAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "")
+        carrier = try? container.decodeIfPresent(Carrier.self, forKey: .carrier)
+        rate = try? container.decodeIfPresent(Rate.self, forKey: .rate)
+        insurance = try? container.decodeIfPresent(InsuranceUnpopulated.self, forKey: .insurance)
+        feedback = try? container.decodeIfPresent(Feedback.self, forKey: .feedback)
         try super.init(from: decoder)
     }
     

@@ -1,7 +1,7 @@
 import Foundation
 
 /// Geographical Coordinates of a location, usually an address.
-public class Coordinates: Codable{
+public class Coordinates: Codable, Equatable {
     public let lat, lng: Double
     
     required public init(from decoder: Decoder) throws {
@@ -20,7 +20,7 @@ public class Coordinates: Codable{
         case lng
     }
     
-//    public static func == (lhs: Coordinates, rhs: Coordinates) -> Bool {
-//        return lhs == rhs
-//    }
+    public static func == (lhs: Coordinates, rhs: Coordinates) -> Bool {
+        return lhs.lat == rhs.lat && lhs.lng == rhs.lng
+    }
 }

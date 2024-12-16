@@ -59,29 +59,23 @@ public struct SelectedRate: Decodable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        amount = try container.decodeIfPresent(Double.self, forKey: .amount)
-        carrierLogo = try container.decodeIfPresent(String.self, forKey: .carrierLogo)
-        carrierName = try container.decodeIfPresent(String.self, forKey: .carrierName)
-        carrierRateDescription = try container.decodeIfPresent(String.self, forKey: .carrierRateDescription)
-        carrierSlug = try container.decodeIfPresent(String.self, forKey: .carrierSlug)
-        currency = try container.decodeIfPresent(Currency.self, forKey: .currency)
-        deliveryAddress = try container.decodeIfPresent(Address.self, forKey: .deliveryAddress)
-        deliveryDate = try container.decodeIfPresent(String.self, forKey: .deliveryDate)
-        deliveryEta = try container.decodeIfPresent(Double.self, forKey: .deliveryEta)
-        deliveryTime = try container.decodeIfPresent(String.self, forKey: .deliveryTime)
-        rateId = try container.decodeIfPresent(String.self, forKey: .rateId)
-        pickupDate = try container.decodeIfPresent(String.self, forKey: .pickupDate)
-        pickupEta = try container.decodeIfPresent(Double.self, forKey: .pickupEta)
-        pickupTime = try container.decodeIfPresent(String.self, forKey: .pickupTime)
-        pickupAddress = try container.decodeIfPresent(Address.self, forKey: .pickupAddress)
-        parcel = try container.decodeIfPresent(ParcelWithPackagingData<EmptyMetadata>.self, forKey: .parcel)
-        breakdown = {
-            do {
-                return try container.decodeIfPresent(RateBreakdown.self, forKey: .breakdown)
-            }catch{
-                return nil
-            }
-        }()
+        amount = try? container.decodeIfPresent(Double.self, forKey: .amount)
+        carrierLogo = try? container.decodeIfPresent(String.self, forKey: .carrierLogo)
+        carrierName = try? container.decodeIfPresent(String.self, forKey: .carrierName)
+        carrierRateDescription = try? container.decodeIfPresent(String.self, forKey: .carrierRateDescription)
+        carrierSlug = try? container.decodeIfPresent(String.self, forKey: .carrierSlug)
+        currency = try? container.decodeIfPresent(Currency.self, forKey: .currency)
+        deliveryAddress = try? container.decodeIfPresent(Address.self, forKey: .deliveryAddress)
+        deliveryDate = try? container.decodeIfPresent(String.self, forKey: .deliveryDate)
+        deliveryEta = try? container.decodeIfPresent(Double.self, forKey: .deliveryEta)
+        deliveryTime = try? container.decodeIfPresent(String.self, forKey: .deliveryTime)
+        rateId = try? container.decodeIfPresent(String.self, forKey: .rateId)
+        pickupDate = try? container.decodeIfPresent(String.self, forKey: .pickupDate)
+        pickupEta = try? container.decodeIfPresent(Double.self, forKey: .pickupEta)
+        pickupTime = try? container.decodeIfPresent(String.self, forKey: .pickupTime)
+        pickupAddress = try? container.decodeIfPresent(Address.self, forKey: .pickupAddress)
+        parcel = try? container.decodeIfPresent(ParcelWithPackagingData<EmptyMetadata>.self, forKey: .parcel)
+        breakdown = try? container.decodeIfPresent(RateBreakdown.self, forKey: .breakdown)
     }
     
     private enum CodingKeys: String, CodingKey {
