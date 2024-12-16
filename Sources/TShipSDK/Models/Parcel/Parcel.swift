@@ -41,6 +41,18 @@ public class Parcel<T: Codable>: Codable {
         self.items = items
     }
     
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.parcelId = (try? container.decode(String.self, forKey: .parcelId)) ?? ""
+        self.description = (try? container.decode(String.self, forKey: .description)) ?? ""
+        self.weightUnit = (try? container.decode(String.self, forKey: .weightUnit)) ?? ""
+        self.totalWeight = (try? container.decode(Double.self, forKey: .totalWeight)) ?? 0
+        self.proofOfPayments = (try? container.decode([String].self, forKey: .proofOfPayments)) ?? []
+        self.proofOfWeights = (try? container.decode([String].self, forKey: .proofOfWeights)) ?? []
+        self.metadata = (try? container.decode(T.self, forKey: .metadata)) ?? nil
+        self.items = (try? container.decode([ParcelItem].self, forKey: .items)) ?? []
+    }
+    
     public func getTotalItemValue() -> Double{
         var totalValue: Double = 0
         for item in items {

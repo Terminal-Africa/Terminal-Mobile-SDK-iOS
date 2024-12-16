@@ -40,6 +40,20 @@ public struct ParcelItem: Codable, Equatable {
         self.manufacturerCountry = manufacturerCountry
     }
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.description = (try? container.decode(String.self, forKey: .description)) ?? ""
+        self.name = (try? container.decode(String.self, forKey: .name)) ?? ""
+        self.currency = (try? container.decode(Currency.self, forKey: .currency)) ?? .NGN
+        self.quantity = (try? container.decode(Int.self, forKey: .quantity)) ?? 0
+        self.value = (try? container.decode(Double.self, forKey: .value)) ?? 0
+        self.weight = (try? container.decode(Double.self, forKey: .weight)) ?? 0
+        self.hsCode = try? container.decode(String.self, forKey: .hsCode)
+        self.hsCodeId = try? container.decode(String.self, forKey: .hsCodeId)
+        self.type = (try? container.decode(ParcelItemType.self, forKey: .type)) ?? .parcel
+        self.manufacturerCountry = try? container.decode(String.self, forKey: .manufacturerCountry)
+    }
+    
     public static func == (lhs: ParcelItem, rhs: ParcelItem) -> Bool {
         return lhs.description == rhs.description && lhs.name == rhs.name && lhs.currency == rhs.currency && lhs.quantity == rhs.quantity && lhs.value == rhs.value && lhs.weight == rhs.weight && lhs.hsCode == rhs.hsCode && lhs.hsCodeId == rhs.hsCodeId && lhs.type == rhs.type && lhs.manufacturerCountry == rhs.manufacturerCountry
     }

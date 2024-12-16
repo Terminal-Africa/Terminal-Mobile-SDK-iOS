@@ -49,6 +49,20 @@ public struct Packaging: Codable {
         self.updatedAt = (try? container.decode(String.self, forKey: .updatedAt)) ?? ""
     }
     
+    init (height: Double, width: Double, length: Double, sizeUnit: String, weightUnit: String, weight: Double, type: PackagingType, packagingId: String, name: String, createdAt: String, updatedAt: String) {
+        self.height = height
+        self.width = width
+        self.length = length
+        self.sizeUnit = sizeUnit
+        self.weightUnit = weightUnit
+        self.weight = weight
+        self.type = type
+        self.packagingId = packagingId
+        self.name = name
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+    }
+    
     private enum CodingKeys : String, CodingKey {
         case sizeUnit = "size_unit"
         case weightUnit = "weight_unit"

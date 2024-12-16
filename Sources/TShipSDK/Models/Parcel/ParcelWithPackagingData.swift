@@ -6,7 +6,7 @@ public class ParcelWithPackagingData<T: Codable>: Parcel<T> {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        packaging = try container.decode(Packaging.self, forKey: .packaging)
+        packaging = (try? container.decode(Packaging.self, forKey: .packaging)) ?? Packaging(height: 0, width: 0, length: 0, sizeUnit: "", weightUnit: "", weight: 0, type: .box, packagingId: "", name: "", createdAt: "", updatedAt: "")
         try super.init(from: decoder)
     }
     
