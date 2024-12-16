@@ -13,6 +13,14 @@ public struct HSCodeChapter: Decodable {
     
     public let keywords: [String]
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = (try? container.decode(String.self, forKey: .id)) ?? ""
+        self.chapterName = (try? container.decode(String.self, forKey: .chapterName)) ?? ""
+        self.keywords = (try? container.decode([String].self, forKey: .keywords)) ?? []
+        
+    }
+    
     private enum CodingKeys: String, CodingKey {
         
         case id = "_id"

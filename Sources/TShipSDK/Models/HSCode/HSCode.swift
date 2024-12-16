@@ -23,6 +23,18 @@ public struct HSCode: Decodable {
     
     public let hsCodeId: String
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.chapterCode = (try? container.decode(String.self, forKey: .chapterCode)) ?? ""
+        self.chapterName = (try? container.decode(String.self, forKey: .chapterName)) ?? ""
+        self.categoryName = (try? container.decode(String.self, forKey: .categoryName)) ?? ""
+        self.categoryCode = (try? container.decode(String.self, forKey: .categoryCode)) ?? ""
+        self.subCategoryName = (try? container.decode(String.self, forKey: .subCategoryName)) ?? ""
+        self.keywords = (try? container.decode(String.self, forKey: .keywords)) ?? ""
+        self.hsCode = (try? container.decode(String.self, forKey: .hsCode)) ?? ""
+        self.hsCodeId = (try? container.decode(String.self, forKey: .hsCodeId)) ?? ""
+    }
+    
     private enum CodingKeys: String, CodingKey {
         
         case chapterCode = "chapter"
