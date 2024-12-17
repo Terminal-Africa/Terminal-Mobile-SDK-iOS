@@ -28,6 +28,19 @@ public struct Transaction: Decodable{
     /// The datetime the transaction was created.
     public let createdAt: String
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.amount = (try? container.decode(Double.self, forKey: .amount)) ?? 0
+        self.currency = (try? container.decode(Currency.self, forKey: .currency)) ?? .NGN
+        self.description = (try? container.decode(String.self, forKey: .description)) ?? ""
+        self.flow = (try? container.decode(TransactionFlow.self, forKey: .flow)) ?? .inflow
+        self.referenceId = try? container.decodeIfPresent(String.self, forKey: .referenceId)
+        self.reversed = (try? container.decode(Bool.self, forKey: .reversed)) ?? false
+        self.shipmentId = try? container.decodeIfPresent(String.self, forKey: .shipmentId)
+        self.transactionId = try? container.decodeIfPresent(String.self, forKey: .transactionId)
+        self.createdAt = (try? container.decode(String.self, forKey: .createdAt)) ?? ""
+    }
+    
     private enum CodingKeys: String, CodingKey{
         case referenceId = "reference"
         case shipmentId = "shipment_id"

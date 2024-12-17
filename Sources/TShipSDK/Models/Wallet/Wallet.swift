@@ -19,6 +19,16 @@ public struct Wallet: Decodable {
     /// The datetime the user's wallet was created.
     public let createdAt: String
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.companyName = (try? container.decode(String.self, forKey: .companyName)) ?? ""
+        self.amount = (try? container.decode(Double.self, forKey: .amount)) ?? 0
+        self.currency = (try? container.decode(Currency.self, forKey: .currency)) ?? .NGN
+        self.userId = (try? container.decode(String.self, forKey: .userId)) ?? ""
+        self.active = (try? container.decode(Bool.self, forKey: .active)) ?? true
+        self.createdAt = (try? container.decode(String.self, forKey: .createdAt)) ?? ""
+    }
+    
     private enum CodingKeys: String, CodingKey{
         
         case companyName = "name"
