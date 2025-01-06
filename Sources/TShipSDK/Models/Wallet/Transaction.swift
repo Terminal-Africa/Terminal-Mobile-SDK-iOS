@@ -28,6 +28,9 @@ public struct Transaction: Decodable{
     /// The datetime the transaction was created.
     public let createdAt: String
     
+    /// The status of the transaction
+    public let status: TransactionStatus
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.amount = (try? container.decode(Double.self, forKey: .amount)) ?? 0
@@ -39,6 +42,7 @@ public struct Transaction: Decodable{
         self.shipmentId = try? container.decodeIfPresent(String.self, forKey: .shipmentId)
         self.transactionId = try? container.decodeIfPresent(String.self, forKey: .transactionId)
         self.createdAt = (try? container.decode(String.self, forKey: .createdAt)) ?? ""
+        self.status = (try? container.decode(TransactionStatus.self, forKey: .status)) ?? .pending
     }
     
     private enum CodingKeys: String, CodingKey{
@@ -46,7 +50,7 @@ public struct Transaction: Decodable{
         case shipmentId = "shipment_id"
         case transactionId = "transaction_id"
         case createdAt = "created_at"
-        case amount, currency, description, flow, reversed
+        case amount, currency, description, flow, reversed, status
     }
     
 }
