@@ -9,4 +9,5 @@ struct GenericTShipResponse<Data: Decodable>: Decodable {
     
     /// Data containing the result of the remote operation.
     let data: Data
+    
 }

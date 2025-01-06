@@ -80,6 +80,31 @@ open class User: Codable {
         self.referralCode = referralCode
     }
     
+    required public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.companyName = (try? container.decode(String.self, forKey: .companyName)) ?? ""
+        self.firstName = (try? container.decode(String.self, forKey: .firstName)) ?? ""
+        self.lastName = (try? container.decode(String.self, forKey: .lastName)) ?? ""
+        self.phoneNumber = (try? container.decode(String.self, forKey: .phoneNumber)) ?? ""
+        self.walletId = (try? container.decode(String.self, forKey: .walletId)) ?? ""
+        self.userId = (try? container.decode(String.self, forKey: .userId)) ?? ""
+        self.createdAt = (try? container.decode(String.self, forKey: .createdAt)) ?? ""
+        self.businessCategory = (try? container.decodeIfPresent(String.self, forKey: .businessCategory)) ?? ""
+        self.state = (try? container.decode(String.self, forKey: .state)) ?? ""
+        self.enabledCarriers = (try? container.decode(EnabledCarriers.self, forKey: .enabledCarriers)) ?? EnabledCarriers(domestic: [], regional: [], international: [])
+        self.accountActive = (try? container.decode(Bool.self, forKey: .accountActive)) ?? false
+        self.walletEnabled = (try? container.decode(Bool.self, forKey: .walletEnabled)) ?? false
+        self.accountType = (try? container.decodeIfPresent(AccountType.self, forKey: .accountType))
+        self.staffNumber = (try? container.decodeIfPresent(Int.self, forKey: .staffNumber))
+        self.businessType = (try? container.decodeIfPresent(String.self, forKey: .businessType)) ?? ""
+        self.country = (try? container.decode(String.self, forKey: .country)) ?? ""
+        self.email = (try? container.decode(String.self, forKey: .email)) ?? ""
+        self.metadata = (try? container.decode(UserMetadata.self, forKey: .metadata)) ?? UserMetadata(totalShipment: nil, totalShipmentAmount: nil, storeId: "")
+        self.referredBy = (try? container.decodeIfPresent(String.self, forKey: .referredBy)) ?? ""
+        self.isPassCodeSet = (try? container.decodeIfPresent(Bool.self, forKey: .isPassCodeSet))
+        self.referralCode = (try? container.decodeIfPresent(String.self, forKey: .referralCode)) ?? ""
+    }
+    
     private enum CodingKeys: String, CodingKey {
         
         case companyName = "company_name"

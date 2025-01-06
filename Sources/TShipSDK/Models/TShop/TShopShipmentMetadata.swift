@@ -29,6 +29,19 @@ public struct TShopShipmentMetadata: Codable{
         self.tShopOptInInsurance = tShopOptInInsurance
     }
     
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.tShopStoreName = try container.decodeIfPresent(String.self, forKey: .tShopStoreName)
+        self.tShopItemDescription = try container.decodeIfPresent(String.self, forKey: .tShopItemDescription)
+        self.tShopItemValue = try container.decodeIfPresent(Double.self, forKey: .tShopItemValue)
+        self.tShopOrderTrackingNumber = try container.decodeIfPresent(String.self, forKey: .tShopOrderTrackingNumber)
+        self.tShopOrderCarrier = try container.decodeIfPresent(String.self, forKey: .tShopOrderCarrier)
+        self.tShopOrderTrackingLink = try container.decodeIfPresent(String.self, forKey: .tShopOrderTrackingLink)
+        self.tShopOrderProofOfPayment = try container.decodeIfPresent(String.self, forKey: .tShopOrderProofOfPayment)
+        self.tShopCurrency = try container.decodeIfPresent(Currency.self, forKey: .tShopCurrency)
+        self.tShopOptInInsurance = try container.decodeIfPresent(Bool.self, forKey: .tShopOptInInsurance)
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case tShopStoreName = "tshop_source_store_name"
         case tShopItemDescription = "tshop_item_description"
