@@ -25,6 +25,15 @@ public struct ChargeTShopShipmentResponse: Decodable {
     /// The datetime the transaction was created.
     public let createdAt: String
     
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.shipmentId = (try? container.decodeIfPresent(String.self, forKey: .shipmentId)) ?? ""
+        self.createdAt = (try? container.decode(String.self, forKey: .createdAt)) ?? ""
+        self.amount = (try? container.decode(Double.self, forKey: .amount)) ?? 0
+        self.currency = (try? container.decode(Currency.self, forKey: .currency)) ?? .NGN
+        self.description = (try? container.decode(String.self, forKey: .description)) ?? ""
+    }
+    
     private enum CodingKeys: String, CodingKey{
         case shipmentId = "shipment_ref"
 //        case transactionId = "transaction_id"

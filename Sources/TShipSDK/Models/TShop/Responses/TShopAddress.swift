@@ -38,6 +38,21 @@ public struct TShopAddress: Decodable {
     /// Geographical Coordinates of the addresss
     public let coordinates: Coordinates
     
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.tShopId = (try? container.decode(String.self, forKey: .tShopId)) ?? ""
+        self.phoneNumber = (try? container.decode(String.self, forKey: .phoneNumber)) ?? ""
+        self.zipCode = (try? container.decode(String.self, forKey: .zipCode)) ?? ""
+        self.isoCode = (try? container.decode(String.self, forKey: .isoCode)) ?? ""
+        self.city = (try? container.decode(String.self, forKey: .city)) ?? ""
+        self.country = (try? container.decode(String.self, forKey: .country)) ?? ""
+        self.line1 = (try? container.decode(String.self, forKey: .line1)) ?? ""
+        self.line2 = (try? container.decode(String.self, forKey: .line2)) ?? ""
+        self.state = (try? container.decode(String.self, forKey: .state)) ?? ""
+        self.coordinates = (try? container.decode(Coordinates.self, forKey: .coordinates)) ?? Coordinates(lat: 0, lng: 0)
+        self.active = (try? container.decode(Bool.self, forKey: .active)) ?? false
+    }
+    
     private enum CodingKeys : String, CodingKey {
         case tShopId = "shop_ship_id"
         case phoneNumber = "phone"
@@ -45,5 +60,7 @@ public struct TShopAddress: Decodable {
         case isoCode = "isocode"
         case city, country, line1, line2, state, coordinates, active
     }
+    
+    
     
 }
