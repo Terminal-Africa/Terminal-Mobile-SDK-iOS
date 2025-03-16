@@ -112,4 +112,22 @@ class AddresssesRemote: NetworkService {
         }
     }
     
+    /// This deletes an Address previously created on the TShip API.
+    /// - Parameters:
+    ///   - addressId: Unique id used to identify the address.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func deleteAddress(addressId: String, runCompletionOnUIThread: Bool, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
+        self.request(route: Route.address(addressId), method: Method.delete, runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<EmptyTShipResponse, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }

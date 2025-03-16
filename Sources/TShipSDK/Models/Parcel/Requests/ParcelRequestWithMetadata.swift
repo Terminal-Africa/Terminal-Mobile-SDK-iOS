@@ -153,7 +153,7 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
         case packagingId = "packaging"
         case weightUnit = "weight_unit"
         case proofOfPayments = "proof_of_payments"
-        case proofOfWeights = "proofOfWeights"
+        case proofOfWeights = "rec_docs"
     }
     
 }

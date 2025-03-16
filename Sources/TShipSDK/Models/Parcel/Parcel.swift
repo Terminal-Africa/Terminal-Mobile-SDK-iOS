@@ -66,7 +66,7 @@ public class Parcel<T: Codable>: Codable {
         case weightUnit = "weight_unit"
         case totalWeight = "total_weight"
         case proofOfPayments = "proof_of_payments"
-        case proofOfWeights = "proofOfWeights"
+        case proofOfWeights = "rec_docs"
         case description, metadata, items
     }
     

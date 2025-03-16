@@ -58,4 +58,13 @@ public extension TShipSDK {
         addressesRemote.getDefaultAddress(runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This deletes an Address previously created on the TShip API.
+    /// - Parameters:
+    ///   - addressId: Unique id used to identify the address.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and the updated Address if no error occurred.
+    func deleteAddress(addressId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
+        addressesRemote.deleteAddress(addressId: addressId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

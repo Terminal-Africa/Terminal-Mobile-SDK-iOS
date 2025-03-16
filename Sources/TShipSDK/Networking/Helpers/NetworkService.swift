@@ -62,7 +62,7 @@ class NetworkService {
             self.runInBackgroundOrUIThread(runOnUIThread: runCompletionOnUIThread) {
                 if let data = data {
                     let response = String(data: data, encoding: .utf8) ?? "Could not stringify our data"
-                    print(response)
+//                    print(response)
                 } else {
                     print("No data returned")
                 }

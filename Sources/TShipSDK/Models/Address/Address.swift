@@ -51,6 +51,9 @@ public struct Address: Codable, Equatable {
     
     public let updatedAt: String
     
+    /// Indicates whether the address is the user's default address
+    public let isDefaultAddress: Bool
+    
     private enum CodingKeys : String, CodingKey {
         case addressId = "address_id"
         case firstName = "first_name"
@@ -62,6 +65,7 @@ public struct Address: Codable, Equatable {
         case tShopId = "shop_ship"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+        case isDefaultAddress = "sender_default"
         case city, country , email, line1, line2, state, coordinates, alias
     }
     
@@ -85,9 +89,10 @@ public struct Address: Codable, Equatable {
         self.email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
         self.line1 = try container.decodeIfPresent(String.self, forKey: .line1) ?? ""
         self.line2 = try container.decodeIfPresent(String.self, forKey: .line2) ?? ""
+        self.isDefaultAddress = (try? container.decode(Bool.self, forKey: .isDefaultAddress)) ?? false
     }
     
-    init(addressId: String, firstName: String, lastName: String, email: String, line1: String, line2: String, phoneNumber: String, altPhoneNumber: String, state: String, zipCode: String, isResidential: Bool, tShopId: String, coordinates: Coordinates, alias: String, createdAt: String, updatedAt: String, country: String, city: String){
+    init(addressId: String, firstName: String, lastName: String, email: String, line1: String, line2: String, phoneNumber: String, altPhoneNumber: String, state: String, zipCode: String, isResidential: Bool, tShopId: String, coordinates: Coordinates, alias: String, createdAt: String, updatedAt: String, country: String, city: String, isDefaultAddress: Bool){
         self.addressId = addressId
         self.firstName = firstName
         self.lastName = lastName
@@ -106,10 +111,11 @@ public struct Address: Codable, Equatable {
         self.updatedAt = updatedAt
         self.country = country
         self.city = city
+        self.isDefaultAddress = isDefaultAddress
     }
     
     public static func == (lhs: Address, rhs: Address) -> Bool {
-        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.altPhoneNumber == rhs.altPhoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId && lhs.alias == rhs.alias && lhs.updatedAt == rhs.updatedAt
+        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.altPhoneNumber == rhs.altPhoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId && lhs.alias == rhs.alias && lhs.updatedAt == rhs.updatedAt && lhs.createdAt == rhs.createdAt && lhs.isDefaultAddress == rhs.isDefaultAddress
     }
     
 }

@@ -56,7 +56,9 @@ open class User: Codable {
     
     public var referralCode: String?
     
-    public init(companyName: String, country: String, email: String, firstName: String, lastName: String, metadata: UserMetadata, phoneNumber: String, walletId: String, userId: String, createdAt: String, businessCategory: String?, state: String, enabledCarriers: EnabledCarriers, accountActive: Bool, walletEnabled: Bool, accountType: AccountType?, referredBy: String?, isPassCodeSet: Bool?, staffNumber: Int?, businessType: String?, referralCode: String?) {
+    public var customerRank: CustomerRank?
+    
+    public init(companyName: String, country: String, email: String, firstName: String, lastName: String, metadata: UserMetadata, phoneNumber: String, walletId: String, userId: String, createdAt: String, businessCategory: String?, state: String, enabledCarriers: EnabledCarriers, accountActive: Bool, walletEnabled: Bool, accountType: AccountType?, referredBy: String?, isPassCodeSet: Bool?, staffNumber: Int?, businessType: String?, referralCode: String?, customerRank: CustomerRank?) {
         self.companyName = companyName
         self.country = country
         self.email = email
@@ -78,6 +80,7 @@ open class User: Codable {
         self.staffNumber = staffNumber
         self.businessType = businessType
         self.referralCode = referralCode
+        self.customerRank = customerRank
     }
     
     required public init(from decoder: any Decoder) throws {
@@ -103,6 +106,7 @@ open class User: Codable {
         self.referredBy = (try? container.decodeIfPresent(String.self, forKey: .referredBy)) ?? ""
         self.isPassCodeSet = (try? container.decodeIfPresent(Bool.self, forKey: .isPassCodeSet))
         self.referralCode = (try? container.decodeIfPresent(String.self, forKey: .referralCode)) ?? ""
+        self.customerRank = (try? container.decodeIfPresent(CustomerRank.self, forKey: .customerRank)) ?? .rank1
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -136,6 +140,8 @@ open class User: Codable {
         case staffNumber = "staff_number"
         
         case businessType = "business_type"
+        
+        case customerRank = "customer_rank"
         
         case country, email, metadata, referredBy, isPassCodeSet, referralCode
     }

@@ -33,8 +33,8 @@ public struct ShipmentTrackingInfo: Decodable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.deliveryAddress = (try? container.decode(Address.self, forKey: .deliveryAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "")
-        self.pickupAddress = (try? container.decode(Address.self, forKey: .pickupAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "")
+        self.deliveryAddress = (try? container.decode(Address.self, forKey: .deliveryAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "", isDefaultAddress: false)
+        self.pickupAddress = (try? container.decode(Address.self, forKey: .pickupAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "", isDefaultAddress: false)
         self.carrier = try? container.decodeIfPresent(Carrier.self, forKey: .carrier)
         self.shipmentId = (try? container.decode(String.self, forKey: .shipmentId)) ?? ""
         self.pickupDate = try? container.decodeIfPresent(String.self, forKey: .pickupDate)
