@@ -59,6 +59,10 @@ public struct Rate: Decodable {
     
     public let metadata: RateMetadata?
     
+    public let type: RateType
+    
+    public let isPersonalAccountRate: Bool
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         amount = try? container.decodeIfPresent(Double.self, forKey: .amount)
@@ -82,6 +86,8 @@ public struct Rate: Decodable {
         dropOffRequired = try? container.decodeIfPresent(Bool.self, forKey: .dropOffRequired)
         breakdown = try? container.decodeIfPresent(RateBreakdown.self, forKey: .breakdown)
         metadata = try? container.decodeIfPresent(RateMetadata.self, forKey: .metadata)
+        isPersonalAccountRate = (try? container.decode(Bool.self, forKey: .isPersonalAccountRate)) ?? false
+        type = (try? container.decode(RateType.self, forKey: .type)) ?? .standard
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -102,7 +108,8 @@ public struct Rate: Decodable {
         case dropoffAvailable = "dropoff_available"
         case dropOffOnly = "dropoff_only"
         case dropOffRequired = "dropoff_required"
-        case amount, currency, breakdown, metadata
+        case isPersonalAccountRate = "personal_account_rate"
+        case amount, currency, breakdown, metadata, type
     }
     
 }

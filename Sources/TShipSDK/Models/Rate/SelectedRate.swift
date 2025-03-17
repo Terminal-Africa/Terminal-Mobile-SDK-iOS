@@ -57,6 +57,8 @@ public struct SelectedRate: Decodable {
     
     public let breakdown: RateBreakdown?
     
+    public let type: RateType
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         amount = try? container.decodeIfPresent(Double.self, forKey: .amount)
@@ -76,6 +78,7 @@ public struct SelectedRate: Decodable {
         pickupAddress = try? container.decodeIfPresent(Address.self, forKey: .pickupAddress)
         parcel = try? container.decodeIfPresent(ParcelWithPackagingData<EmptyMetadata>.self, forKey: .parcel)
         breakdown = try? container.decodeIfPresent(RateBreakdown.self, forKey: .breakdown)
+        type = (try? container.decode(RateType.self, forKey: .type)) ?? .standard
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -92,7 +95,7 @@ public struct SelectedRate: Decodable {
         case pickupEta = "pickup_eta"
         case pickupTime = "pickup_time"
         case pickupAddress = "pickup_address"
-        case amount, currency, parcel, breakdown
+        case amount, currency, parcel, breakdown, type
     }
     
 }
