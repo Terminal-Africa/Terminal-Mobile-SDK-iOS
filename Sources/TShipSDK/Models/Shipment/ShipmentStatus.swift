@@ -19,6 +19,12 @@ public enum ShipmentStatus: String, Codable, CaseIterable {
     /// Represents when a shipment is yet to be confirmed by the carrier.
     case pending
     
+    /// Represents when a shipment is being processed.
+    case processing
+    
+    /// Represents when a shipment is pending payment.
+    case pendingPayment = "pending-payment"
+    
     public var title: String{
         get {
             self.rawValue.capitalized
