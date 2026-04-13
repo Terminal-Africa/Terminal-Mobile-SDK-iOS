@@ -104,4 +104,8 @@ public extension TShipSDK {
         )
     }
     
+    func payForShipment(request: PayForShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
+        shipmentsRemote.payForShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

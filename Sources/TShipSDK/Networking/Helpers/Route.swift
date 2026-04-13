@@ -35,11 +35,17 @@ enum Route {
     /// Parcel Route for creating, fetching and updating Parcels. Pass in the Parcel id to add it to the url.
     case parcels(String? = nil)
     
+    /// Route for getting the possibly documents you would want to ship and their hs codes.
+    case getDocuments
+    
     /// Route for getting rates for a shipment.
     case shipmentRates
     
     /// Route for getting quote for a shipment.
     case shipmentQuotes
+    
+    /// Route for getting paying for a shipment.
+    case shipmentPayment
     
     /// Route for getting rates for a multi-parcel shipment.
     case multiParcelShipmentRates
@@ -125,6 +131,8 @@ enum Route {
     
     case simplifiedHSCodes(String? = nil)
     
+    case calculateDuty
+    
     /// String representation of the route
     var description: String {
         switch self {
@@ -159,11 +167,17 @@ enum Route {
             }
             return "/parcels"
             
+        case .getDocuments:
+            return "/parcels/documents-list"
+            
         case .shipmentRates:
             return "/rates/shipment"
             
         case .shipmentQuotes:
             return "/rates/shipment/quotes"
+            
+        case .shipmentPayment:
+            return "/shipments/payment"
             
         case .multiParcelShipmentRates:
             return "/rates/multi/shipment"
@@ -281,6 +295,9 @@ enum Route {
                 return "/hs-codes/simplified/\(hsCodeId)"
             }
             return "/hs-codes/simplified"
+             
+        case .calculateDuty:
+            return "/duties/calculate"
             
         }
     }

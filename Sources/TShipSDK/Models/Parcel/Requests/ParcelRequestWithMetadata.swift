@@ -7,6 +7,8 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
     /// The unique Id used to identify the Packaging used to keep the Items in the Parcel.
     public var packagingId: String?
     
+    public var dimensions: PackagingDimensions?
+    
     /// The unit used to measure the weight of the packaging. Only 'kg' is supported at this time.
     public var weightUnit: String
     
@@ -16,6 +18,8 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
     public var proofOfPayments: [String]
     
     public var proofOfWeights: [String]
+    
+    public var parcelImages: [String]
     
     /// Additional metadata you want to attach to the Parcel.
     public var metadata: T? = nil
@@ -29,13 +33,15 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
     ///   - packagingId: The unique Id used to identify the Packaging used to keep the Items in the Parcel.
     ///   - currency: The currency the value of the items are stored in.
     ///   - weightUnit: The unit used to measure the weight of the packaging. The default value, 'kg', is the only weight unit supported at this time.
-    public init(description: String, packagingId: String? = nil, currency: Currency, weightUnit: WeightUnit = .kg, proofOfPayments: [String] = [], proofOfWeights: [String] = []) {
+    public init(description: String, packagingId: String? = nil, dimensions: PackagingDimensions? = nil, currency: Currency, weightUnit: WeightUnit = .kg, proofOfPayments: [String] = [], proofOfWeights: [String] = [], parcelImages: [String] = []) {
         self.description = description
         self.packagingId = packagingId
+        self.dimensions = dimensions
         self.weightUnit = weightUnit.rawValue
         self.currency = currency
         self.proofOfPayments = proofOfPayments
         self.proofOfWeights = proofOfWeights
+        self.parcelImages = parcelImages
     }
     
     /// Initializer taking in a Parcel whose details you want to copy in order to update or clone it.
@@ -47,7 +53,8 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
         if let parcelWithout = parcel as? ParcelWithoutPackagingData {
             self.packagingId = parcelWithout.packagingId
         } else if let parcelWith = parcel as? ParcelWithPackagingData {
-            self.packagingId = parcelWith.packaging.packagingId
+//            self.packagingId = parcelWith.packaging.packagingId
+            self.dimensions = .init(type: parcelWith.packaging.type, height: parcelWith.packaging.height, width: parcelWith.packaging.width, length: parcelWith.packaging.length)
         } else {
             self.packagingId = ""
         }
@@ -58,6 +65,7 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
         self.metadata = parcel.metadata
         self.proofOfPayments = parcel.proofOfPayments ?? []
         self.proofOfWeights = parcel.proofOfWeights ?? []
+        self.parcelImages = parcel.parcelImages ?? []
     }
     
     /// This function adds an Item to the Parcel.
@@ -68,10 +76,10 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
     ///   - value: The total monetary value of the item. Note that this is the cost per item multiplied by the quantity.
     ///   - weight: The weight of the item. Note that this is the weight per item multiplied by the quantity.
     /// - Returns: The Instance of the ParcelRequest.
-    public func withItem(name: String, description: String, quantity: Int, value: Double, weight: Double, type: ParcelItemType, manufacturerCountry: String?) -> ParcelRequestWithMetadata{
+    public func withItem(name: String, description: String, quantity: Int, value: Double, weight: Double, type: ParcelItemType, manufacturerCountry: String?, scientificName: String? = nil) -> ParcelRequestWithMetadata{
         self.items.append(
             ParcelItem(
-                description: description, name: name, currency: currency, quantity: quantity, value: value, weight: weight, type: type, manufacturerCountry: manufacturerCountry
+                description: description, name: name, currency: currency, quantity: quantity, value: value, weight: weight, type: type, manufacturerCountry: manufacturerCountry, scientificName: scientificName
             )
         )
         return self
@@ -149,11 +157,12 @@ open class ParcelRequestWithMetadata<T: Codable>: Codable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case description, items, currency, metadata
+        case description, items, currency, metadata, dimensions
         case packagingId = "packaging"
         case weightUnit = "weight_unit"
         case proofOfPayments = "proof_of_payments"
         case proofOfWeights = "rec_docs"
+        case parcelImages = "parcel_images"
     }
     
 }

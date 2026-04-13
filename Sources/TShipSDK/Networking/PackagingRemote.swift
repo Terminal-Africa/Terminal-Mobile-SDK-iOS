@@ -15,7 +15,7 @@ class PackagingRemote: NetworkService {
             return
         }
         
-        self.request(route: Route.packaging(), method: Method.post, requestBody: request.request, runCompletionOnUIThread: runCompletionOnUIThread) {
+        self.request(route: Route.packaging(), method: Method.post, requestBody: request.toDict(), runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<Packaging>, Error>) in
             switch(result) {
             case .success(let response):
@@ -68,7 +68,7 @@ class PackagingRemote: NetworkService {
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and the updated Packaging, if no error occurred.
     func updatePackaging(packagingId: String, request: PackagingRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<Packaging, Error>) -> Void){
-        self.request(route: Route.packaging(packagingId), method: Method.put, requestBody: request.request, runCompletionOnUIThread: runCompletionOnUIThread) {
+        self.request(route: Route.packaging(packagingId), method: Method.put, requestBody: request.toDict(), runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<Packaging>, Error>) in
             switch(result) {
             case .success(let response):

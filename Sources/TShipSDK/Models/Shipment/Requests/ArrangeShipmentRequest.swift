@@ -11,22 +11,30 @@ public class ArrangeShipmentRequest: Encodable {
     
     public var dropOffLocationId: String?
     
+    public var dutyPayer: DutyPayer?
+    
+    public var includeDocumentation: Bool
+    
     /// Default initializer taking in the details required to arrange a Shipment.
     /// - Parameters:
     ///   - rateId: The unique id used to identify the rate to use.
-    public init(rateId: String, purchaseInsurance: Bool){
+    public init(rateId: String, purchaseInsurance: Bool, dutyPayer: DutyPayer? = nil, includeDocumentation: Bool = false){
         self.rateId = rateId
         self.purchaseInsurance = purchaseInsurance
+        self.dutyPayer = dutyPayer
+        self.includeDocumentation = includeDocumentation
     }
     
     /// Initializer taking in the rate id and the shipment id of the Shipment to be arranged.
     /// - Parameters:
     ///   - rateId: The unique id used to identify the rate to use.
     ///   - shipmentId: The unique id used to identify the shipment to arrange. If one is not set a new shipment will be created.
-    public init(rateId: String, shipmentId: String, purchaseInsurance: Bool){
+    public init(rateId: String, shipmentId: String, purchaseInsurance: Bool, dutyPayer: DutyPayer? = nil, includeDocumentation: Bool = false){
         self.rateId = rateId
         self.shipmentId = shipmentId
         self.purchaseInsurance = purchaseInsurance
+        self.dutyPayer = dutyPayer
+        self.includeDocumentation = includeDocumentation
     }
     
     /// This function updates the rate id.
@@ -62,6 +70,8 @@ public class ArrangeShipmentRequest: Encodable {
         case shipmentId = "shipment_id"
         case purchaseInsurance = "purchase_insurance"
         case dropOffLocationId = "dropoff_id"
+        case dutyPayer = "duty_payer"
+        case includeDocumentation = "include_documentation"
     }
     
 }

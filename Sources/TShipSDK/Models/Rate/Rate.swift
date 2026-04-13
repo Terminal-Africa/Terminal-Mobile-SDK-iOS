@@ -61,7 +61,11 @@ public struct Rate: Decodable {
     
     public let type: RateType
     
-    public let isPersonalAccountRate: Bool
+    public let regulatoryDocuments: [RegulatoryDocument]
+    
+    public let supportsDuty: Bool
+    
+    public let requiresDuty: Bool
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -86,8 +90,10 @@ public struct Rate: Decodable {
         dropOffRequired = try? container.decodeIfPresent(Bool.self, forKey: .dropOffRequired)
         breakdown = try? container.decodeIfPresent(RateBreakdown.self, forKey: .breakdown)
         metadata = try? container.decodeIfPresent(RateMetadata.self, forKey: .metadata)
-        isPersonalAccountRate = (try? container.decode(Bool.self, forKey: .isPersonalAccountRate)) ?? false
         type = (try? container.decode(RateType.self, forKey: .type)) ?? .standard
+        regulatoryDocuments = (try? container.decode([RegulatoryDocument].self, forKey: .regulatoryDocuments)) ?? []
+        supportsDuty = (try? container.decode(Bool.self, forKey: .supportsDuty)) ?? false
+        requiresDuty = (try? container.decode(Bool.self, forKey: .requiresDuty)) ?? false
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -108,7 +114,9 @@ public struct Rate: Decodable {
         case dropoffAvailable = "dropoff_available"
         case dropOffOnly = "dropoff_only"
         case dropOffRequired = "dropoff_required"
-        case isPersonalAccountRate = "personal_account_rate"
+        case regulatoryDocuments = "regulatory_documents"
+        case supportsDuty = "supports_duty"
+        case requiresDuty = "requires_duty"
         case amount, currency, breakdown, metadata, type
     }
     

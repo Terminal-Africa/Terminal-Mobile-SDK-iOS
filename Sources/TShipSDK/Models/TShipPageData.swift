@@ -37,7 +37,7 @@ public struct TShipPageData: Decodable{
         self.hasNextPage = (try? container.decode(Bool.self, forKey: .hasNextPage)) ?? false
     }
     
-    init(){
+    public init(){
         self.total = 0
         self.perPage = 0
         self.currentPage = 0

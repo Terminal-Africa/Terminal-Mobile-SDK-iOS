@@ -17,12 +17,15 @@ public struct GetDropOffLocationsRequest: Encodable {
     
     public var addressId: String?
     
-    public init(city: String? = nil, state: String? = nil, country: String, carrierSlug: String, addressId: String? = nil) {
+    public var rateId: String?
+    
+    public init(city: String? = nil, state: String? = nil, country: String, carrierSlug: String, addressId: String? = nil, rateId: String? = nil) {
         self.city = city
         self.state = state
         self.country = country
         self.carrierSlug = carrierSlug
         self.addressId = addressId
+        self.rateId = rateId
     }
     
     enum CodingKeys: String, CodingKey {
@@ -32,6 +35,8 @@ public struct GetDropOffLocationsRequest: Encodable {
         case carrierSlug = "carrier"
         
         case addressId = "address_id"
+        
+        case rateId = "rate_id"
         
     }
     

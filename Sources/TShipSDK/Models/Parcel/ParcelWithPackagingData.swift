@@ -10,13 +10,13 @@ public class ParcelWithPackagingData<T: Codable>: Parcel<T> {
         try super.init(from: decoder)
     }
     
-    init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String]?, metadata: T? = nil, items: [ParcelItem], packaging: Packaging) {
+    init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String]?, proofOfWeights: [String]?, parcelImages: [String]?, metadata: T? = nil, items: [ParcelItem], packaging: Packaging, packagingDimensions: PackagingDimensions) {
         self.packaging = packaging
-        super.init(parcelId: parcelId, description: description, weightUnit: weightUnit, totalWeight: totalWeight, proofOfPayments: proofOfPayments, metadata: metadata, items: items)
+        super.init(parcelId: parcelId, description: description, weightUnit: weightUnit, totalWeight: totalWeight, proofOfPayments: proofOfPayments, proofOfWeights: proofOfWeights, parcelImages: parcelImages, metadata: metadata, items: items, packagingDimensions: packagingDimensions)
     }
     
     public func toParcelWithoutPackagingData() -> ParcelWithoutPackagingData<T> {
-        return ParcelWithoutPackagingData(parcelId: parcelId, description: description, weightUnit: weightUnit, totalWeight: totalWeight, proofOfPayments: proofOfPayments, metadata: metadata, items: items, packagingId: packaging.packagingId)
+        return ParcelWithoutPackagingData(parcelId: parcelId, description: description, weightUnit: weightUnit, totalWeight: totalWeight, proofOfPayments: proofOfPayments, proofOfWeights: proofOfWeights, parcelImages: parcelImages, metadata: metadata, items: items, packagingId: packaging.packagingId, packagingDimensions: packagingDimensions)
     }
     
     private enum CodingKeys: String, CodingKey {

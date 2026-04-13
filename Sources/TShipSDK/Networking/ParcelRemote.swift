@@ -74,4 +74,21 @@ class ParcelRemote: NetworkService {
         }
     }
     
+    /// This function fetches the possibly documents you would want to ship and their hs codes.
+    /// - Parameters:
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func getDocuments(runCompletionOnUIThread: Bool, completion: @escaping(Result<[DocumentItem], Error>) -> Void){
+        self.request(route: Route.getDocuments, method: Method.get, runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<[DocumentItem]>, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
 }

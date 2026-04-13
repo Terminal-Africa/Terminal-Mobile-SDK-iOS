@@ -7,8 +7,8 @@
 
 open class ParcelRequest: ParcelRequestWithMetadata<EmptyMetadata> {
     
-    override public func withItem(name: String, description: String, quantity: Int, value: Double, weight: Double, type: ParcelItemType, manufacturerCountry: String?) -> ParcelRequest{
-        super.withItem(name: name, description: description, quantity: quantity, value: value, weight: weight, type: type, manufacturerCountry: manufacturerCountry)
+    override public func withItem(name: String, description: String, quantity: Int, value: Double, weight: Double, type: ParcelItemType, manufacturerCountry: String?, scientificName: String? = nil) -> ParcelRequest{
+        super.withItem(name: name, description: description, quantity: quantity, value: value, weight: weight, type: type, manufacturerCountry: manufacturerCountry, scientificName: scientificName)
         return self
     }
     

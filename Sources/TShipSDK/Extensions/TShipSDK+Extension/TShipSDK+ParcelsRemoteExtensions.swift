@@ -51,4 +51,12 @@ public extension TShipSDK {
         parcelRemote.updateParcel(parcelId: parcelId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This fetches the possibly documents you would want to ship and their hs codes..
+    /// - Parameters:
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and data.
+    func getDocuments(runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[DocumentItem], Error>) -> Void){
+        parcelRemote.getDocuments(runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
 }

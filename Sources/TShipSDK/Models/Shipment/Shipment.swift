@@ -35,6 +35,20 @@ public class Shipment: Decodable{
     
     public let type: ShipmentType
     
+    public let duty: CustomDuty?
+    
+    public let dutyPaid: Bool?
+    
+    public let dutyApplied: Bool?
+    
+    public let regulatoryDocuments: [RegulatoryDocument]
+    
+    public let regulatoryDocumentsIncluded: Bool?
+    
+    public let regulatoryDocumentsStatus: String?
+    
+    public let thubShipmentStatus: String?
+    
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         shipmentId = (try? container.decode(String.self, forKey: .shipmentId)) ?? ""
@@ -50,9 +64,16 @@ public class Shipment: Decodable{
         transactionReference = try? container.decodeIfPresent(String.self, forKey: .transactionReference)
         createdAt = (try? container.decodeIfPresent(String.self, forKey: .createdAt)) ?? ""
         type = (try? container.decodeIfPresent(ShipmentType.self, forKey: .type)) ?? .terminal
+        duty = try? container.decodeIfPresent(CustomDuty.self, forKey: .duty)
+        dutyPaid = try? container.decodeIfPresent(Bool.self, forKey: .dutyPaid)
+        dutyApplied = try? container.decodeIfPresent(Bool.self, forKey: .dutyApplied)
+        regulatoryDocuments = (try? container.decodeIfPresent([RegulatoryDocument].self, forKey: .regulatoryDocuments)) ?? []
+        regulatoryDocumentsIncluded = try? container.decodeIfPresent(Bool.self, forKey: .regulatoryDocumentsIncluded)
+        regulatoryDocumentsStatus = try? container.decodeIfPresent(String.self, forKey: .regulatoryDocumentsStatus)
+        thubShipmentStatus = try? container.decodeIfPresent(String.self, forKey: .thubShipmentStatus)
     }
     
-    init(shipmentId: String, pickupDate: String?, shipmentPurpose: ShipmentPurpose, status: ShipmentStatus, events: [ShipmentEvent], extras: ShipmentExtras?, shipmentCost: Double?, shipmentCostCurrency: Currency?, cancellationRequest: Bool?, metadata: ShipmentMetadata?, transactionReference: String?, createdAt: String, type: ShipmentType){
+    init(shipmentId: String, pickupDate: String?, shipmentPurpose: ShipmentPurpose, status: ShipmentStatus, events: [ShipmentEvent], extras: ShipmentExtras?, shipmentCost: Double?, shipmentCostCurrency: Currency?, cancellationRequest: Bool?, metadata: ShipmentMetadata?, transactionReference: String?, createdAt: String, type: ShipmentType, duty: CustomDuty?, dutyPaid: Bool?, dutyApplied: Bool?, regulatoryDocuments: [RegulatoryDocument], regulatoryDocumentsIncluded: Bool?, regulatoryDocumentsStatus: String?, thubShipmentStatus: String?){
         self.shipmentId = shipmentId
         self.pickupDate = pickupDate
         self.shipmentPurpose = shipmentPurpose
@@ -66,6 +87,13 @@ public class Shipment: Decodable{
         self.transactionReference = transactionReference
         self.createdAt = createdAt
         self.type = type
+        self.duty = duty
+        self.dutyPaid = dutyPaid
+        self.dutyApplied = dutyApplied
+        self.regulatoryDocuments = regulatoryDocuments
+        self.regulatoryDocumentsIncluded = regulatoryDocumentsIncluded
+        self.regulatoryDocumentsStatus = regulatoryDocumentsStatus
+        self.thubShipmentStatus = thubShipmentStatus
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -77,7 +105,13 @@ public class Shipment: Decodable{
         case cancellationRequest = "cancellation_request"
         case transactionReference = "transaction_reference"
         case createdAt = "created_at"
-        case status, events, extras, metadata, type
+        case dutyPaid = "duty_paid"
+        case dutyApplied = "duty_applied"
+        case regulatoryDocuments = "regulatory_documents"
+        case regulatoryDocumentsIncluded = "regulatory_documents_included"
+        case regulatoryDocumentsStatus = "regulatory_documents_status"
+        case thubShipmentStatus = "thub_shipment_status"
+        case status, events, extras, metadata, type, duty
     }
     
 }

@@ -54,6 +54,8 @@ public struct Address: Codable, Equatable {
     /// Indicates whether the address is the user's default address
     public let isDefaultAddress: Bool
     
+    public let type: AddressType
+    
     private enum CodingKeys : String, CodingKey {
         case addressId = "address_id"
         case firstName = "first_name"
@@ -66,7 +68,7 @@ public struct Address: Codable, Equatable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case isDefaultAddress = "sender_default"
-        case city, country , email, line1, line2, state, coordinates, alias
+        case city, country , email, line1, line2, state, coordinates, alias, type
     }
     
     public init(from decoder: Decoder) throws {
@@ -90,9 +92,10 @@ public struct Address: Codable, Equatable {
         self.line1 = try container.decodeIfPresent(String.self, forKey: .line1) ?? ""
         self.line2 = try container.decodeIfPresent(String.self, forKey: .line2) ?? ""
         self.isDefaultAddress = (try? container.decode(Bool.self, forKey: .isDefaultAddress)) ?? false
+        self.type = (try? container.decode(AddressType.self, forKey: .type)) ?? .UserAddress
     }
     
-    init(addressId: String, firstName: String, lastName: String, email: String, line1: String, line2: String, phoneNumber: String, altPhoneNumber: String, state: String, zipCode: String, isResidential: Bool, tShopId: String, coordinates: Coordinates, alias: String, createdAt: String, updatedAt: String, country: String, city: String, isDefaultAddress: Bool){
+    init(addressId: String, firstName: String, lastName: String, email: String, line1: String, line2: String, phoneNumber: String, altPhoneNumber: String, state: String, zipCode: String, isResidential: Bool, tShopId: String, coordinates: Coordinates, alias: String, createdAt: String, updatedAt: String, country: String, city: String, isDefaultAddress: Bool, type: AddressType){
         self.addressId = addressId
         self.firstName = firstName
         self.lastName = lastName
@@ -112,6 +115,7 @@ public struct Address: Codable, Equatable {
         self.country = country
         self.city = city
         self.isDefaultAddress = isDefaultAddress
+        self.type = type
     }
     
     public static func == (lhs: Address, rhs: Address) -> Bool {

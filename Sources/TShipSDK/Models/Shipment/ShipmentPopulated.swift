@@ -21,9 +21,9 @@ public class ShipmentPopulated: Shipment {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        deliveryAddress = (try? container.decode(Address.self, forKey: .deliveryAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "", isDefaultAddress: false)
-        pickupAddress = (try? container.decode(Address.self, forKey: .pickupAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "", isDefaultAddress: false)
-        returnAddress = (try? container.decode(Address.self, forKey: .returnAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "", isDefaultAddress: false)
+        deliveryAddress = (try? container.decode(Address.self, forKey: .deliveryAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "", isDefaultAddress: false, type: .UserAddress)
+        pickupAddress = (try? container.decode(Address.self, forKey: .pickupAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "", isDefaultAddress: false, type: .UserAddress)
+        returnAddress = (try? container.decode(Address.self, forKey: .returnAddress)) ?? Address(addressId: "", firstName: "", lastName: "", email: "", line1: "", line2: "", phoneNumber: "", altPhoneNumber: "", state: "", zipCode: "", isResidential: true, tShopId: "", coordinates: Coordinates(lat: 0, lng: 0), alias: "", createdAt: "", updatedAt: "", country: "", city: "", isDefaultAddress: false, type: .UserAddress)
         carrier = try? container.decodeIfPresent(Carrier.self, forKey: .carrier)
         rate = try? container.decodeIfPresent(Rate.self, forKey: .rate)
         insurance = try? container.decodeIfPresent(InsuranceUnpopulated.self, forKey: .insurance)
@@ -31,7 +31,7 @@ public class ShipmentPopulated: Shipment {
         try super.init(from: decoder)
     }
     
-    init(shipmentId: String, pickupDate: String?, shipmentPurpose: ShipmentPurpose, status: ShipmentStatus, events: [ShipmentEvent], extras: ShipmentExtras?, shipmentCost: Double?, shipmentCostCurrency: Currency?, cancellationRequest: Bool?, metadata: ShipmentMetadata?, deliveryAddress: Address, pickupAddress: Address, returnAddress: Address, carrier: Carrier?, rate: Rate?, transactionReference: String?, createdAt: String, type: ShipmentType, insurance: InsuranceUnpopulated?, feedback: Feedback?) {
+    init(shipmentId: String, pickupDate: String?, shipmentPurpose: ShipmentPurpose, status: ShipmentStatus, events: [ShipmentEvent], extras: ShipmentExtras?, shipmentCost: Double?, shipmentCostCurrency: Currency?, cancellationRequest: Bool?, metadata: ShipmentMetadata?, deliveryAddress: Address, pickupAddress: Address, returnAddress: Address, carrier: Carrier?, rate: Rate?, transactionReference: String?, createdAt: String, type: ShipmentType, insurance: InsuranceUnpopulated?, feedback: Feedback?, duty: CustomDuty?, dutyPaid: Bool?, dutyApplied: Bool?, regulatoryDocuments: [RegulatoryDocument], regulatoryDocumentsIncluded: Bool?, regulatoryDocumentsStatus: String?, thubShipmentStatus: String?) {
         self.deliveryAddress = deliveryAddress
         self.pickupAddress = pickupAddress
         self.returnAddress = returnAddress
@@ -39,7 +39,7 @@ public class ShipmentPopulated: Shipment {
         self.rate = rate
         self.insurance = insurance
         self.feedback = feedback
-        super.init(shipmentId: shipmentId, pickupDate: pickupDate, shipmentPurpose: shipmentPurpose, status: status, events: events, extras: extras, shipmentCost: shipmentCost, shipmentCostCurrency: shipmentCostCurrency, cancellationRequest: cancellationRequest, metadata: metadata, transactionReference: transactionReference, createdAt: createdAt, type: type)
+        super.init(shipmentId: shipmentId, pickupDate: pickupDate, shipmentPurpose: shipmentPurpose, status: status, events: events, extras: extras, shipmentCost: shipmentCost, shipmentCostCurrency: shipmentCostCurrency, cancellationRequest: cancellationRequest, metadata: metadata, transactionReference: transactionReference, createdAt: createdAt, type: type, duty: duty, dutyPaid: dutyPaid, dutyApplied: dutyApplied, regulatoryDocuments: regulatoryDocuments, regulatoryDocumentsIncluded: regulatoryDocumentsIncluded, regulatoryDocumentsStatus: regulatoryDocumentsStatus, thubShipmentStatus: thubShipmentStatus)
     }
     
     private enum CodingKeys: String, CodingKey {

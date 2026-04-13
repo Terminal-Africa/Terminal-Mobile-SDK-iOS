@@ -27,7 +27,9 @@ public struct ParcelItem: Codable, Equatable {
     
     public var manufacturerCountry: String?
     
-    public init(description: String, name: String, currency: Currency, quantity: Int, value: Double, weight: Double, hsCode: String? = nil, hsCodeId: String? = nil, type: ParcelItemType, manufacturerCountry: String?) {
+    public var scientificName: String?
+    
+    public init(description: String, name: String, currency: Currency, quantity: Int, value: Double, weight: Double, hsCode: String? = nil, hsCodeId: String? = nil, type: ParcelItemType, manufacturerCountry: String?, scientificName: String?) {
         self.description = description
         self.name = name
         self.currency = currency
@@ -38,6 +40,7 @@ public struct ParcelItem: Codable, Equatable {
         self.hsCodeId = hsCodeId
         self.type = type
         self.manufacturerCountry = manufacturerCountry
+        self.scientificName = scientificName
     }
     
     public init(from decoder: Decoder) throws {
@@ -52,10 +55,11 @@ public struct ParcelItem: Codable, Equatable {
         self.hsCodeId = try? container.decode(String.self, forKey: .hsCodeId)
         self.type = (try? container.decode(ParcelItemType.self, forKey: .type)) ?? .parcel
         self.manufacturerCountry = try? container.decode(String.self, forKey: .manufacturerCountry)
+        self.scientificName = try? container.decode(String.self, forKey: .scientificName)
     }
     
     public static func == (lhs: ParcelItem, rhs: ParcelItem) -> Bool {
-        return lhs.description == rhs.description && lhs.name == rhs.name && lhs.currency == rhs.currency && lhs.quantity == rhs.quantity && lhs.value == rhs.value && lhs.weight == rhs.weight && lhs.hsCode == rhs.hsCode && lhs.hsCodeId == rhs.hsCodeId && lhs.type == rhs.type && lhs.manufacturerCountry == rhs.manufacturerCountry
+        return lhs.description == rhs.description && lhs.name == rhs.name && lhs.currency == rhs.currency && lhs.quantity == rhs.quantity && lhs.value == rhs.value && lhs.weight == rhs.weight && lhs.hsCode == rhs.hsCode && lhs.hsCodeId == rhs.hsCodeId && lhs.type == rhs.type && lhs.manufacturerCountry == rhs.manufacturerCountry && lhs.scientificName == rhs.scientificName
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -63,6 +67,7 @@ public struct ParcelItem: Codable, Equatable {
         case hsCode = "hs_code"
         case manufacturerCountry = "manufacturer_country"
         case hsCodeId = "hs_code_id"
+        case scientificName = "scientific_name"
     }
     
 }

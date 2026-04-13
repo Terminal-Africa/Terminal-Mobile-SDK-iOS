@@ -187,4 +187,16 @@ class ShipmentsRemote: NetworkService {
         }
     }
     
+    func payForShipment(request: PayForShipmentRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
+        self.request(route: Route.shipmentPayment, method: Method.post, requestBody: codableClassToDict(model: request), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<EmptyTShipResponse, Error>) in
+            switch(result) {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
 }

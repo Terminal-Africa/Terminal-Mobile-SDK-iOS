@@ -25,20 +25,27 @@ public class Parcel<T: Codable>: Codable {
     
     public var proofOfWeights: [String]?
     
+    public var parcelImages: [String]?
+    
     /// Metadata to be attached to the Parcel.
     public var metadata: T? = nil
     
     /// A list of items in the Parcel.
     public let items: [ParcelItem]
     
-    init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String]?, metadata: T? = nil, items: [ParcelItem]) {
+    public let packagingDimensions: PackagingDimensions
+    
+    init(parcelId: String, description: String, weightUnit: String, totalWeight: Double, proofOfPayments: [String]?, proofOfWeights: [String]?, parcelImages: [String]?, metadata: T? = nil, items: [ParcelItem], packagingDimensions: PackagingDimensions) {
         self.parcelId = parcelId
         self.description = description
         self.weightUnit = weightUnit
         self.totalWeight = totalWeight
         self.proofOfPayments = proofOfPayments
+        self.proofOfWeights = proofOfWeights
+        self.parcelImages = parcelImages
         self.metadata = metadata
         self.items = items
+        self.packagingDimensions = packagingDimensions
     }
     
     required public init(from decoder: Decoder) throws {
@@ -49,8 +56,10 @@ public class Parcel<T: Codable>: Codable {
         self.totalWeight = (try? container.decode(Double.self, forKey: .totalWeight)) ?? 0
         self.proofOfPayments = (try? container.decode([String].self, forKey: .proofOfPayments)) ?? []
         self.proofOfWeights = (try? container.decode([String].self, forKey: .proofOfWeights)) ?? []
+        self.parcelImages = (try? container.decode([String].self, forKey: .parcelImages)) ?? []
         self.metadata = (try? container.decode(T.self, forKey: .metadata)) ?? nil
         self.items = (try? container.decode([ParcelItem].self, forKey: .items)) ?? []
+        self.packagingDimensions = try container.decode(PackagingDimensions.self, forKey: .packagingDimensions)
     }
     
     public func getTotalItemValue() -> Double{
@@ -67,6 +76,8 @@ public class Parcel<T: Codable>: Codable {
         case totalWeight = "total_weight"
         case proofOfPayments = "proof_of_payments"
         case proofOfWeights = "rec_docs"
+        case parcelImages = "parcel_images"
+        case packagingDimensions = "packaging_dimensions"
         case description, metadata, items
     }
     

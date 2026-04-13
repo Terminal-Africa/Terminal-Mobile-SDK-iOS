@@ -52,12 +52,18 @@ public struct SelectedRate: Decodable {
     /// The unique id used to identify the previously stored address to pick up the parcel from.
     public let pickupAddress: Address?
     
-    /// The unique Id used to identify the parcel that contains the Items to be shipped.
+    /// The parcel that contains the Items to be shipped.
     public let parcel: ParcelWithPackagingData<EmptyMetadata>?
+    
+    public let parcels: [ParcelWithPackagingData<EmptyMetadata>]
     
     public let breakdown: RateBreakdown?
     
     public let type: RateType
+    
+    public let regulatoryDocuments: [RegulatoryDocument]
+    
+    public let metadata: RateMetadata?
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -77,8 +83,11 @@ public struct SelectedRate: Decodable {
         pickupTime = try? container.decodeIfPresent(String.self, forKey: .pickupTime)
         pickupAddress = try? container.decodeIfPresent(Address.self, forKey: .pickupAddress)
         parcel = try? container.decodeIfPresent(ParcelWithPackagingData<EmptyMetadata>.self, forKey: .parcel)
+        parcels = (try? container.decodeIfPresent([ParcelWithPackagingData<EmptyMetadata>].self, forKey: .parcels)) ?? []
         breakdown = try? container.decodeIfPresent(RateBreakdown.self, forKey: .breakdown)
         type = (try? container.decode(RateType.self, forKey: .type)) ?? .standard
+        regulatoryDocuments = (try? container.decode([RegulatoryDocument].self, forKey: .regulatoryDocuments)) ?? []
+        metadata = try? container.decodeIfPresent(RateMetadata.self, forKey: .metadata)
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -95,7 +104,8 @@ public struct SelectedRate: Decodable {
         case pickupEta = "pickup_eta"
         case pickupTime = "pickup_time"
         case pickupAddress = "pickup_address"
-        case amount, currency, parcel, breakdown, type
+        case regulatoryDocuments = "regulatory_documents"
+        case amount, currency, parcel, parcels, breakdown, type, metadata
     }
     
 }
