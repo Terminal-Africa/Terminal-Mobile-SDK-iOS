@@ -122,7 +122,9 @@ enum Route {
     case getHSCodeCategories
     
     case searchHSCode
-    
+
+    case searchHSCodesAI
+
     case simplifiedHSCodeChapters
     
     case simplifiedHSCodeCategories
@@ -277,7 +279,10 @@ enum Route {
             
         case .searchHSCode:
             return "/hs-codes/search/query"
-            
+
+        case .searchHSCodesAI:
+            return "/hs-codes/ai/search"
+
         case .verifyReferralCodeUsed:
             return "/shopship/rate/referral-code/verify"
             

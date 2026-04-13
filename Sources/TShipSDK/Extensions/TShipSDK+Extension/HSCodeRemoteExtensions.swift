@@ -18,5 +18,9 @@ public extension TShipSDK {
     func searchHSCodes(request: SearchHSCodeRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<SearchHSCodesResponseData, Error>) -> Void){
         hsCodeRemote.searchHSCode(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
-    
+
+    func searchHSCodesWithAI(request: SearchHSCodesAIRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[AIHSCode], Error>) -> Void) {
+        hsCodeRemote.searchHSCodesWithAI(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+
 }

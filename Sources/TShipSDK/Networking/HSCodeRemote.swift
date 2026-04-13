@@ -51,7 +51,7 @@ class HSCodeRemote: NetworkService {
     }
     
     func searchHSCode(request: SearchHSCodeRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<SearchHSCodesResponseData, Error>) -> Void){
-        
+
         self.request(route: Route.searchHSCode, method: Method.get, queryParameters: request.toDict(), runCompletionOnUIThread: runCompletionOnUIThread) {
             (result: Result<GenericTShipResponse<SearchHSCodesResponseData>, Error>) in
             switch(result) {
@@ -60,8 +60,25 @@ class HSCodeRemote: NetworkService {
             case .failure(let error):
                 completion(.failure(error))
             }
-            
+
         }
     }
-    
+
+    /// This searches for HS Codes using AI on the TShip API.
+    /// - Parameters:
+    ///   - request: The request object containing the item description.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call, passing along the response status and response data.
+    func searchHSCodesWithAI(request: SearchHSCodesAIRequest, runCompletionOnUIThread: Bool, completion: @escaping(Result<[AIHSCode], Error>) -> Void) {
+        self.request(route: Route.searchHSCodesAI, method: Method.post, requestBody: request.toDict(), runCompletionOnUIThread: runCompletionOnUIThread) {
+            (result: Result<GenericTShipResponse<[AIHSCode]>, Error>) in
+            switch result {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
 }
