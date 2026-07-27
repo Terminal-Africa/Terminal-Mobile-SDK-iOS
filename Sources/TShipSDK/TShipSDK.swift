@@ -5,7 +5,11 @@ let TSHIP_API_DEV_ENV_BASE_URL = "https://sandbox.terminal.africa/v1"
 let TSHIP_API_LIVE_ENV_BASE_URL_V2 = "https://api.terminal.africa/v2"
 let TSHIP_API_DEV_ENV_BASE_URL_V2 = "https://sandbox.terminal.africa/v2"
 
-/// The TShipSDK class allows you to perform any operation you would want to perform on TShipAPI.
+/// A client for accessing the Terminal shipping API.
+///
+/// Create a client with ``init(secretKey:appIdentifier:useLiveEnvironment:)``,
+/// or use ``createInstance(secretKey:appIdentifier:useLiveEnvironment:)`` when
+/// the app needs a shared instance.
 public class TShipSDK {
     
     /// User's TShipAPI Secret key
@@ -109,20 +113,28 @@ public class TShipSDK {
         return DutiesRemote(baseUrl: baseUrl, bearerToken: secretKey, appIdentifier: appIdentifier)
     }
     
-    /// Initializes the TShipSDK with secret key which is required for all calls to the TShipAPI.
+    /// Creates a Terminal shipping API client.
     /// - Parameters:
-    ///  - secretKey: User's TShipAPI Secret key.
-    ///  - useLiveEnvironment: Determines whether use the live or test endpoints.
+    ///   - secretKey: The secret API key used to authorize requests.
+    ///   - appIdentifier: The identifier sent with requests to identify the integrating app.
+    ///   - useLiveEnvironment: `true` to use production; `false` to use the sandbox. Defaults to `false`.
     public init(secretKey: String, appIdentifier: String, useLiveEnvironment: Bool = false) {
         self.secretKey = secretKey
         self.useLiveEnvironment = useLiveEnvironment
         self.appIdentifier = appIdentifier
     }
     
-    /// Saves a static instance of the TShipSDK class so it only needs to be intialized once.
+    /// The shared client created by ``createInstance(secretKey:appIdentifier:useLiveEnvironment:)``.
+    ///
+    /// This value is `nil` until `createInstance` is called.
     public static var instance: TShipSDK?
     
-    /// This function is used to create the static instance of TShipSDK
+    /// Creates and stores the shared Terminal shipping API client.
+    /// - Parameters:
+    ///   - secretKey: The secret API key used to authorize requests.
+    ///   - appIdentifier: The identifier sent with requests to identify the integrating app.
+    ///   - useLiveEnvironment: `true` to use production; `false` to use the sandbox. Defaults to `false`.
+    /// - Returns: The newly created client, also available from ``instance``.
     @discardableResult
     public static func createInstance(secretKey: String, appIdentifier: String, useLiveEnvironment: Bool = false) -> TShipSDK {
         instance = TShipSDK(secretKey: secretKey, appIdentifier: appIdentifier, useLiveEnvironment: useLiveEnvironment)

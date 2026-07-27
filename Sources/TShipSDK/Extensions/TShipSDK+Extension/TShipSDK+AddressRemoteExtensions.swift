@@ -43,9 +43,8 @@ public extension TShipSDK {
     /// This sets an Address previously created on the TShip API as the default address.
     /// - Parameters:
     ///   - addressId: Unique id used to identify the address.
-    ///   - request: Request body with the Address details you want to update. This should be created with the AddressRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
-    ///   - completion: The completion handler to call, passing along the response status and the updated Address if no error occurred.
+    ///   - completion: The completion handler to call with the new default Address or an error.
     func setDefaultAddress(addressId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
         addressesRemote.setDefaultAddress(addressId: addressId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
@@ -53,7 +52,7 @@ public extension TShipSDK {
     /// This gets the Address previously set on the TShip API as the default address.
     /// - Parameters:
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
-    ///   - completion: The completion handler to call, passing along the response status and the updated Address if no error occurred.
+    ///   - completion: The completion handler to call with the default Address or an error.
     func getDefaultAddress(runCompletionOnUIThread: Bool = true, completion: @escaping(Result<Address, Error>) -> Void){
         addressesRemote.getDefaultAddress(runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
@@ -62,7 +61,7 @@ public extension TShipSDK {
     /// - Parameters:
     ///   - addressId: Unique id used to identify the address.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
-    ///   - completion: The completion handler to call, passing along the response status and the updated Address if no error occurred.
+    ///   - completion: The completion handler to call with the API response or an error.
     func deleteAddress(addressId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
         addressesRemote.deleteAddress(addressId: addressId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }

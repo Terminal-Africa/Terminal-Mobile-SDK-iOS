@@ -5,6 +5,7 @@
 //  Created by maxSpane on 11/08/2023.
 //
 
+/// A carrier or Terminal location where a parcel can be dropped off.
 public struct DropOffLocation: Decodable {
     
     public let address: String

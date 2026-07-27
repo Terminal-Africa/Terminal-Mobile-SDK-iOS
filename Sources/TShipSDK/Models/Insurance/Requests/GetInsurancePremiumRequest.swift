@@ -5,6 +5,10 @@
 //  Created by maxSpane on 04/01/2023.
 //
 
+/// Parameters for calculating an insurance premium.
+///
+/// Initialize the request with either an existing parcel identifier or a
+/// declared parcel value, depending on the premium endpoint being used.
 public class GetInsurancePremiumRequest: Encodable{
     public var parcelId: String?
     public var currency: Currency
@@ -12,6 +16,7 @@ public class GetInsurancePremiumRequest: Encodable{
     public var insuranceType: InsuranceType
     public var shipmentCurrency: Currency
     
+    /// Creates a premium request for an existing parcel.
     public init(parcelId: String, currency: Currency = .NGN, insuranceType: InsuranceType, shipmentCurrency: Currency = .NGN) {
         self.parcelId = parcelId
         self.currency = currency
@@ -19,6 +24,7 @@ public class GetInsurancePremiumRequest: Encodable{
         self.shipmentCurrency = shipmentCurrency
     }
     
+    /// Creates a premium request from a declared parcel value.
     public init(parcelValue: Double, currency: Currency = .NGN, insuranceType: InsuranceType, shipmentCurrency: Currency = .NGN) {
         self.parcelValue = parcelValue
         self.currency = currency

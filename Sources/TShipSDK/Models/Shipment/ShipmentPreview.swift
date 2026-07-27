@@ -5,6 +5,10 @@
 //  Created by maxSpane on 19/09/2023.
 //
 
+/// A flattened shipment summary returned by the version 2 listing endpoint.
+///
+/// Required text and enum fields fall back to empty or default values when
+/// their response fields are absent or malformed.
 public struct ShipmentPreview: Decodable{
     
     public let addressTo: String

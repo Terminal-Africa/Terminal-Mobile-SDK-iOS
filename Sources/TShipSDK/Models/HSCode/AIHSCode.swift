@@ -3,6 +3,7 @@
 //
 //
 
+/// An HS code suggested by the AI-assisted classification endpoint.
 public struct AIHSCode: Decodable {
 
     public let hsCode: String

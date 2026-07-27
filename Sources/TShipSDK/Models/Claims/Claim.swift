@@ -5,6 +5,7 @@
 //  Created by maxSpane on 01/03/2023.
 //
 
+/// An insurance claim filed for a shipment.
 public struct Claim: Decodable {
     
     public let description: String

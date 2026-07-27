@@ -5,6 +5,7 @@
 //  Created by maxSpane on 23/08/2023.
 //
 
+/// A Harmonized System classification code and its catalogue hierarchy.
 public struct HSCode: Decodable {
     
     public let chapterCode: String

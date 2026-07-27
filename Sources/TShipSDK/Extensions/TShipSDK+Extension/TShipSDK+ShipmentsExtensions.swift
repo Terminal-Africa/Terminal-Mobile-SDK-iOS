@@ -21,7 +21,7 @@ public extension TShipSDK {
         shipmentsRemote.getShipment(shipmentId: shipmentId, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
-    /// This function fetches Shipments previously created on the TShip API with the Shipment.
+    /// Fetches a page of shipments containing resource identifiers.
     /// - Parameters:
     ///   - request: Contains the query parameters for paginating through the Shipments. This should be created with the PaginatedRequestBuilder class.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
@@ -30,7 +30,7 @@ public extension TShipSDK {
         shipmentsRemote.getShipments(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
-    /// This function fetches Shipments previously created on the TShip API with the Shipment populated with details for addresses, carriers and parcel.
+    /// Fetches a page of shipments with address, carrier, and parcel details populated.
     /// - Parameters:
     ///   - parcelMetadataType: The metatype of the metadata model struct/class attached to the Parcel in the Shipment. You can omit this value if you didn't attach metadata to the Parcel or you don't need it. The default type of the metadata is EmptyMetadata.self, EmptyMetadata being an empty struct.
     ///   - request: Contains the query parameters for paginating through the Shipments. This should be created with the PaginatedRequestBuilder class.
@@ -86,14 +86,20 @@ public extension TShipSDK {
         shipmentsRemote.updateShipment( shipmentId: shipmentId, request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// Reports that pickup for a shipment is delayed.
+    /// - Parameter request: The shipment identifier and delay feedback.
     func reportShipmentPickupDelay(request: ReportShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
         shipmentsRemote.reportShipmentPickupDelay( request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// Creates a new shipment by copying an existing shipment.
+    /// - Parameter request: Identifies the shipment to duplicate.
     func duplicateShipment(request: DuplicateShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<ShipmentPopulatedWithPackagingData<EmptyMetadata>, Error>) -> Void){
         shipmentsRemote.duplicateShipment( request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// Permanently deletes a draft shipment.
+    /// - Parameter shipmentId: The identifier of the shipment to delete.
     func deleteShipment(shipmentId: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
         shipmentsRemote.deleteShipment(
             request: DeleteShipmenRequest(
@@ -104,6 +110,8 @@ public extension TShipSDK {
         )
     }
     
+    /// Pays the outstanding charge for a shipment.
+    /// - Parameter request: The shipment and payment details.
     func payForShipment(request: PayForShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void){
         shipmentsRemote.payForShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }

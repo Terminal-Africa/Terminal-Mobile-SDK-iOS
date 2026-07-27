@@ -1,10 +1,10 @@
 /// An enum representing transaction flow types.
 public enum TransactionFlow: String, Codable {
     
-    /// Represents money going out of the wallet.
+    /// Represents money entering the wallet.
     case inflow = "in"
     
-    /// Represents money going into the wallet.
+    /// Represents money leaving the wallet.
     case outflow = "out"
     
 }

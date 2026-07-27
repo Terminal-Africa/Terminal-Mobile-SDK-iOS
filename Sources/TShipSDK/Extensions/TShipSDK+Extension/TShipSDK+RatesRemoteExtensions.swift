@@ -1,7 +1,7 @@
 /// Extensions for Rates remote methods on TShipSDK.
 public extension TShipSDK {
     
-    /// This function gets the rates for a shipment using the TShip API.
+    /// Fetches rates for a shipment and parcel.
     /// - Parameters:
     ///   - request: Request with parameters needed to get shipment rate.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
@@ -10,10 +10,16 @@ public extension TShipSDK {
         ratesRemote.getRatesForShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// Fetches rates for a shipment containing multiple parcels.
+    /// - Parameter request: The shipment addresses, parcels, and currency to quote.
     func getRatesForMultiParcelShipment(request: GetRatesForMultiParcelShipmentRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[Rate], Error>) -> Void){
         ratesRemote.getRatesForMultiParcelShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// Quotes a shipment from inline address and parcel details.
+    ///
+    /// Unlike ``getRatesForShipment(request:runCompletionOnUIThread:completion:)``,
+    /// this operation does not require previously created address or parcel identifiers.
     func getQuotesForShipment(request: GetShipmentQuotesRequest, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[Rate], Error>) -> Void){
         ratesRemote.getQuotesForShipment(request: request, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }

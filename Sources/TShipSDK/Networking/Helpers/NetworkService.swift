@@ -35,7 +35,7 @@ class NetworkService {
         request(route: route, method: method, queryParameters: queryParameters?.toDict(), requestBody: requestBody?.toDict(), runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
-    /// This function makes an API request.
+    /// Creates and starts an API request.
     /// - Parameters:
     ///   - route: The path the the resource in the backend.
     ///   - method: Type of request to be made.
@@ -43,7 +43,7 @@ class NetworkService {
     ///   - requestBody: Request body you need to pass to the backend.
     ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
     ///   - completion: The completion handler to call, passing along the response status and response data.
-    /// - Returns: URLRequest
+    /// - Returns: The running session task, or `nil` if the request URL could not be created.
     func request<T: Decodable>(
         route: Route,
         method: Method,
@@ -75,14 +75,14 @@ class NetworkService {
         return task
     }
     
-    /// This function generates a urlRequest.
+    /// Creates a URL request without starting it.
     /// - Parameters:
     ///   - route: The path the the resource in the backend.
     ///   - method: Type of request to be made.
     ///   - bearerToken: The bearer token for API access. Usually access token or a secret/public key. 'Bearer' is added for you so you need only provide the key/token.
     ///   - queryParameters: Query parameters you need to pass to the backend.
     ///   - requestBody: Request body you need to pass to the backend.
-    /// - Returns: URLRequest
+    /// - Returns: The configured URL request, or `nil` when the route cannot form a valid URL.
     private func createRequest(route: Route,
                                method: Method,
                                bearerToken: String? = nil,
@@ -144,7 +144,10 @@ class NetworkService {
     }
 
     
-    /// This function handles responses gotten from the server, calling the completion handler when it is done. This function is tuned to be friendlier to the error data model used in the TShip API by decoding the error data with TShipResponseWithoutData struct so it is easier to get and pass along the error messages from BAD_REQUESTs(400) since the data it returns is not consistent and is not being used for now.
+    /// Decodes successful responses and maps API failures to ``TShipSDKError``.
+    ///
+    /// Bad-request responses are decoded as ``TShipResponseWithoutData`` so the
+    /// server-provided message is preserved.
     /// - Parameters:
     ///   - response: The response  gotten from running URLSession.dataTask or .data.
     ///   - data: Data gotten from running URLSession.dataTask or .data.
