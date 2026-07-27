@@ -9,22 +9,24 @@ public extension TShipSDK {
     
     /// Fetches a quick shipment quote using inline addresses and a minimal parcel.
     ///
-    /// The generated parcel uses NGN, a nominal item value, and Nigeria as the
+    /// The generated parcel uses a nominal item value and Nigeria as the
     /// manufacturer country. Use ``getQuotesForShipment(request:runCompletionOnUIThread:completion:)``
     /// when those values must be controlled.
-    func getRatesForShipmentShorthand(pickupAddress: AddressRequest, deliveryAddress: AddressRequest, weight: Double, packagingId: String? = nil, itemType: ParcelItemType = .parcel, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[Rate], Error>) -> Void){
+    /// - Parameter currency: The currency for the parcel value and returned rates.
+    func getRatesForShipmentShorthand(pickupAddress: AddressRequest, deliveryAddress: AddressRequest, weight: Double, packagingId: String? = nil, itemType: ParcelItemType = .parcel, currency: Currency = .NGN, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<[Rate], Error>) -> Void){
         let fillerParcelItemDesc = "Dummy parcel for getting rates quickly before user login"
         let parcel: ParcelRequest = ParcelRequest(
             description: fillerParcelItemDesc,
             packagingId: packagingId,
-            currency: .NGN)
+            currency: currency)
             .withItem(name: fillerParcelItemDesc, description: fillerParcelItemDesc, quantity: 1, value: 10, weight: weight, type: itemType, manufacturerCountry: "NG")
         
         getQuotesForShipment(
             request: GetShipmentQuotesRequest(
                 pickupAddress: pickupAddress,
                 deliveryAddress: deliveryAddress,
-                parcel: parcel
+                parcel: parcel,
+                currency: currency
             ),
             runCompletionOnUIThread: runCompletionOnUIThread,
             completion: completion
@@ -42,7 +44,7 @@ public extension TShipSDK {
         let parcel: ParcelRequest = ParcelRequest(
             description: fillerParcelItemDesc,
             packagingId: packagingId,
-            currency: .NGN)
+            currency: currency)
             .withItem(name: fillerParcelItemDesc, description: fillerParcelItemDesc, quantity: 1, value: 10, weight: weight, type: itemType, manufacturerCountry: "NG")
         
         return GetShipmentQuotesRequest(
