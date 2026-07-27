@@ -8,6 +8,7 @@
 public enum AddressType: String, SafeDecodableEnum {
     case TplHub = "3pl_hub"
     case UserAddress = "user_address"
+    case ManufactuersProfile = "manufacturers_profile"
     
     static var unknownCase: AddressType { .UserAddress }
 }

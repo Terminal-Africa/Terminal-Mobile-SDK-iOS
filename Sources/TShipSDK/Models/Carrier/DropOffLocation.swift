@@ -25,10 +25,14 @@ public struct DropOffLocation: Decodable {
     
     public let distance: Double?
     
+    public let isTerminalDropOffLocation: Bool
+    
     private enum CodingKeys: String, CodingKey {
         case address, city, state, country, email, phone, carrier, distance
         
         case dropOffLocationId = "dropoff_id"
+        
+        case isTerminalDropOffLocation = "terminal_dropoff"
     }
     
     public init(from decoder: Decoder) throws {
@@ -42,5 +46,6 @@ public struct DropOffLocation: Decodable {
         self.phone = (try? container.decode(String.self, forKey: .phone)) ?? ""
         self.carrier = (try? container.decode(String.self, forKey: .carrier)) ?? ""
         self.distance = try? container.decode(Double.self, forKey: .distance)
+        self.isTerminalDropOffLocation = (try? container.decode(Bool.self, forKey: .isTerminalDropOffLocation)) ?? false
     }
 }

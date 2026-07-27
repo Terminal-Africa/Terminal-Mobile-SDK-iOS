@@ -14,7 +14,9 @@ public struct AIHSCode: Decodable {
     public let tags: [String]
 
     public let scientificName: String?
-
+    
+    public var regulatoryDocuments: [ItemRegulatoryDocument]?
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.hsCode = (try? container.decode(String.self, forKey: .hsCode)) ?? ""
@@ -22,6 +24,7 @@ public struct AIHSCode: Decodable {
         self.description = (try? container.decode(String.self, forKey: .description)) ?? ""
         self.tags = (try? container.decode([String].self, forKey: .tags)) ?? []
         self.scientificName = try? container.decode(String.self, forKey: .scientificName)
+        self.regulatoryDocuments = try? container.decode([ItemRegulatoryDocument].self, forKey: .regulatoryDocuments)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -30,6 +33,7 @@ public struct AIHSCode: Decodable {
         case description
         case tags
         case scientificName = "scientific_name"
+        case regulatoryDocuments = "regulatory_documents"
     }
 
 }

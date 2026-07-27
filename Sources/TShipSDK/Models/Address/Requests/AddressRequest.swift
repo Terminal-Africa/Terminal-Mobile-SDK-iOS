@@ -26,7 +26,9 @@ public class AddressRequest: Encodable {
     public var isResidential: Bool = true
     
     public var alias: String?
-    
+
+    public var type: AddressType?
+
     /// Default initializer taking in the required parameters for the create address request
     /// - Parameters:
     ///   - city: Name of the city the address is located in.
@@ -113,6 +115,15 @@ public class AddressRequest: Encodable {
         self.alias = alias
         return self
     }
+
+    /// This function sets the type of the address being created.
+    /// - Parameters:
+    ///   - addressType: The classification of the address (e.g. user address, manufacturer's profile).
+    @discardableResult
+    public func withAddressType(_ type: AddressType) -> AddressRequest {
+        self.type = type
+        return self
+    }
     
     /// This function returns the built create address request.
     /// - Returns: [String:  Any] a dictionary containing the parameters provided to the builder.
@@ -121,7 +132,7 @@ public class AddressRequest: Encodable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case city, state, country, email, phone, line1, line2, alias
+        case city, state, country, email, phone, line1, line2, alias, type
         case firstName = "first_name"
         case lastName = "last_name"
         case zipCode = "zip"
