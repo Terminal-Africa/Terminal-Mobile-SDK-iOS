@@ -1,25 +1,40 @@
 # TShipSDK :ship: :nigeria:
 
 ## Table of Contents
+
 1. [Overview](#overview)
 2. [Why TShip?](#why-tship)
 3. [Features](#features)
 4. [Getting Started](#getting-started)
 5. [Addresses](#addresses)
 6. [Miscellanous](#miscellanous)
-6. [Packaging](#packaging)
-7. [Request Builders](#request-builders)
-8. [Models](#models)
+7. [Packaging](#packaging)
+8. [Parcels](#parcels)
+9. [Rates](#rates)
+10. [Shipments](#shipments)
+11. [Users](#users)
+12. [Transactions](#transactions)
+13. [Carriers](#carriers)
+14. [Claims](#claims)
+15. [Insurance](#insurance)
+16. [HS Codes](#hs-codes)
+17. [Duties](#duties)
+18. [Request Builders](#request-builders)
+19. [Models](#models)
+20. [Enums](#enums)
 
 ## Overview
-The TShip SDK was built on top of the TShip API to make integrating the TShip API in your App easier. The TShip API is a JSON API that provides a single interface for integrating Nigerian shipping carriers such as DHL, Gokada, Sendbox with your applications. The API allows anyone to programatically get shipping rates and arrange pickup and delivery for a parcel. The TShip SDK enables you to easily do all of this in your iOS App. To use the TShip SDK, you need to [create an account on the Terminal website](https://app.terminal.africa/sign-up) and retrieve a Secret Key in your settings.
+
+The TShip SDK was built on top of the TShip API to make integrating the TShip API in your App easier. The TShip API is a JSON API that provides a single interface for integrating Nigerian shipping carriers such as DHL, Gokada, Sendbox with your applications. The API allows anyone to programatically get shipping rates and arrange pickup and delivery for a parcel. The TShip SDK enables you to easily do all of this in your iOS App. To use the TShip SDK, you need to [create an account on the Terminal website](https://dashboard.terminal.africa/sign-up) and retrieve a Secret Key in your settings.
 
 #### Technology
-TShip aggrevates multiple Shipment carriers operating in Nigeria, e.g. Gokada, Kwik, Sendbox, DHL Express and UPS. We've abstracted integration of the mentioned shipping carriers into a single interface, to provide an easy channel for anyone to build shipping into their products.
+
+TShip aggrevates multiple Shipment carriers operating in Nigeria, e.g. Gokada, Kwik, DHL Express and UPS. We've abstracted integration of the mentioned shipping carriers into a single interface, to provide an easy channel for anyone to build shipping into their products.
 
 In the future, we hope to expand our partnerships to include other shipping carriers outside Africa.
 
 ## Why TShip?
+
 We've spent a lot of time building several tools for businesses in the eCommerce space in Nigeria and always found it difficult to build shipping into our apps. Setting up an account with a logistics company in Nigeria still requires individuals to have registered businesses and also provide a lot of documentation. Many businesses in the region, also tend to use a combination of carriers for local and international deliveries, so the set up process can get exhausting.
 
 For developers with access, you also have to navigate through legacy API systems with often poorly written documentation to build shipping into your apps. We went through that and decided to make it a lot easier for other developers, this is why we created TShip.
@@ -27,23 +42,27 @@ For developers with access, you also have to navigate through legacy API systems
 Through TShip, developers have a gateway to leading logistics partners on the continent via a single interface, removing the need for unnesseccary documentation and allowing them to focus on what they do best, building great products for the ecosystem.
 
 ## Features
+
 This section describes the core features available through the Shipmonk API.
 
 - **Get Live Shipping Rates**:
 Get live shipping rates for any of Shipmonk's carrier partners including DHL Express, Gokada, Kwik, Sendbox and UPS. Shipmonk will also provide information about pickup dates and delivery times for each rate request.
-
 - **Arrange Pickup & Delivery**:
 Arrange pickup and delivery for your parcels with a single API call. The API call also allows you to specify the type of vehicle needed for the shipment as well as indicate how much assistance you might need to load a large parcel. In the future, Shipmonk will also allow you to schedule shipment requests with our respective carrier partners.
-
 - **Track Shipments**:
 Shipmonk provides an endpoint for tracking any shipment arranged via the API. We also include links to specific carrier tracking pages with each request.
-
 - **Manage Packaging**:
 You can create and maintain information about the different types of packaging you use for preparing your parcels. In the future, shipmonk will allow you to access packaging informatin from our carrier partners.
 
+
+
 ## Getting Started
 
-### Installation 
+
+
+### Installation
+
+
 
 #### Swift Package Manager
 
@@ -52,11 +71,12 @@ You can create and maintain information about the different types of packaging y
 - Select "Up to Next Major" with "1.0.0"
 
 
-### Usuage 
 
-To use the TShip SDK, you will need to create an instance of the `TShipSDK` class by calling the `TShipSDK.createInstance(secretKey: String)` method which takes your Secret Key which can be found in the Api Keys section of the settings tab on the [Terminal dashboard](https://app.terminal.africa/) -> Api Keys. The `createInstance` method returns the new instance created.
+### Usuage
 
-This method will create a static instance of the `TShipSDK` that can be accessed through the `TShipSDK.instance` property. The `TShipSDK.instance` is optional and will be nil until it is created.
+To use the TShip SDK, you will need to create an instance of the `TShipSDK` class. You can either create your own instance with the initializer `TShipSDK(secretKey:appIdentifier:useLiveEnvironment:)`, or create a shared instance with the `TShipSDK.createInstance(secretKey:appIdentifier:useLiveEnvironment:)` method. Both take your Secret Key which can be found in the Api Keys section of the settings tab on the [Terminal dashboard](https://dashboard.terminal.africa/) -> Api Keys, alongside an app identifier and an optional flag indicating whether to use the live environment. The `useLiveEnvironment` flag defaults to `false`, so requests are made against the sandbox environment until you set it to `true`. The `createInstance` method returns the new instance created.
+
+The `createInstance` method creates a static instance of the `TShipSDK` that can be accessed through the `TShipSDK.instance` property. The `TShipSDK.instance` is optional and will be nil until it is created.
 
 Since the instance is static it would be best to call `createInstance` in your AppDelegate so you can retrieve the instance with `TShipSDK.instance` anywhere in your app.
 
@@ -73,6 +93,8 @@ TShipSDK.createAddress(
     completion: @escaping(Result<Address, Error>) -> Void
 )
 ```
+
+
 
 ##### Description
 
@@ -102,6 +124,8 @@ TShipSDK.getAddress(
 )
 ```
 
+
+
 ##### Description
 
 This function fetches details of an Address on the TShip API.
@@ -124,21 +148,23 @@ The completion handler to call, passing along the response status and the [Addre
 
 ```
 TShipSDK.getAddresses(
-    request: [String: Any],
+    request: GetAddressesRequest,
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<GetAddressResponseData, Error>) -> Void
-)
+) -> URLSessionTask?
 ```
+
+
 
 ##### Description
 
-This function fetches Addresses previously created on the TShip API.
+This function fetches Addresses previously created on the TShip API. It returns the underlying `URLSessionTask?` so you can cancel the request if needed, for example when the user updates a search query.
 
 ##### Parameters
 
-`request: [String: Any]`
+`request: GetAddressesRequest`
 
-Should contain the query parameters for paginating through the Addresses. This should be created with the PaginatedRequestBuilder class.
+Contains the search term, address type filter, and pagination parameters for the Addresses to fetch. This uses the [GetAddressesRequest](#getaddressesrequest) class.
 
 `runCompletionOnUIThread: Bool = true`
 
@@ -158,6 +184,8 @@ TShipSDK.updateAddress(
     completion: @escaping(Result<Address, Error>) -> Void
 )
 ```
+
+
 
 ##### Description
 
@@ -181,6 +209,91 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the newly created [Address](#address) if no error occurred.
 
+### Set Default Address
+
+```
+setDefaultAddress(
+    addressId: String,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<Address, Error>) -> Void
+)
+```
+
+
+
+##### Description
+
+This function sets an Address previously created on the TShip API as the default address.
+
+##### Parameters
+
+`addressId: String`
+
+Unique id used to identify the address.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Address, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the new default [Address](#address) if no error occurred.
+
+### Get Default Address
+
+```
+getDefaultAddress(
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<Address, Error>) -> Void
+)
+```
+
+
+
+##### Description
+
+This function fetches the Address previously set on the TShip API as the default address.
+
+##### Parameters
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Address, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the default [Address](#address) if no error occurred.
+
+### Delete Address
+
+```
+deleteAddress(
+    addressId: String,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void
+)
+```
+
+
+
+##### Description
+
+This function deletes an Address previously created on the TShip API.
+
+##### Parameters
+
+`addressId: String`
+
+Unique id used to identify the address.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void`
+
+The completion handler to call, passing along the response status if no error occurred.
+
 ## Miscellanous
 
 Here you'll find information about miscellanous remote operations you can make that support other operations.
@@ -193,6 +306,8 @@ getValidCities(
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<[City], Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -220,6 +335,8 @@ getValidCountries(
     completion: @escaping(Result<[Country], Error>) -> Void)
 ```
 
+
+
 ##### Description
 
 This function all the countries valid on the TShip API.
@@ -242,6 +359,8 @@ getValidStates(
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<[State], Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -274,6 +393,8 @@ createPackaging(
     completion: @escaping(Result<Packaging, Error>) -> Void)
 ```
 
+
+
 ##### Description
 
 This function creates a Packaging on the TShip API.
@@ -301,6 +422,8 @@ getPackaging(
     completion: @escaping(Result<Packaging, Error>) -> Void)
 ```
 
+
+
 ##### Description
 
 This function fetches details of a Packaging previously created on the TShip API.
@@ -327,6 +450,8 @@ getMultiplePackaging(
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Packaging, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -356,6 +481,8 @@ updatePackaging(
     completion: @escaping(Result<Packaging, Error>) -> Void)
 ```
 
+
+
 ##### Description
 
 This function fetches the list of Packaging previously created on the TShip API.
@@ -378,6 +505,35 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the updated [Packaging](#packaging), if no error occurred.
 
+### Delete Packaging
+
+```
+deletePackaging(
+    packagingId: String,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<Packaging, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function deletes a Packaging previously created on the TShip API.
+
+##### Parameters
+
+`packagingId: String`
+
+Unique id used to identify the packaging.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Packaging, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the deleted [Packaging](#packaging) if no error occurred.
+
 ## Parcels
 
 Here you'll find information on how to create, update and fetch Parcels.
@@ -386,11 +542,13 @@ Here you'll find information on how to create, update and fetch Parcels.
 
 ```
 createParcel<T: Codable>(
-    metadataType: T.Type = EmptyMetadata.self,
-    request: ParcelRequest<T>,
+    _ metadataType: T.Type = EmptyMetadata.self,
+    request: ParcelRequestWithMetadata<T>,
     runCompletionOnUIThread: Bool = true,
-    completion: @escaping(Result<Parcel<T>, Error>) -> Void)
+    completion: @escaping(Result<ParcelWithoutPackagingData<T>, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -402,27 +560,29 @@ This function creates a Parcel on the TShip API.
 
 The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
 
-`request: PackagingRequest`
+`request: ParcelRequestWithMetadata<T>`
 
-Request body with details used to create a Parcel. All the parameters that are available to add to the [ParcelRequest](#parcelrequest) class are required to create a Parcel.
+Request body with details used to create a Parcel. All the parameters that are available to add to the [ParcelRequestWithMetadata](#parcelrequestwithmetadatat-codable) class are required to create a Parcel.
 
 `runCompletionOnUIThread: Bool = true`
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<Parcel<T>, Error>) -> Void`
+`completion: @escaping(Result<ParcelWithoutPackagingData<T>, Error>) -> Void`
 
-The completion handler to call, passing along the response status and the newly created [Parcel](#parcel) if no error occurred.
+The completion handler to call, passing along the response status and the newly created [ParcelWithoutPackagingData](#parcelwithoutpackagingdatat-codable-parcelt) if no error occurred.
 
 ### Get Parcel
 
 ```
-getParcel(
-    metadataType: T.Type = EmptyMetadata.self,
-    packagingId: String,
+getParcel<T: Codable>(
+    _ metadataType: T.Type = EmptyMetadata.self,
+    parcelId: String,
     runCompletionOnUIThread: Bool = true,
-    completion: @escaping(Result<Parcel<T>, Error>) -> Void)
+    completion: @escaping(Result<ParcelWithoutPackagingData<T>, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -442,19 +602,21 @@ Unique id used to identify the parcel
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<Parcel<T>, Error>) -> Void`
+`completion: @escaping(Result<ParcelWithoutPackagingData<T>, Error>) -> Void`
 
-The completion handler to call, passing along the response status and the [Parcel](#parcel) if no error occurred.
+The completion handler to call, passing along the response status and the [ParcelWithoutPackagingData](#parcelwithoutpackagingdatat-codable-parcelt) if no error occurred.
 
 ### Get Parcels
 
 ```
-getParcels(
-    metadataType: T.Type = EmptyMetadata.self,
+getParcels<T: Codable>(
+    _ metadataType: T.Type = EmptyMetadata.self,
     request: [String: Any],
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<GetParcelsResponseData<T>, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -481,16 +643,19 @@ The completion handler to call, passing along the response status alongside the 
 ### Update Parcel
 
 ```
-updateParcel(
-    metadataType: T.Type = EmptyMetadata.self,
-    request: ParcelRequest<T>,
+updateParcel<T: Codable>(
+    _ metadataType: T.Type = EmptyMetadata.self,
+    parcelId: String,
+    request: ParcelRequestWithMetadata<T>,
     runCompletionOnUIThread: Bool = true,
-    completion: @escaping(Result<Parcel<T>, Error>) -> Void)
+    completion: @escaping(Result<ParcelWithoutPackagingData<T>, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
-This function fetches Parcels previously created on the TShip API.
+This function updates a Parcel previously created on the TShip API.
 
 ##### Parameters
 
@@ -498,17 +663,45 @@ This function fetches Parcels previously created on the TShip API.
 
 The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
 
-`request: ParcelRequest<T>`
+`parcelId: String`
 
-Request body with all the Parcel details to update the Parcel. This can be initialized from an existing Parcel using [the variant of the ParcelRequest initializer that takes in a Parcel](#initialising-parcelrequest-with-parcel).
+Unique id used to identify the parcel.
+
+`request: ParcelRequestWithMetadata<T>`
+
+Request body with all the Parcel details to update the Parcel. This can be initialized from an existing Parcel using [the variant of the ParcelRequestWithMetadata initializer that takes in a Parcel](#initialising-parcelrequestwithmetadata-with-parcel).
 
 `runCompletionOnUIThread: Bool = true`
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<Parcel<T>, Error>) -> Void`
+`completion: @escaping(Result<ParcelWithoutPackagingData<T>, Error>) -> Void`
 
-The completion handler to call, passing along the response status and the updated [Parcel](#parcel) if no error occurred.
+The completion handler to call, passing along the response status and the updated [ParcelWithoutPackagingData](#parcelwithoutpackagingdatat-codable-parcelt) if no error occurred.
+
+### Get Documents
+
+```
+getDocuments(
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<[DocumentItem], Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function fetches the documents you can ship and their HS codes.
+
+##### Parameters
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[DocumentItem], Error>) -> Void`
+
+The completion handler to call, passing along the response status and the array of [DocumentItem](#documentitem)s if no error occurred.
 
 ## Rates
 
@@ -517,11 +710,13 @@ Here you'll find information on how to interact with the Rates endpoint throught
 ### Get Rates for Shipment
 
 ```
-getRatesForShipment<T: Codable>(
+getRatesForShipment(
     request: GetRateForShipmentRequest,
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<[Rate], Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -541,6 +736,118 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status alongside the [Rates](#rates) for the shipment, if no error occurred.
 
+### Get Rates for Multi-Parcel Shipment
+
+```
+getRatesForMultiParcelShipment(
+    request: GetRatesForMultiParcelShipmentRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<[Rate], Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function gets the rates for a shipment that contains multiple parcels using the TShip API.
+
+##### Parameters
+
+`request: GetRatesForMultiParcelShipmentRequest`
+
+[GetRatesForMultiParcelShipmentRequest](#getratesformultiparcelshipmentrequest) containing the parameters needed to get shipment rates. If the shipment Id is added to the request you need only add the parcel Ids otherwise the pickup and delivery address ids as well as the parcel ids are required to get rates for a shipment.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[Rate], Error>) -> Void`
+
+The completion handler to call, passing along the response status alongside the [Rates](#rates) for the shipment, if no error occurred.
+
+### Get Quotes for Shipment
+
+```
+getQuotesForShipment(
+    request: GetShipmentQuotesRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<[Rate], Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function quotes a shipment using inline address and parcel details. Unlike [Get Rates for Shipment](#get-rates-for-shipment), it does not require previously created address or parcel identifiers, which makes it useful for getting a quick estimate before a user has stored those details.
+
+##### Parameters
+
+`request: GetShipmentQuotesRequest`
+
+[GetShipmentQuotesRequest](#getshipmentquotesrequest) containing the inline pickup address, delivery address, parcel, and optional currency to quote.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[Rate], Error>) -> Void`
+
+The completion handler to call, passing along the response status alongside the [Rates](#rates) for the shipment, if no error occurred.
+
+### Get Rates for Shipment (Shorthand)
+
+```
+getRatesForShipmentShorthand(
+    pickupAddress: AddressRequest,
+    deliveryAddress: AddressRequest,
+    weight: Double,
+    packagingId: String? = nil,
+    itemType: ParcelItemType = .parcel,
+    currency: Currency = .NGN,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<[Rate], Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function fetches a quick shipment quote using inline addresses and a minimal generated parcel, without requiring previously created address or parcel identifiers. The generated parcel uses a nominal item value and Nigeria as the manufacturer country. Use [Get Quotes for Shipment](#get-quotes-for-shipment) when those values must be controlled.
+
+##### Parameters
+
+`pickupAddress: AddressRequest`
+
+The inline address to pick the parcel up from. This uses the [AddressRequestBuilder](#addressrequestbuilder) class.
+
+`deliveryAddress: AddressRequest`
+
+The inline address to deliver the parcel to. This uses the [AddressRequestBuilder](#addressrequestbuilder) class.
+
+`weight: Double`
+
+The weight of the parcel used to generate the quote.
+
+`packagingId: String? = nil`
+
+The unique id of the packaging to use for the generated parcel. This is optional and defaults to nil.
+
+`itemType: ParcelItemType = .parcel`
+
+The type of the item in the generated parcel. The default value is `.parcel`.
+
+`currency: Currency = .NGN`
+
+The [Currency](#currency) for the parcel value and returned rates. The default value is NGN.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[Rate], Error>) -> Void`
+
+The completion handler to call, passing along the response status alongside the [Rates](#rates) for the shipment, if no error occurred.
+
 ## Shipments
 
 Here you'll find information on how to create, update, fetch, arrange, track and cancel Shipments.
@@ -549,11 +856,13 @@ Here you'll find information on how to create, update, fetch, arrange, track and
 
 ```
 createShipment<ParcelM: Codable>(
-    parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
+    _ parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
     request: CreateShipmentRequest,
     runCompletionOnUIThread: Bool = true,
-    completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void)
+    completion: @escaping(Result<ShipmentPopulatedWithPackagingData<ParcelM>, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -567,25 +876,27 @@ The metatype of the metadata model struct/class attached to the Parcel. You can 
 
 `request: CreateShipmentRequest`
 
-Request body with details used to create a Shipment. This takes in an instance of the [ShipmentRequest](#shipmentrequest) class.
+Request body with details used to create a Shipment. This takes in an instance of the [CreateShipmentRequest](#createshipmentrequest) class.
 
 `runCompletionOnUIThread: Bool = true`
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void`
+`completion: @escaping(Result<ShipmentPopulatedWithPackagingData<ParcelM>, Error>) -> Void`
 
-The completion handler to call, passing along the response status and the newly created [Shipment](#shipment) if no error occurred.
+The completion handler to call, passing along the response status and the newly created [ShipmentPopulatedWithPackagingData](#shipmentpopulatedwithpackagingdataparcelmetadata-codable-shipmentpopulated) if no error occurred.
 
 ### Get Shipment
 
 ```
 getShipment<ParcelM: Codable>(
-    parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
+    _ parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
     shipmentId: String,
     runCompletionOnUIThread: Bool = true,
-    completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void)
+    completion: @escaping(Result<ShipmentPopulatedWithPackagingData<ParcelM>, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -593,7 +904,7 @@ This function fetches details of a Shipment previously created on the TShip API.
 
 ##### Parameters
 
-`metadataType: T.Type = EmptyMetadata.self`
+`parcelMetadataType: ParcelM.Type = EmptyMetadata.self`
 
 The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel or you don't need it. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
 
@@ -605,46 +916,50 @@ Unique id used to identify the shipment
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<ShipmentWithPackagingData<ParcelM>, Error>) -> Void`
+`completion: @escaping(Result<ShipmentPopulatedWithPackagingData<ParcelM>, Error>) -> Void`
 
-The completion handler to call, passing along the response status and the [Shipment](#shipment) if no error occurred.
+The completion handler to call, passing along the response status and the [ShipmentPopulatedWithPackagingData](#shipmentpopulatedwithpackagingdataparcelmetadata-codable-shipmentpopulated) if no error occurred.
 
-### Get Populated Shipments
+### Get Shipments
 
 ```
 getShipments(
-    request: PaginatedRequestBuilder,
+    request: GetShipmentsRequest,
     runCompletionOnUIThread: Bool = true,
-    completion: @escaping(Result<GetShipmentsResponseData<ParcelM>, Error>) -> Void)
+    completion: @escaping(Result<GetShipmentsResponseData, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
-This function fetches Shipments previously created on the TShip API with the Shipment.
+This function fetches a page of Shipments previously created on the TShip API. The shipments returned contain resource identifiers rather than fully populated address, carrier, and parcel details.
 
 ##### Parameters
 
-`request: PaginatedRequestBuilder`
+`request: GetShipmentsRequest`
 
-Contains the query parameters for paginating through the Shipments. This should be created with the PaginatedRequestBuilder class.
+Contains the query parameters for paginating through and filtering the Shipments. This uses the [GetShipmentsRequest](#getshipmentsrequest) class.
 
 `runCompletionOnUIThread: Bool = true`
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<GetShipmentsResponseData<ParcelM>, Error>) -> Void`
+`completion: @escaping(Result<GetShipmentsResponseData, Error>) -> Void`
 
-The completion handler to call, passing along the response status and an instance of  [GetShipmentsResponseData](#getshipmentsresponsedata) if no error occurred.
+The completion handler to call, passing along the response status and an instance of [GetShipmentsResponseData](#getshipmentsresponsedata) if no error occurred.
 
 ### Get Populated Shipments
 
 ```
 getPopulatedShipments<ParcelM: Codable>(
-    parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
-    request: PaginatedRequestBuilder,
+    _ parcelMetadataType: ParcelM.Type = EmptyMetadata.self,
+    request: GetShipmentsRequest,
     runCompletionOnUIThread: Bool = true,
-    completion: @escaping(Result<GetShipmentsResponseData<ParcelM>, Error>) -> Void)
+    completion: @escaping(Result<GetPopulatedShipmentsResponseData<ParcelM>, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -656,17 +971,17 @@ This function fetches Shipments previously created on the TShip API with the Shi
 
 The metatype of the metadata model struct/class attached to the Parcel. You can omit this value if you don't want to attach metadata to the Parcel or you don't need it. The default type of the metadata is EmptyMetadata.self, [EmptyMetadata](#emptymetadata) being an empty struct.
 
-`request: PaginatedRequestBuilder`
+`request: GetShipmentsRequest`
 
-Contains the query parameters for paginating through the Shipments. This should be created with the PaginatedRequestBuilder class.
+Contains the query parameters for paginating through and filtering the Shipments. This uses the [GetShipmentsRequest](#getshipmentsrequest) class.
 
 `runCompletionOnUIThread: Bool = true`
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<GetShipmentsResponseData<ParcelM>, Error>) -> Void`
+`completion: @escaping(Result<GetPopulatedShipmentsResponseData<ParcelM>, Error>) -> Void`
 
-The completion handler to call, passing along the response status and an instance of  [GetShipmentsResponseData](#getshipmentsresponsedata) if no error occurred.
+The completion handler to call, passing along the response status and an instance of [GetPopulatedShipmentsResponseData](#getpopulatedshipmentsresponsedata) if no error occurred.
 
 ### Track Shipment
 
@@ -676,6 +991,8 @@ trackShipment(
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<ShipmentTrackingInfo, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -704,6 +1021,8 @@ arrangeShipment(
     completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void)
 ```
 
+
+
 ##### Description
 
 This function arranges pickup and delivery of a Shipment.
@@ -731,6 +1050,8 @@ cancelShipment(
     completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void)
 ```
 
+
+
 ##### Description
 
 This function cancels a Shipment previously created on the TShip API.
@@ -749,6 +1070,35 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing the response status alongside an instance of [ShipmentUnpopulated](#shipmentunpopulated) which contains information about the cancelled shipment, if no error occurred.
 
+### Cancel Shipment (with request)
+
+```
+cancelShipment(
+    request: CancelShipmentRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function cancels a Shipment previously created on the TShip API. Use this overload when you want to supply extra cancellation details through the request object.
+
+##### Parameters
+
+`request: CancelShipmentRequest`
+
+An instance of CancelShipmentRequest that contains all the information required to cancel a shipment.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void`
+
+The completion handler to call, passing the response status alongside an instance of [ShipmentUnpopulated](#shipmentunpopulated) which contains information about the cancelled shipment, if no error occurred.
+
 ### Update Shipment
 
 ```
@@ -756,8 +1106,10 @@ updateShipment(
     shipmentId: String,
     request: UpdateShipmentRequest,
     runCompletionOnUIThread: Bool = true,
-    completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void)
+    completion: @escaping(Result<ShipmentPopulatedWithPackagingData<EmptyMetadata>, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -777,9 +1129,125 @@ An instance of [UpdateShipmentRequest](#updateshipmentrequest) that contains all
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
 
-`completion: @escaping(Result<ShipmentUnpopulated, Error>) -> Void`
+`completion: @escaping(Result<ShipmentPopulatedWithPackagingData<EmptyMetadata>, Error>) -> Void`
 
-The completion handler to call, passing the response status alongside an instance of [ShipmentUnpopulated](#shipmentunpopulated) which contains information about the updated shipment, if no error occurred.
+The completion handler to call, passing the response status alongside the updated [ShipmentPopulatedWithPackagingData](#shipmentpopulatedwithpackagingdataparcelmetadata-codable-shipmentpopulated) if no error occurred.
+
+### Duplicate Shipment
+
+```
+duplicateShipment(
+    request: DuplicateShipmentRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<ShipmentPopulatedWithPackagingData<EmptyMetadata>, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function creates a new Shipment by copying an existing Shipment previously created on the TShip API.
+
+##### Parameters
+
+`request: DuplicateShipmentRequest`
+
+An instance of [DuplicateShipmentRequest](#duplicateshipmentrequest) identifying the shipment to duplicate.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<ShipmentPopulatedWithPackagingData<EmptyMetadata>, Error>) -> Void`
+
+The completion handler to call, passing the response status alongside the newly created [ShipmentPopulatedWithPackagingData](#shipmentpopulatedwithpackagingdataparcelmetadata-codable-shipmentpopulated) if no error occurred.
+
+### Delete Shipment
+
+```
+deleteShipment(
+    shipmentId: String,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function permanently deletes a draft Shipment previously created on the TShip API.
+
+##### Parameters
+
+`shipmentId: String`
+
+The id of the Shipment to delete.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void`
+
+The completion handler to call, passing the response status if no error occurred.
+
+### Pay for Shipment
+
+```
+payForShipment(
+    request: PayForShipmentRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function pays the outstanding charge for a Shipment previously created on the TShip API.
+
+##### Parameters
+
+`request: PayForShipmentRequest`
+
+An instance of [PayForShipmentRequest](#payforshipmentrequest) that identifies the shipment to pay for.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void`
+
+The completion handler to call, passing the response status if no error occurred.
+
+### Get Shipment Previews
+
+```
+getShipmentPreviews(
+    request: GetShipmentsRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<GetShipmentPreviewsResponse, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function fetches a page of flattened shipment summaries using the version 2 listing endpoint. Each summary contains the shipment's key details, addresses, and carrier information in a single object.
+
+##### Parameters
+
+`request: GetShipmentsRequest`
+
+Contains the query parameters for paginating through and filtering the Shipments. This uses the [GetShipmentsRequest](#getshipmentsrequest) class.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<GetShipmentPreviewsResponse, Error>) -> Void`
+
+The completion handler to call, passing the response status alongside an instance of [GetShipmentPreviewsResponse](#getshipmentpreviewsresponse) which contains the paginated [ShipmentPreview](#shipmentpreview)s, if no error occurred.
 
 ## Users
 
@@ -793,6 +1261,8 @@ getUserProfile(
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<User, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -821,6 +1291,8 @@ getUserWallet(
     completion: @escaping(Result<Wallet, Error>) -> Void)
 ```
 
+
+
 ##### Description
 
 This function fetches details about a user's wallet.
@@ -848,6 +1320,8 @@ getUserCarriers(
     completion: @escaping(Result<GetCarriersResponse, Error>) -> Void)
 ```
 
+
+
 ##### Description
 
 This function fetches list of all carriers available for a user.
@@ -866,6 +1340,64 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the user's [Carrier](#carrier)s if no error occurred.
 
+### Get User's Wallets
+
+```
+getUserWallets(
+    walletType: WalletType = .staticWallet,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<[TShipWallet], Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function fetches all the wallets under the user's account.
+
+##### Parameters
+
+`walletType: WalletType = .staticWallet`
+
+The [WalletType](#wallettype) to filter the response by. The default value is `.staticWallet`.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[TShipWallet], Error>) -> Void`
+
+The completion handler to call, passing along the response status and the array of [TShipWallet](#tshipwallet)s if no error occurred.
+
+### Send Referral Email
+
+```
+sendReferralEmal(
+    email: String,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function sends a referral email containing a signup link with your referral code.
+
+##### Parameters
+
+`email: String`
+
+The email address you want to send your referral email to.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<EmptyTShipResponse, Error>) -> Void`
+
+The completion handler to call, passing along the response status if no error occurred.
+
 ## Transactions
 
 Here you'll find information on how to get Transactions.
@@ -878,6 +1410,8 @@ getTransactions(
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<GetTransactionsResponse, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -905,6 +1439,8 @@ getTransaction(
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Transaction, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -937,6 +1473,8 @@ getCarriers(
     completion: @escaping(Result<GetCarriersResponse, Error>) -> Void)
 ```
 
+
+
 ##### Description
 
 This function fetches a list of all the carriers available on the TShip API.
@@ -963,6 +1501,8 @@ getCarrier(
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<Carrier, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -991,6 +1531,8 @@ disableCarrier(
     runCompletionOnUIThread: Bool = true,
     completion: @escaping(Result<String, Error>) -> Void)
 ```
+
+
 
 ##### Description
 
@@ -1024,6 +1566,8 @@ enableCarrier(
     completion: @escaping(Result<Carrier, Error>) -> Void)
 ```
 
+
+
 ##### Description
 
 This function enables a carrier for a user on the TShip API.
@@ -1046,8 +1590,363 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 
 The completion handler to call, passing along the response status and the [Carrier](#carrier) that was enabled if no error occurred.
 
+### Get Drop-off Locations
+
+```
+getDropOffLocations(
+    request: GetDropOffLocationsRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<[DropOffLocation], Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function fetches the drop-off locations available for a carrier on the TShip API.
+
+##### Parameters
+
+`request: GetDropOffLocationsRequest`
+
+Contains the parameters used to find drop-off locations, such as the carrier slug and location. This uses the [GetDropOffLocationsRequest](#getdropofflocationsrequest) class.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[DropOffLocation], Error>) -> Void`
+
+The completion handler to call, passing along the response status and the array of [DropOffLocation](#dropofflocation)s if no error occurred.
+
+## Claims
+
+Here you'll find information on how to file and fetch insurance claims for shipments.
+
+### File Claim
+
+```
+fileClaim(
+    request: FileClaimRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<FileClaimResponse, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function files an insurance claim for a shipment on the TShip API.
+
+##### Parameters
+
+`request: FileClaimRequest`
+
+An instance of [FileClaimRequest](#fileclaimrequest) containing the insurance id and the claim evidence to submit.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<FileClaimResponse, Error>) -> Void`
+
+The completion handler to call, passing along the response status and an instance of [FileClaimResponse](#fileclaimresponse) if no error occurred.
+
+### Get Claim
+
+```
+getClaim(
+    id: String,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<Claim, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function fetches an insurance claim previously filed on the TShip API.
+
+##### Parameters
+
+`id: String`
+
+The unique id used to identify the claim.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Claim, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [Claim](#claim) if no error occurred.
+
+## Insurance
+
+Here you'll find information on how to calculate insurance premiums and fetch a shipment's insurance details.
+
+### Get Insurance Premium
+
+```
+getInsurancePremium(
+    request: GetInsurancePremiumRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<InsurancePremium, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function calculates the insurance premium for a shipment using an existing parcel.
+
+##### Parameters
+
+`request: GetInsurancePremiumRequest`
+
+An instance of [GetInsurancePremiumRequest](#getinsurancepremiumrequest) initialized with a parcel id, insurance type, and currencies.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<InsurancePremium, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [InsurancePremium](#insurancepremium) if no error occurred.
+
+### Get Insurance Premium with Parcel Value
+
+```
+getInsurancePremiumWithParcelValue(
+    request: GetInsurancePremiumRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<InsurancePremium, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function calculates the insurance premium directly from a declared parcel value, without requiring an existing parcel.
+
+##### Parameters
+
+`request: GetInsurancePremiumRequest`
+
+An instance of [GetInsurancePremiumRequest](#getinsurancepremiumrequest) initialized with a parcel value, insurance type, and currencies.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<InsurancePremium, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [InsurancePremium](#insurancepremium) if no error occurred.
+
+### Get Insurance Details
+
+```
+getInsuranceDetails(
+    shipmentId: String,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<Insurance, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function fetches the insurance policy associated with a shipment on the TShip API.
+
+##### Parameters
+
+`shipmentId: String`
+
+The unique id used to identify the shipment whose insurance details you want to fetch.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<Insurance, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [Insurance](#insurance-1) if no error occurred.
+
+## HS Codes
+
+Here you'll find information on how to browse and search the Harmonized System (HS) code catalogue. The SDK exposes both the standard catalogue and a simplified catalogue. The simplified variants share the same request and response types but query the simplified catalogue.
+
+### Get HS Code Chapters
+
+```
+getHSCodeChapters(
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<[HSCodeChapter], Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function fetches the chapters in the Harmonized System classification.
+
+##### Parameters
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[HSCodeChapter], Error>) -> Void`
+
+The completion handler to call, passing along the response status and the array of [HSCodeChapter](#hscodechapter)s if no error occurred.
+
+### Get HS Code Categories
+
+```
+getHSCodeCategories(
+    chapterId: String? = nil,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<[HSCodeCategory], Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function fetches HS code categories, optionally restricted to a chapter.
+
+##### Parameters
+
+`chapterId: String? = nil`
+
+The chapter identifier to filter by. If nil, categories for every chapter are returned. The default value is nil.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[HSCodeCategory], Error>) -> Void`
+
+The completion handler to call, passing along the response status and the array of [HSCodeCategory](#hscodecategory)s if no error occurred.
+
+### Search HS Codes
+
+```
+searchHSCodes(
+    request: SearchHSCodeRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<SearchHSCodesResponseData, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function searches the HS code catalogue.
+
+##### Parameters
+
+`request: SearchHSCodeRequest`
+
+An instance of [SearchHSCodeRequest](#searchhscoderequest) containing the search term, optional chapter and category filters, and pagination options.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<SearchHSCodesResponseData, Error>) -> Void`
+
+The completion handler to call, passing along the response status and an instance of [SearchHSCodesResponseData](#searchhscodesresponsedata) which contains the paginated [HSCode](#hscode)s, if no error occurred.
+
+### Search HS Codes with AI
+
+```
+searchHSCodesWithAI(
+    request: SearchHSCodesAIRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<[AIHSCode], Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function uses the AI-assisted search endpoint to suggest HS codes for an item description.
+
+##### Parameters
+
+`request: SearchHSCodesAIRequest`
+
+An instance of [SearchHSCodesAIRequest](#searchhscodesairequest) containing a description of the item to classify.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<[AIHSCode], Error>) -> Void`
+
+The completion handler to call, passing along the response status and the array of suggested [AIHSCode](#aihscode)s if no error occurred.
+
+### Simplified HS Code Endpoints
+
+The simplified catalogue exposes the following functions, which mirror the standard endpoints above but query the simplified HS code catalogue:
+
+`getSimplifiedHSCodeChapters(runCompletionOnUIThread:completion:)`
+
+Fetches chapters from the simplified HS code catalogue, passing along the array of [HSCodeChapter](#hscodechapter)s.
+
+`getSimplifiedHSCodeCategories(chapterId:runCompletionOnUIThread:completion:)`
+
+Fetches simplified HS code categories, optionally restricted to a chapter, passing along the array of [HSCodeCategory](#hscodecategory)s.
+
+`searchSimplifiedHSCodes(request:runCompletionOnUIThread:completion:)`
+
+Searches the simplified HS code catalogue using a [SearchHSCodeRequest](#searchhscoderequest), passing along a [SearchHSCodesResponseData](#searchhscodesresponsedata).
+
+`getSimplifiedHSCodes(request:runCompletionOnUIThread:completion:)`
+
+Fetches a page of simplified HS codes using a [GetHSCodesRequest](#gethscodesrequest), passing along a [GetHSCodesResponseData](#gethscodesresponsedata).
+
+`getSimplifiedHSCodeDetails(hsCodeId:runCompletionOnUIThread:completion:)`
+
+Fetches the simplified HS code records associated with an identifier, passing along the array of [HSCode](#hscode)s.
+
+## Duties
+
+Here you'll find information on how to calculate duty fees for a shipment.
+
+### Calculate Duty Fee
+
+```
+calculateDutyFee(
+    request: CalculateDutyFeeRequest,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<CustomDuty, Error>) -> Void)
+```
+
+
+
+##### Description
+
+This function calculates the duty fee for a shipment on the TShip API.
+
+##### Parameters
+
+`request: CalculateDutyFeeRequest`
+
+An instance of [CalculateDutyFeeRequest](#calculatedutyfeerequest) identifying the shipment to calculate the duty fee for.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<CustomDuty, Error>) -> Void`
+
+The completion handler to call, passing along the response status and the [CustomDuty](#customduty) if no error occurred.
 
 ## Request Builders
+
+
 
 ### AddressRequestBuilder
 
@@ -1062,6 +1961,8 @@ init(
     state: String
 )
 ```
+
+
 
 ##### Description
 
@@ -1087,6 +1988,8 @@ Name of the state the address is located in.
 build() -> [String: Any]
 ```
 
+
+
 ##### Description
 
 This function returns the built create address request.
@@ -1105,6 +2008,8 @@ withDetailsForUserAtAddress(
     phone: String? = nil
 )
 ```
+
+
 
 ##### Description
 
@@ -1137,6 +2042,8 @@ withAddressLines(
 )
 ```
 
+
+
 ##### Description
 
 This function adds the address lines to the request.
@@ -1159,6 +2066,8 @@ withZipCode(
 )
 ```
 
+
+
 ##### Description
 
 This function adds the Address's zip code to the request.
@@ -1177,6 +2086,8 @@ isResidential(
 )
 ```
 
+
+
 ##### Description
 
 This function sets whether the address is a residential address or not. This defaults to true if not set.
@@ -1194,6 +2105,8 @@ withMetaData(
     metadata: [String: Any]
 )
 ```
+
+
 
 ##### Description
 
@@ -1217,6 +2130,8 @@ init(
 )
 ```
 
+
+
 ##### Description
 
 Default initializer taking in the details required to arrange a Shipment.
@@ -1235,6 +2150,8 @@ init(
     shipmentId: String
 )
 ```
+
+
 
 ##### Description
 
@@ -1258,6 +2175,8 @@ withRateId(
 )
 ```
 
+
+
 ##### Description
 
 This function updates the rate id.
@@ -1279,6 +2198,8 @@ withShipmentId(
     shipmentId: String
 )
 ```
+
+
 
 ##### Description
 
@@ -1307,6 +2228,8 @@ init(
 )
 ```
 
+
+
 ##### Description
 
 Default initializer taking in the required parameters for quering the city and state requests.
@@ -1327,6 +2250,8 @@ The state code of the state whose cities you want to fetch. Can  be omitted if y
 build() -> [String: Any]
 ```
 
+
+
 ##### Description
 
 This function returns the built request for a paginated API call.
@@ -1342,6 +2267,8 @@ withCountryCode(
     countryCode: String
 )
 ```
+
+
 
 ##### Description
 
@@ -1360,6 +2287,8 @@ withStateCode(
     stateCode: String
 )
 ```
+
+
 
 ##### Description
 
@@ -1384,6 +2313,8 @@ init(
     disableForInternationalShipments: Bool = false
 )
 ```
+
+
 
 ##### Description
 
@@ -1416,6 +2347,8 @@ init(
     enableForInternationalShipments: Bool = false
 )
 ```
+
+
 
 ##### Description
 
@@ -1450,6 +2383,8 @@ init(
 )
 ```
 
+
+
 ##### Description
 
 Default initializer that optionally takes in the parameters for getting carriers. This class inherits from the [PaginatedRequestBuilder](#paginatedrequestbuilder) class so it contains it's capabilities.
@@ -1480,6 +2415,8 @@ isActive(
 ) -> GetCarriersRequest
 ```
 
+
+
 ##### Description
 
 This function updates the active parameter in the request, determining whether to only return active carriers.
@@ -1501,6 +2438,8 @@ withType(
     type: CarrierServiceType?
 ) -> GetCarriersRequest
 ```
+
+
 
 ##### Description
 
@@ -1552,6 +2491,8 @@ init(
 )
 ```
 
+
+
 ##### Description
 
 Default initializer taking in the details required to get shipment rates using a shipment id.
@@ -1580,6 +2521,8 @@ init(
     currency: Currency = .NGN
 )
 ```
+
+
 
 ##### Description
 
@@ -1615,6 +2558,8 @@ withName(
 )
 ```
 
+
+
 ##### Description
 
 This function adds the name of the packaging to the request.
@@ -1636,6 +2581,8 @@ withType(
     type: PackagingType
 )
 ```
+
+
 
 ##### Description
 
@@ -1661,6 +2608,8 @@ withSizeDimensions(
     sizeUnit: SizeUnit = .cm
 )
 ```
+
+
 
 ##### Description
 
@@ -1697,6 +2646,8 @@ withWeight(
 )
 ```
 
+
+
 ##### Description
 
 This function adds the weight of the packaging to the request.
@@ -1728,6 +2679,8 @@ init(
 )
 ```
 
+
+
 ##### Description
 
 Default initializer that optionally takes in the parameters for a paginated request.
@@ -1748,6 +2701,8 @@ The page number of the paginated request. This starts from 1. The default value 
 build() -> [String: Any]
 ```
 
+
+
 ##### Description
 
 This function returns the built request for a paginated API call.
@@ -1763,6 +2718,8 @@ withPage(
     page: Int
 )
 ```
+
+
 
 ##### Description
 
@@ -1782,6 +2739,8 @@ withPerPage(
 )
 ```
 
+
+
 ##### Description
 
 This function updates the number of items to return per paginated request.
@@ -1792,7 +2751,7 @@ This function updates the number of items to return per paginated request.
 
 The number of items to return in the response per request.
 
-### ParcelRequest<T: Codable>
+### ParcelRequestWithMetadata<T: Codable>
 
 This class is used to make Create and Update requests for Parcels. It requires you specify the type of class of the metadata to attach to the Parcel. The metadata should ideally be a struct representing your metadata model which conforms to Swift's Codable protocol. If you don't want to pass in any metadata, you can set the struct [EmptyMetadata](#emptymetadata) as the metadata type and go ahead and ignore the metadata which would be set to `nil` by default.
 
@@ -1820,9 +2779,9 @@ Additional metadata you want to attach to the Parcel.
 
 `items: [ParcelItem]`
 
-The [items](#parcelitem) that are in the Parcel. This can be read but not writen to directly. Use the [`withItem`](#adding-an-item-to-the-parcel) and [`removeItemAt`](#removing-an-item) methods respectively to add or remove items.
+The [items](#parcelitem) that are in the Parcel. This can be read but not writen to directly. Use the `[withItem](#adding-an-item-to-the-parcel)` and `[removeItemAt](#removing-an-item)` methods respectively to add or remove items.
 
-#### Initialising ParcelRequest
+#### Initialising ParcelRequestWithMetadata
 
 ```
 init(
@@ -1832,6 +2791,8 @@ init(
     weightUnit: WeightUnit = .kg
 )
 ```
+
+
 
 ##### Description
 
@@ -1855,13 +2816,15 @@ The [Currency](#currency) the value of the items are stored in.
 
 The unit used to measure the weight of the packaging. The default value, 'kg', is the only weight unit supported at this time. This takes in the enum [WeightUnit](#weightunit).
 
-#### Initialising ParcelRequest with Parcel
+#### Initialising ParcelRequestWithMetadata with Parcel
 
 ```
 init(
     from: Parcel<T>
 )
 ```
+
+
 
 ##### Description
 
@@ -1884,6 +2847,8 @@ withItem(
     weight: Double
 ) -> ParcelRequest
 ```
+
+
 
 ##### Description
 
@@ -1923,6 +2888,8 @@ removeItemAt(
 )
 ```
 
+
+
 ##### Description
 
 This function removes an Item from the Parcel.
@@ -1944,6 +2911,8 @@ withMetadata(
     metadata: T
 )
 ```
+
+
 
 ##### Description
 
@@ -1969,6 +2938,8 @@ with(
     weightUnit: WeightUnit
 )
 ```
+
+
 
 ##### Description
 
@@ -2034,6 +3005,8 @@ init(
 )
 ```
 
+
+
 ##### Description
 
 Default initializer taking in the details required to create a Shipment.
@@ -2072,6 +3045,8 @@ withPickupAddressId(
 ) -> UpdateShipmentRequest
 ```
 
+
+
 ##### Description
 
 This function sets the pickup address id to update the shipment to.
@@ -2093,6 +3068,8 @@ withDeliveryAddressId(
     deliveryAddressId: String
 ) -> UpdateShipmentRequest
 ```
+
+
 
 ##### Description
 
@@ -2116,6 +3093,8 @@ withReturnAddressId(
 ) -> UpdateShipmentRequest
 ```
 
+
+
 ##### Description
 
 This function sets the return address id to update the shipment to.
@@ -2138,6 +3117,8 @@ withShipmentPurpose(
 ) -> UpdateShipmentRequest
 ```
 
+
+
 ##### Description
 
 This function sets the [shipment purpose](#shipmentpurpose) to update the shipment to.
@@ -2152,10 +3133,591 @@ The new shipment purpose to use for the shipment.
 
 Returns this Instance of the UpdateShipmentRequest.
 
+### GetAddressesRequest
+
+This class houses the parameters required for an addresses paginated request. It inherits from the [PaginatedRequestBuilder](#paginatedrequestbuilder) class.
+
+#### Initialising GetAddressesRequest
+
+```
+init(
+    search: String? = nil,
+    type: AddressType? = nil,
+    perPage: Int = 15,
+    page: Int = 1
+)
+```
+
+
+
+##### Description
+
+Default initializer that optionally takes in the parameters for getting addresses.
+
+##### Parameters
+
+`search: String? = nil`
+
+A search term used to filter the addresses. It is nil by default.
+
+`type: AddressType? = nil`
+
+The [AddressType](#addresstype) to filter the addresses by. If nil, addresses of all types are returned. It is nil by default.
+
+`perPage: Int = 15`
+
+The number of items to return in the response per request. The default number is 15.
+
+`page: Int = 1`
+
+The page number of the paginated request. This starts from 1. The default value is 1.
+
+### GetShipmentsRequest
+
+This class houses the parameters required for a shipments paginated request. It inherits from the [PaginatedRequestBuilder](#paginatedrequestbuilder) class.
+
+#### Initialising GetShipmentsRequest
+
+```
+init(
+    status: ShipmentStatus? = nil,
+    startDate: String? = nil,
+    endDate: String? = nil,
+    perPage: Int = 15,
+    page: Int = 1,
+    shipmentType: ShipmentType? = nil
+)
+```
+
+
+
+##### Description
+
+Default initializer that optionally takes in the parameters for getting shipments.
+
+##### Parameters
+
+`status: ShipmentStatus? = nil`
+
+The [ShipmentStatus](#shipmentstatus) to filter the shipments by. If nil, shipments of all statuses are returned. It is nil by default.
+
+`startDate: String? = nil`
+
+The start date of the date range you want to filter the shipments by. It is nil by default.
+
+`endDate: String? = nil`
+
+The end date of the date range you want to filter the shipments by. It is nil by default.
+
+`perPage: Int = 15`
+
+The number of items to return in the response per request. The default number is 15.
+
+`page: Int = 1`
+
+The page number of the paginated request. This starts from 1. The default value is 1.
+
+`shipmentType: ShipmentType? = nil`
+
+The [ShipmentType](#shipmenttype) to filter the shipments by. If nil, shipments of all types are returned. It is nil by default.
+
+### CancelShipmentRequest
+
+This struct is used to make a request to cancel a Shipment.
+
+#### Initialising CancelShipmentRequest
+
+```
+init(
+    shipmentId: String
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the id of the shipment to cancel.
+
+##### Parameters
+
+`shipmentId: String`
+
+The unique id used to identify the shipment to cancel.
+
+### DuplicateShipmentRequest
+
+This struct is used to make a request to duplicate a Shipment.
+
+#### Initialising DuplicateShipmentRequest
+
+```
+init(
+    shipmentId: String,
+    populate: Bool
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the details required to duplicate a shipment.
+
+##### Parameters
+
+`shipmentId: String`
+
+The unique id used to identify the shipment to duplicate.
+
+`populate: Bool`
+
+Indicates whether the duplicated shipment should be returned with its address, carrier, and parcel details populated.
+
+### PayForShipmentRequest
+
+This struct is used to make a request to pay for a Shipment.
+
+#### Initialising PayForShipmentRequest
+
+```
+init(
+    shipmentId: String
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the id of the shipment to pay for.
+
+##### Parameters
+
+`shipmentId: String`
+
+The unique id used to identify the shipment to pay for.
+
+### GetShipmentQuotesRequest
+
+This struct is used to make a request to quote a shipment from inline address and parcel details.
+
+#### Properties
+
+`pickupAddress: AddressRequest`
+
+The inline address to pick the parcel up from.
+
+`deliveryAddress: AddressRequest`
+
+The inline address to deliver the parcel to.
+
+`parcel: ParcelRequest`
+
+The inline parcel to quote.
+
+`currency: Currency?`
+
+The [Currency](#currency) the rates should be returned in.
+
+### GetRatesForMultiParcelShipmentRequest
+
+This class is used to make a request to get rates for a shipment that contains multiple parcels.
+
+#### Initialising Request with Shipment Id
+
+```
+init(
+    shipmentId: String,
+    currency: Currency = .NGN
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the details required to get rates for a multi-parcel shipment using a shipment id.
+
+##### Parameters
+
+`shipmentId: String`
+
+The unique id used to identify the shipment whose rates you want to fetch.
+
+`currency: Currency = .NGN`
+
+The [Currency](#currency) the rates should be returned in. The default value for this is NGN.
+
+#### Initialising Request without a Shipment Id
+
+```
+init(
+    pickupAddressId: String,
+    deliveryAddressId: String,
+    parcelIds: [String],
+    currency: Currency = .NGN
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the details required to get rates for a multi-parcel shipment without using a shipment id.
+
+##### Parameters
+
+`pickupAddressId: String`
+
+The unique id used to identify the previously stored address to pick up the parcels from.
+
+`deliveryAddressId: String`
+
+The unique id used to identify the previously stored address to deliver the parcels to.
+
+`parcelIds: [String]`
+
+The unique ids used to identify the parcels in the shipment.
+
+`currency: Currency = .NGN`
+
+The [Currency](#currency) the rates should be returned in. The default value for this is NGN.
+
+### GetDropOffLocationsRequest
+
+This struct is used to make a request to fetch the drop-off locations available for a carrier.
+
+#### Initialising GetDropOffLocationsRequest
+
+```
+init(
+    city: String? = nil,
+    state: String? = nil,
+    country: String,
+    carrierSlug: String,
+    addressId: String? = nil,
+    rateId: String? = nil
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the parameters used to find drop-off locations.
+
+##### Parameters
+
+`city: String? = nil`
+
+The city to find drop-off locations in. It is nil by default.
+
+`state: String? = nil`
+
+The state to find drop-off locations in. It is nil by default.
+
+`country: String`
+
+The country to find drop-off locations in.
+
+`carrierSlug: String`
+
+The unique slug used to identify the carrier whose drop-off locations you want to fetch.
+
+`addressId: String? = nil`
+
+The unique id of a previously stored address to find nearby drop-off locations for. It is nil by default.
+
+`rateId: String? = nil`
+
+The unique id of a rate to find drop-off locations for. It is nil by default.
+
+### FileClaimRequest
+
+This class is used to make a request to file an insurance claim.
+
+#### Initialising FileClaimRequest
+
+```
+init(
+    insuranceId: String,
+    claim: ClaimRequest
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the details required to file a claim.
+
+##### Parameters
+
+`insuranceId: String`
+
+The unique id used to identify the insurance policy the claim is being filed against.
+
+`claim: ClaimRequest`
+
+An instance of [ClaimRequest](#claimrequest) containing the claim evidence.
+
+### ClaimRequest
+
+This struct houses the claim evidence submitted when filing a claim.
+
+#### Initialising ClaimRequest
+
+```
+init(
+    description: String,
+    reason: ClaimReason,
+    witnesses: [[String]],
+    signature: String
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the details required to describe a claim.
+
+##### Parameters
+
+`description: String`
+
+A short description of the claim.
+
+`reason: ClaimReason`
+
+The [ClaimReason](#claimreason) for the claim.
+
+`witnesses: [[String]]`
+
+The witness details supporting the claim.
+
+`signature: String`
+
+The signature attached to the claim.
+
+### GetInsurancePremiumRequest
+
+This class is used to make a request to calculate an insurance premium. Initialize the request with either an existing parcel identifier or a declared parcel value, depending on the premium endpoint being used.
+
+#### Initialising with a Parcel Id
+
+```
+init(
+    parcelId: String,
+    currency: Currency = .NGN,
+    insuranceType: InsuranceType,
+    shipmentCurrency: Currency = .NGN
+)
+```
+
+
+
+##### Description
+
+Creates a premium request for an existing parcel.
+
+##### Parameters
+
+`parcelId: String`
+
+The unique id used to identify the parcel to insure.
+
+`currency: Currency = .NGN`
+
+The [Currency](#currency) the premium should be returned in. The default value for this is NGN.
+
+`insuranceType: InsuranceType`
+
+The [InsuranceType](#insurancetype) to quote.
+
+`shipmentCurrency: Currency = .NGN`
+
+The [Currency](#currency) of the shipment. The default value for this is NGN.
+
+#### Initialising with a Parcel Value
+
+```
+init(
+    parcelValue: Double,
+    currency: Currency = .NGN,
+    insuranceType: InsuranceType,
+    shipmentCurrency: Currency = .NGN
+)
+```
+
+
+
+##### Description
+
+Creates a premium request from a declared parcel value.
+
+##### Parameters
+
+`parcelValue: Double`
+
+The declared value of the parcel to insure.
+
+`currency: Currency = .NGN`
+
+The [Currency](#currency) the premium should be returned in. The default value for this is NGN.
+
+`insuranceType: InsuranceType`
+
+The [InsuranceType](#insurancetype) to quote.
+
+`shipmentCurrency: Currency = .NGN`
+
+The [Currency](#currency) of the shipment. The default value for this is NGN.
+
+### SearchHSCodeRequest
+
+This class houses the parameters used to search the HS code catalogue. It inherits from the [PaginatedRequestBuilder](#paginatedrequestbuilder) class.
+
+#### Initialising SearchHSCodeRequest
+
+```
+init(
+    searchString: String = "",
+    perPage: Int = 15,
+    page: Int = 1
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the search term and pagination options.
+
+##### Parameters
+
+`searchString: String = ""`
+
+The term to search the HS code catalogue with. It is an empty string by default.
+
+`perPage: Int = 15`
+
+The number of items to return in the response per request. The default number is 15.
+
+`page: Int = 1`
+
+The page number of the paginated request. This starts from 1. The default value is 1.
+
+#### Setting the Chapter Code
+
+```
+withChapterCode(
+    chapterCode: String
+) -> SearchHSCodeRequest
+```
+
+Sets the chapter code to restrict the search to and returns the instance of SearchHSCodeRequest.
+
+#### Setting the Category Code
+
+```
+withCategoryCode(
+    categoryCode: String
+) -> SearchHSCodeRequest
+```
+
+Sets the category code to restrict the search to and returns the instance of SearchHSCodeRequest.
+
+#### Setting the Search String
+
+```
+withSearchString(
+    searchString: String
+) -> SearchHSCodeRequest
+```
+
+Sets the search term and returns the instance of SearchHSCodeRequest.
+
+### GetHSCodesRequest
+
+This class houses the parameters used to fetch a page of HS codes. It inherits from the [PaginatedRequestBuilder](#paginatedrequestbuilder) class.
+
+#### Setting the Chapter Code
+
+```
+withChapterCode(
+    chapterCode: String
+) -> GetHSCodesRequest
+```
+
+Sets the chapter code to restrict the results to and returns the instance of GetHSCodesRequest.
+
+#### Setting the Category Code
+
+```
+withCategoryCode(
+    categoryCode: String
+) -> GetHSCodesRequest
+```
+
+Sets the category code to restrict the results to and returns the instance of GetHSCodesRequest.
+
+### SearchHSCodesAIRequest
+
+This class houses the item description used by the AI-assisted HS code search.
+
+#### Initialising SearchHSCodesAIRequest
+
+```
+init(
+    description: String
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the description of the item to classify.
+
+##### Parameters
+
+`description: String`
+
+A description of the item to classify.
+
+### CalculateDutyFeeRequest
+
+This struct is used to make a request to calculate the duty fee for a shipment.
+
+#### Initialising CalculateDutyFeeRequest
+
+```
+init(
+    shipmentId: String
+)
+```
+
+
+
+##### Description
+
+Default initializer taking in the id of the shipment to calculate the duty fee for.
+
+##### Parameters
+
+`shipmentId: String`
+
+The unique id used to identify the shipment to calculate the duty fee for.
 
 ## Models
 
+
+
 ### Address
+
+
 
 #### Description
 
@@ -2217,6 +3779,8 @@ Geographical Coordinates of the addresss.
 
 ### Carrier
 
+
+
 #### Description
 
 Data model containing information about a Carrier.
@@ -2265,6 +3829,8 @@ List of countries(ISO2) that the carrier is available in.
 
 ### City
 
+
+
 #### Description
 
 City data model containing details about a City.
@@ -2293,6 +3859,8 @@ The state's longitude.
 
 ### Coordinates
 
+
+
 #### Description
 
 Geographical Coordinates of a location, usually an address.
@@ -2308,6 +3876,8 @@ Latitude of the location.
 Longitude of the location.
 
 ### Country
+
+
 
 #### Description
 
@@ -2333,7 +3903,7 @@ An emoji of the country's Flag.
 
 `currency: String`
 
-An emoji of the country's Flag.
+The country's currency.
 
 `latitude: String`
 
@@ -2349,11 +3919,15 @@ The details about the [Timezone](#timezone)s that are in the country.
 
 ### EmptyMetadata
 
+
+
 #### Description
 
 Data Model representing empty metadata. This model will be set by default as the generic type for metadata attached to address and parcel if no metadata type is provided.
 
 ### GetAddressResponseData
+
+
 
 #### Description
 
@@ -2371,6 +3945,8 @@ The list of paginated Addresses.
 
 ### GetMultiplePackagingResponseData
 
+
+
 #### Description
 
 Represents the structure paginated Packaging are returned, featuring the page data.
@@ -2386,6 +3962,8 @@ Details about the page of data being returned.
 The list of paginated Packaging.
 
 ### GetParcelsResponseData
+
+
 
 #### Description
 
@@ -2403,9 +3981,11 @@ The list of paginated Packaging.
 
 ### GetPopulatedShipmentsResponseData
 
+
+
 #### Description
 
-Represents the response data for paginated addresses, featuring the page data.
+Represents the response data for paginated populated shipments, featuring the page data.
 
 #### Properties
 
@@ -2413,11 +3993,13 @@ Represents the response data for paginated addresses, featuring the page data.
 
 Details about the page of data being returned.
 
-`shipments: [ShipmentUnpopulated]`
+`shipments: [ShipmentPopulatedWithoutPackagingData<T>]`
 
-The list of paginated [ShipmentPopulatedWithoutPackagingData](#shipmentpopulatedwithoutpackagingdata).
+The list of paginated [ShipmentPopulatedWithoutPackagingData](#shipmentpopulatedwithoutpackagingdataparcelmetadata-codable-shipmentpopulated).
 
 ### GetShipmentsResponseData
+
+
 
 #### Description
 
@@ -2435,6 +4017,8 @@ The list of paginated [ShipmentUnpopulated](#shipmentunpopulated).
 
 ### GetTransactionsResponse
 
+
+
 #### Description
 
 Represents the response data for paginated transactions, featuring the page data.
@@ -2451,6 +4035,8 @@ The list of paginated [Transaction](#transaction).
 
 ### Packaging
 
+
+
 #### Description
 
 Packaging data model containing information about packaging used to ship items.
@@ -2459,7 +4045,7 @@ Packaging data model containing information about packaging used to ship items.
 
 `height: Double`
 
-The country's iso code.
+The height of the packaging.
 
 `width: Double`
 
@@ -2503,6 +4089,8 @@ The date and time the Packaging was updated.
 
 ### Parcel<T: Codable>
 
+
+
 #### Description
 
 Base Data model containing information about the parcel to be shipped. The generic type is the type of the metadata class/struct model. The default is usually set to [EmptyMetadata](#emptymetadata).
@@ -2530,6 +4118,8 @@ Metadata to be attached to the Parcel.
 The list of [items](#parcelitem) that are in the Parcel.
 
 ### ParcelItem
+
+
 
 #### Description
 
@@ -2561,7 +4151,9 @@ The total monetary value of the item. Note that this is the cost per item multip
 
 The weight of the item. Note that this is the weight per item multiplied by the quantity.
 
-### ParcelWithoutPackagingData<T: Codable>: Parcel<T>
+### ParcelWithoutPackagingData<T: Codable>: Parcel
+
+
 
 #### Description
 
@@ -2573,7 +4165,9 @@ Data model containing information about the parcel to be shipped alongside the p
 
 The unique Id used to identify the Packaging used to keep the Items in the Parcel.
 
-### ParcelWithPackagingData<T: Codable>: Parcel<T>
+### ParcelWithPackagingData<T: Codable>: Parcel
+
+
 
 #### Description
 
@@ -2586,6 +4180,8 @@ Data model containing information about the parcel to be shipped alongside the [
 Details about the Packaging used to keep the Items in the Parcel.
 
 ### State
+
+
 
 #### Description
 
@@ -2615,6 +4211,8 @@ The state's longitude.
 
 ### Timezone
 
+
+
 #### Description
 
 Timezone data model containing timezone information for a region.
@@ -2642,6 +4240,8 @@ The timezone's abbreviation.
 The less technical name of the timezone.
 
 ### Rate
+
+
 
 #### Description
 
@@ -2715,6 +4315,8 @@ The unique Id used to identify the parcel that contains the Items to be shipped.
 
 ### Shipment
 
+
+
 #### Description
 
 Data model containing information about a Shipment.
@@ -2743,6 +4345,8 @@ List of Events that have occurred on the shipment. These are represented with th
 
 ### ShipmentEvent
 
+
+
 #### Description
 
 Data model containing information about an event that occurred during the shipping process.
@@ -2766,6 +4370,8 @@ Human readable version of the location the Event happened.
 The status being reported by the Event.
 
 ### ShipmentExtras
+
+
 
 #### Description
 
@@ -2799,6 +4405,8 @@ URL to the commercial invoice generated for the shipment items by TShip.
 
 ### ShipmentPopulated: Shipment
 
+
+
 #### Description
 
 Data model containing information about a Shipment with the Addresses and Carriers populated. This inherits from the base Shipment model, containing all the details there.
@@ -2823,6 +4431,8 @@ Details about the carrier used to arrange the Shipment.
 
 ### ShipmentPopulatedWithoutPackagingData<ParcelMetadata: Codable>: ShipmentPopulated
 
+
+
 #### Description
 
 Data model containing information about a Shipment with the Addresses and Carriers populated. This inherits from [the populated Shipment model](#shipmentpopulated), containing all the details there.
@@ -2835,6 +4445,8 @@ Contains details about the parcel excuding the Packaging details but containing 
 
 ### ShipmentPopulatedWithPackagingData<ParcelMetadata: Codable>: ShipmentPopulated
 
+
+
 #### Description
 
 Data model containing information about a Shipment with the Addresses and Carriers populated. This inherits from the base Shipment model, containing all the details there.
@@ -2846,6 +4458,8 @@ Data model containing information about a Shipment with the Addresses and Carrie
 Contains details about the parcel including the Packaging details.
 
 ### ShipmentTrackingInfo
+
+
 
 #### Description
 
@@ -2893,19 +4507,9 @@ Array of [ShipmentEvents](#shipmentevent) that have occurred on the shipment.
 
 Details about the last [ShipmentEvent](#shipmentevent) that happened on the shipment.
 
-### ShipmentPopulatedWithPackagingData<ParcelMetadata: Codable>: ShipmentPopulated
-
-#### Description
-
-Data model containing information about a Shipment with the Addresses and Carriers populated. This inherits from the base Shipment model, containing all the details there.
-
-#### Properties
-
-`parcel: ParcelWithPackagingData<ParcelMetadata>`
-
-Contains details about the parcel including the Packaging details.
-
 ### ShipmentUnpopulated: Shipment
+
+
 
 #### Description
 
@@ -2934,6 +4538,8 @@ The unique Id used to identify the parcel that contains the Items to be shipped.
 Details about the carrier used to arrange the Shipment.
 
 ### Transaction
+
+
 
 #### Description
 
@@ -2979,6 +4585,8 @@ The datetime the transaction was created.
 
 ### TShipPageData
 
+
+
 #### Description
 
 Contains details about a given page returned in a paginated response.
@@ -3018,6 +4626,8 @@ Indicates whether there is a previous page.
 Indicates whether there is a next page.
 
 ### User
+
+
 
 #### Description
 
@@ -3075,6 +4685,8 @@ The state the user's company is based in.
 
 ### UserMetadata
 
+
+
 #### Description
 
 Data model representing extra data about the user relating to terminal africa.
@@ -3090,6 +4702,8 @@ Total amount of shipments performed by the user.
 Total amount of money spent on shipment.
 
 ### Wallet
+
+
 
 #### Description
 
@@ -3121,10 +4735,501 @@ Indicates whether the user's wallet is active or not.
 
 The datetime the user's wallet was created.
 
+### TShipWallet
+
+
+
+#### Description
+
+Data model representing a TShip wallet under a user's account.
+
+#### Properties
+
+`id: String`
+
+The wallet's id.
+
+`isActive: Bool`
+
+Indicates whether the wallet is active.
+
+`accountName: String`
+
+The name on the account that will show when the account number is queried.
+
+`accountNumber: String`
+
+The account number that can be used to fund the wallet with a bank transfer.
+
+`amount: Double`
+
+The amount of money currently in the wallet.
+
+`pendingBalance: Double?`
+
+The amount of money yet to be credited into the wallet.
+
+`bankName: String`
+
+The name of the bank attached to the account number used to fund the wallet.
+
+`currency: Currency`
+
+The [Currency](#currency) the wallet is in.
+
+`topUpMethods: [TopUpMethod]`
+
+The ways the wallet can be topped up.
+
+`type: WalletType`
+
+The [WalletType](#wallettype) of the wallet.
+
+### DropOffLocation
+
+
+
+#### Description
+
+A carrier or Terminal location where a parcel can be dropped off.
+
+#### Properties
+
+`address: String`
+
+The street address of the drop-off location.
+
+`city: String`
+
+The city the drop-off location is in.
+
+`state: String`
+
+The state the drop-off location is in.
+
+`country: String`
+
+The country the drop-off location is in.
+
+`dropOffLocationId: String`
+
+The unique id used to identify the drop-off location.
+
+`email: String`
+
+The email address of the drop-off location.
+
+`phone: String`
+
+The phone number of the drop-off location.
+
+`carrier: String`
+
+The carrier the drop-off location belongs to.
+
+`distance: Double?`
+
+The distance to the drop-off location, when a reference address is provided.
+
+`isTerminalDropOffLocation: Bool`
+
+Indicates whether the location is a Terminal drop-off location.
+
+### DocumentItem
+
+
+
+#### Description
+
+Data model representing a shippable document and its HS code.
+
+#### Properties
+
+`name: String`
+
+The name of the document.
+
+`hsCode: String`
+
+The HS code associated with the document.
+
+### ShipmentPreview
+
+
+
+#### Description
+
+A flattened shipment summary returned by the version 2 listing endpoint. It contains the shipment's key details, addresses, and carrier information in a single object. Required text and enum fields fall back to empty or default values when their response fields are absent or malformed.
+
+#### Properties
+
+`shipmentId: String`
+
+The unique string used to identify the Shipment.
+
+`status: ShipmentStatus`
+
+The status of the shipment.
+
+`shipmentPurpose: ShipmentPurpose`
+
+The purpose of the shipment.
+
+`type: ShipmentType`
+
+The [ShipmentType](#shipmenttype) of the shipment.
+
+`shipmentCost: Double?`
+
+The cost of the shipment.
+
+`shipmentCostCurrency: Currency?`
+
+The [Currency](#currency) the shipment cost is in.
+
+`carrierName: String?`
+
+The name of the carrier used for the shipment.
+
+`pickupCity`, `deliveryCity`, `returnCity` and related `pickup*`, `delivery*` and `return*` fields
+
+Flattened pickup, delivery, and return address details such as the name, email, city, state, country, zip code, and first address line.
+
+`createdAt: String`
+
+The datetime the shipment was created.
+
+`updatedAt: String`
+
+The datetime the shipment was last updated.
+
+### Insurance
+
+
+
+#### Description
+
+Data model containing information about a shipment's insurance policy.
+
+#### Properties
+
+`amount: Double`
+
+The insured amount.
+
+`currency: Currency`
+
+The [Currency](#currency) the insured amount is in.
+
+`insuranceId: String`
+
+The unique id used to identify the insurance policy.
+
+`claim: Claim?`
+
+The [Claim](#claim) filed against the insurance policy, if any.
+
+### InsurancePremium
+
+
+
+#### Description
+
+Data model containing the calculated insurance premium for a shipment.
+
+#### Properties
+
+`premium: Double`
+
+The calculated premium.
+
+`currency: Currency`
+
+The [Currency](#currency) the premium is in.
+
+`shipmentCurrency: Currency`
+
+The [Currency](#currency) of the shipment.
+
+`convertedPremium: Double`
+
+The premium converted into the shipment's currency.
+
+### Claim
+
+
+
+#### Description
+
+An insurance claim filed for a shipment.
+
+#### Properties
+
+`description: String`
+
+A short description of the claim.
+
+`reason: ClaimReason`
+
+The [ClaimReason](#claimreason) for the claim.
+
+`signature: String`
+
+The signature attached to the claim.
+
+`status: ClaimStatus`
+
+The [ClaimStatus](#claimstatus) of the claim.
+
+`witnesses: [[String]]`
+
+The witness details supporting the claim.
+
+`claimId: String`
+
+The unique id used to identify the claim.
+
+`createdAt: String`
+
+The datetime the claim was created.
+
+### FileClaimResponse
+
+
+
+#### Description
+
+Data model returned when a claim is filed.
+
+#### Properties
+
+`description: String`
+
+A short description of the claim.
+
+`insuranceId: String`
+
+The unique id of the insurance policy the claim was filed against.
+
+`reason: ClaimReason`
+
+The [ClaimReason](#claimreason) for the claim.
+
+`signature: String`
+
+The signature attached to the claim.
+
+`status: String`
+
+The status of the filed claim.
+
+`witnesses: [[String]]`
+
+The witness details supporting the claim.
+
+`claimId: String`
+
+The unique id used to identify the claim.
+
+### CustomDuty
+
+
+
+#### Description
+
+Data model containing the calculated duty fee for a shipment.
+
+#### Properties
+
+`amount: Double`
+
+The calculated duty amount.
+
+`currency: Currency`
+
+The [Currency](#currency) the duty amount is in.
+
+### HSCode
+
+
+
+#### Description
+
+A Harmonized System classification code and its catalogue hierarchy.
+
+#### Properties
+
+`chapterCode: String`
+
+The code of the chapter the HS code belongs to.
+
+`chapterName: String`
+
+The name of the chapter the HS code belongs to.
+
+`categoryName: String`
+
+The name of the category the HS code belongs to.
+
+`categoryCode: String`
+
+The code of the category the HS code belongs to.
+
+`subCategoryName: String`
+
+The name of the sub-category the HS code belongs to.
+
+`keywords: String?`
+
+Keywords associated with the HS code.
+
+`hsCode: String`
+
+The HS code value.
+
+`hsCodeId: String`
+
+The unique id used to identify the HS code.
+
+### HSCodeChapter
+
+
+
+#### Description
+
+A chapter in the Harmonized System classification.
+
+#### Properties
+
+`id: String`
+
+The unique id used to identify the chapter.
+
+`chapterName: String`
+
+The name of the chapter.
+
+`keywords: [String]`
+
+Keywords associated with the chapter.
+
+### HSCodeCategory
+
+
+
+#### Description
+
+A category in the Harmonized System classification.
+
+#### Properties
+
+`id: String`
+
+The unique id used to identify the category.
+
+`name: String`
+
+The name of the category.
+
+`keywords: [String]`
+
+Keywords associated with the category.
+
+### AIHSCode
+
+
+
+#### Description
+
+An HS code suggested by the AI-assisted classification endpoint.
+
+#### Properties
+
+`hsCode: String`
+
+The suggested HS code value.
+
+`hsCodeId: String`
+
+The unique id used to identify the HS code.
+
+`description: String`
+
+A description of the classified item.
+
+`tags: [String]`
+
+Tags associated with the suggested code.
+
+`scientificName: String?`
+
+The scientific name of the item, when applicable.
+
+`regulatoryDocuments: [ItemRegulatoryDocument]?`
+
+The regulatory documents required for the item, when applicable.
+
+### GetHSCodesResponseData
+
+
+
+#### Description
+
+Represents the response data for paginated HS codes, featuring the page data.
+
+#### Properties
+
+`pagination: TShipPageData`
+
+Details about the page of data being returned.
+
+`hsCodes: [HSCode]`
+
+The list of paginated [HSCode](#hscode)s.
+
+### SearchHSCodesResponseData
+
+
+
+#### Description
+
+Represents the response data for a paginated HS code search, featuring the page data.
+
+#### Properties
+
+`pagination: TShipPageData`
+
+Details about the page of data being returned.
+
+`hsCodes: [HSCode]`
+
+The list of paginated [HSCode](#hscode)s.
+
+### GetShipmentPreviewsResponse
+
+
+
+#### Description
+
+Represents the response data for paginated shipment previews, featuring the page data.
+
+#### Properties
+
+`pagination: TShipPageData`
+
+Details about the page of data being returned.
+
+`shipments: [ShipmentPreview]`
+
+The list of paginated [ShipmentPreview](#shipmentpreview)s.
 
 ## Enums
 
+
+
 ### CarrierServiceType
+
+
 
 #### Description
 
@@ -3145,6 +5250,8 @@ Represents regional shipping.
 Represents international shipping.
 
 ### Currency
+
+
 
 #### Description
 
@@ -3210,6 +5317,8 @@ Represents South African Rand.
 
 ### PackagingType
 
+
+
 #### Description
 
 An enum representing the valid Packaging types on TShip.
@@ -3229,6 +5338,8 @@ Represents the envelope Packaging type.
 Represents the soft Packaging type.
 
 ### ShipmentPurpose
+
+
 
 #### Description
 
@@ -3258,9 +5369,11 @@ Used if you are shipping a product for repair.
 
 ### ShipmentStatus
 
+
+
 #### Description
 
-An enum representing all the valid shipment purposes you can set when creating a shipment.
+An enum representing all the valid statuses a shipment can have.
 
 #### Cases
 
@@ -3290,6 +5403,8 @@ Represents when a shipment is yet to be confirmed by the carrier.
 
 ### SizeUnit
 
+
+
 #### Description
 
 An enum representing the valid size units used on TShip.
@@ -3298,9 +5413,11 @@ An enum representing the valid size units used on TShip.
 
 `cm`
 
-Represents the box Packaging type.
+Represents the centimetre size unit.
 
 ### TransactionFlow
+
+
 
 #### Description
 
@@ -3310,23 +5427,119 @@ An enum representing transaction flow types.
 
 `inflow`
 
-Represents money going out of the wallet.
+Represents money going into the wallet.
 
 `outflow`
 
-Represents money going into the wallet.
+Represents money going out of the wallet.
 
 ### WeightUnit
 
+
+
 #### Description
 
-An enum representing the valid size units used on TShip.
+An enum representing the valid weight units used on TShip.
 
 #### Cases
 
 `kg`
 
 Represents kilogram weight unit.
+
+### ClaimReason
+
+
+
+#### Description
+
+An enum representing the valid reasons for filing an insurance claim.
+
+#### Cases
+
+`lostInTransit`
+
+Used when the parcel was lost in transit.
+
+`damage`
+
+Used when the parcel was damaged.
+
+### ClaimStatus
+
+
+
+#### Description
+
+An enum representing the valid statuses of an insurance claim.
+
+#### Cases
+
+`confirmed`
+
+Represents when the claim has been confirmed.
+
+`pending`
+
+Represents when the claim is yet to be reviewed.
+
+`failed`
+
+Represents when the claim has failed.
+
+### InsuranceType
+
+
+
+#### Description
+
+An enum representing the valid insurance types on TShip.
+
+#### Cases
+
+`local`
+
+Represents insurance for a local shipment.
+
+`import`
+
+Represents insurance for an import shipment.
+
+`export`
+
+Represents insurance for an export shipment.
+
+### ShipmentType
+
+
+
+#### Description
+
+An enum representing the valid shipment types on TShip.
+
+#### Cases
+
+`terminal`
+
+Represents a standard Terminal shipment.
+
+`tShop`
+
+Represents a shop-and-ship shipment.
+
+### WalletType
+
+
+
+#### Description
+
+An enum representing the types of wallets on TShip.
+
+#### Cases
+
+`staticWallet`
+
+Represents a static wallet.
 
 ## License
 
