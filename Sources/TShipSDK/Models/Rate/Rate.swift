@@ -67,6 +67,9 @@ public struct Rate: Decodable {
     
     public let requiresDuty: Bool
     
+    /// Indicates whether the carrier only accepts shipments from a verified sender. See ``Address/isVerifiedSender``.
+    public let requiresSenderVerification: Bool
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         amount = try? container.decodeIfPresent(Double.self, forKey: .amount)
@@ -94,6 +97,7 @@ public struct Rate: Decodable {
         regulatoryDocuments = (try? container.decode([RegulatoryDocument].self, forKey: .regulatoryDocuments)) ?? []
         supportsDuty = (try? container.decode(Bool.self, forKey: .supportsDuty)) ?? false
         requiresDuty = (try? container.decode(Bool.self, forKey: .requiresDuty)) ?? false
+        requiresSenderVerification = (try? container.decode(Bool.self, forKey: .requiresSenderVerification)) ?? false
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -117,6 +121,7 @@ public struct Rate: Decodable {
         case regulatoryDocuments = "regulatory_documents"
         case supportsDuty = "supports_duty"
         case requiresDuty = "requires_duty"
+        case requiresSenderVerification = "requires_sender_verification"
         case amount, currency, breakdown, metadata, type
     }
     

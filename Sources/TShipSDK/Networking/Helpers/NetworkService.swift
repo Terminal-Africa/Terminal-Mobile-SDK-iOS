@@ -146,7 +146,7 @@ class NetworkService {
     
     /// Decodes successful responses and maps API failures to ``TShipSDKError``.
     ///
-    /// Bad-request responses are decoded as ``TShipResponseWithoutData`` so the
+    /// Client-error (4xx) responses are decoded as ``TShipResponseWithoutData`` so the
     /// server-provided message is preserved.
     /// - Parameters:
     ///   - response: The response  gotten from running URLSession.dataTask or .data.
@@ -182,12 +182,12 @@ class NetworkService {
                 completion(.failure(TShipSDKError.unknownError))
             }
             
-        case HttpStatusCode.BAD_REQUEST.rawValue:
+        case .some(HttpStatusCode.BAD_REQUEST.rawValue..<500):
             
             if let data = data {
                 let decoder = JSONDecoder()
-                guard let response = try? decoder.decode(TShipResponseWithoutData.self, from: data) else {
-                    completion(.failure(TShipSDKError.errorDecoding))
+                guard let response = try? decoder.decode(TShipResponseWithoutData.self, from: data), !response.message.isEmpty else {
+                    completion(.failure(TShipSDKError.unknownError))
                     return
                 }
                 completion(.failure(TShipSDKError.serverError(response.message)))

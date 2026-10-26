@@ -56,6 +56,16 @@ public struct Address: Codable, Equatable {
     
     public let type: AddressType
     
+    /// Indicates whether the sender's identity at this address has been verified. Absent in the API response means false.
+    /// Prefer reading ``verificationStatus`` or ``isVerifiedSender`` instead of this flag directly.
+    public let isVerified: Bool
+    
+    /// The datetime the sender's identity at this address was verified.
+    public let verifiedAt: String?
+    
+    /// Details of the identity verification attached to this address, if any.
+    public let identity: AddressIdentity?
+    
     private enum CodingKeys : String, CodingKey {
         case addressId = "address_id"
         case firstName = "first_name"
@@ -68,7 +78,9 @@ public struct Address: Codable, Equatable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case isDefaultAddress = "sender_default"
-        case city, country , email, line1, line2, state, coordinates, alias, type
+        case isVerified = "verified"
+        case verifiedAt = "verified_at"
+        case city, identity, country , email, line1, line2, state, coordinates, alias, type
     }
     
     public init(from decoder: Decoder) throws {
@@ -93,9 +105,12 @@ public struct Address: Codable, Equatable {
         self.line2 = try container.decodeIfPresent(String.self, forKey: .line2) ?? ""
         self.isDefaultAddress = (try? container.decode(Bool.self, forKey: .isDefaultAddress)) ?? false
         self.type = (try? container.decode(AddressType.self, forKey: .type)) ?? .UserAddress
+        self.isVerified = (try? container.decode(Bool.self, forKey: .isVerified)) ?? false
+        self.verifiedAt = try? container.decodeIfPresent(String.self, forKey: .verifiedAt)
+        self.identity = try? container.decodeIfPresent(AddressIdentity.self, forKey: .identity)
     }
     
-    init(addressId: String, firstName: String, lastName: String, email: String, line1: String, line2: String, phoneNumber: String, altPhoneNumber: String, state: String, zipCode: String, isResidential: Bool, tShopId: String, coordinates: Coordinates, alias: String, createdAt: String, updatedAt: String, country: String, city: String, isDefaultAddress: Bool, type: AddressType){
+    init(addressId: String, firstName: String, lastName: String, email: String, line1: String, line2: String, phoneNumber: String, altPhoneNumber: String, state: String, zipCode: String, isResidential: Bool, tShopId: String, coordinates: Coordinates, alias: String, createdAt: String, updatedAt: String, country: String, city: String, isDefaultAddress: Bool, type: AddressType, isVerified: Bool = false, verifiedAt: String? = nil, identity: AddressIdentity? = nil){
         self.addressId = addressId
         self.firstName = firstName
         self.lastName = lastName
@@ -116,10 +131,33 @@ public struct Address: Codable, Equatable {
         self.city = city
         self.isDefaultAddress = isDefaultAddress
         self.type = type
+        self.isVerified = isVerified
+        self.verifiedAt = verifiedAt
+        self.identity = identity
     }
     
     public static func == (lhs: Address, rhs: Address) -> Bool {
-        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.altPhoneNumber == rhs.altPhoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId && lhs.alias == rhs.alias && lhs.updatedAt == rhs.updatedAt && lhs.createdAt == rhs.createdAt && lhs.isDefaultAddress == rhs.isDefaultAddress
+        return lhs.addressId == rhs.addressId && lhs.city == rhs.city && lhs.country == rhs.country && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.email == rhs.email && lhs.line1 == rhs.line1 && lhs.line2 == rhs.line2 && lhs.phoneNumber == rhs.phoneNumber && lhs.altPhoneNumber == rhs.altPhoneNumber && lhs.state == rhs.state && lhs.zipCode == rhs.zipCode && lhs.isResidential == rhs.isResidential && lhs.tShopId == rhs.tShopId && lhs.alias == rhs.alias && lhs.updatedAt == rhs.updatedAt && lhs.createdAt == rhs.createdAt && lhs.isDefaultAddress == rhs.isDefaultAddress && lhs.isVerified == rhs.isVerified && lhs.verifiedAt == rhs.verifiedAt && lhs.identity == rhs.identity
     }
     
+}
+
+public extension Address {
+    
+    /// ISO code of the only country whose senders can be verified, which is done with a NIN (National Identification Number).
+    static let senderVerificationCountryCode = "NG"
+    
+    /// The sender verification status of this address. The identity's status takes precedence over the ``isVerified`` flag.
+    var verificationStatus: SenderVerificationStatus {
+        if let status = identity?.status {
+            return status
+        }
+        return isVerified ? .verified : .unverified
+    }
+    
+    /// Indicates whether this is a Nigerian address whose sender's identity has been verified.
+    /// Carriers that require a verified sender only accept addresses where this is true.
+    var isVerifiedSender: Bool {
+        return country.uppercased() == Address.senderVerificationCountryCode && verificationStatus == .verified
+    }
 }

@@ -57,6 +57,19 @@ public extension TShipSDK {
         addressesRemote.getDefaultAddress(runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
     }
     
+    /// This verifies the sender at an existing Nigerian Address with their NIN (National Identification Number).
+    /// The NIN is matched against the first and last name saved on the address. Once verified, the first and last name can no longer be changed.
+    ///
+    /// - Important: Every attempt is charged to your wallet (₦390), even when the NIN does not match the name on the address. Reusing a NIN already verified on your account is free.
+    /// - Parameters:
+    ///   - addressId: Unique id used to identify the address.
+    ///   - nin: The sender's 11 digit NIN. Spaces and dashes are removed.
+    ///   - runCompletionOnUIThread: Boolean indicating whether the completion handler should be run on the UI or background thread.
+    ///   - completion: The completion handler to call with the VerifyNINResult or an error.
+    func verifyNIN(addressId: String, nin: String, runCompletionOnUIThread: Bool = true, completion: @escaping(Result<VerifyNINResult, Error>) -> Void){
+        addressesRemote.verifyNIN(addressId: addressId, nin: nin, runCompletionOnUIThread: runCompletionOnUIThread, completion: completion)
+    }
+    
     /// This deletes an Address previously created on the TShip API.
     /// - Parameters:
     ///   - addressId: Unique id used to identify the address.

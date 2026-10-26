@@ -28,6 +28,9 @@ public class AddressRequest: Encodable {
     public var alias: String?
 
     public var type: AddressType?
+    
+    /// National Identification Number of the sender at the address. Only Nigerian sender addresses can be verified.
+    public var nin: String?
 
     /// Default initializer taking in the required parameters for the create address request
     /// - Parameters:
@@ -125,6 +128,40 @@ public class AddressRequest: Encodable {
         return self
     }
     
+    /// This function adds the sender's NIN (National Identification Number) to the request so the sender's identity is verified when the address is saved.
+    /// Spaces and dashes are removed. Only use this for Nigerian sender addresses.
+    ///
+    /// - Important: Every verification attempt is charged to your wallet (₦390), even when the NIN does not match the first and last name on the address.
+    /// - Parameters:
+    ///   - nin: The 11 digit National Identification Number of the sender. Use ``isValidNIN(_:)`` to validate it first.
+    @discardableResult
+    public func withNIN(_ nin: String) -> AddressRequest {
+        let normalizedNIN = AddressRequest.normalizeNIN(nin)
+        self.nin = normalizedNIN.isEmpty ? nil : normalizedNIN
+        return self
+    }
+    
+    /// This function removes the fields that cannot be changed on an address whose sender has been verified (first name, last name and NIN).
+    /// The API rejects an update to a verified address if the request contains any of them, even with unchanged values.
+    @discardableResult
+    public func removingVerifiedLockedFields() -> AddressRequest {
+        self.firstName = nil
+        self.lastName = nil
+        self.nin = nil
+        return self
+    }
+    
+    /// Removes spaces and dashes from a NIN.
+    public static func normalizeNIN(_ nin: String) -> String {
+        return nin.filter { $0 != " " && $0 != "-" }
+    }
+    
+    /// Checks that a NIN is made up of exactly 11 digits, after removing spaces and dashes.
+    public static func isValidNIN(_ nin: String) -> Bool {
+        let normalizedNIN = normalizeNIN(nin)
+        return normalizedNIN.count == 11 && normalizedNIN.allSatisfy { $0.isASCII && $0.isNumber }
+    }
+    
     /// This function returns the built create address request.
     /// - Returns: [String:  Any] a dictionary containing the parameters provided to the builder.
     public func build() -> [String: Any] {
@@ -132,7 +169,7 @@ public class AddressRequest: Encodable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case city, state, country, email, phone, line1, line2, alias, type
+        case city, state, country, email, phone, line1, line2, alias, type, nin
         case firstName = "first_name"
         case lastName = "last_name"
         case zipCode = "zip"

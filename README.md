@@ -201,6 +201,8 @@ Unique id used to identify the address.
 
 Request body with details used to create Address. You'll build the request with the [AddressRequestBuilder](#addressrequestbuilder). Please note that the address zip code which you can add to builder using the `.withZipCode(_ zipCode: String)` function is required to update an address.
 
+If the address's sender has been verified (`address.verificationStatus == .verified`), call `.removingVerifiedLockedFields()` on the builder before updating. The API rejects an update to a verified address if the request contains the first name, last name or NIN, even with unchanged values.
+
 `runCompletionOnUIThread: Bool = true`
 
 Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
@@ -208,6 +210,47 @@ Boolean indicating whether the completion handler should be run on the UI or bac
 `completion: @escaping(Result<Address, Error>) -> Void`
 
 The completion handler to call, passing along the response status and the newly created [Address](#address) if no error occurred.
+
+### Verify NIN
+
+```
+verifyNIN(
+    addressId: String,
+    nin: String,
+    runCompletionOnUIThread: Bool = true,
+    completion: @escaping(Result<VerifyNINResult, Error>) -> Void
+)
+```
+
+
+
+##### Description
+
+This function verifies the sender at an existing Nigerian Address with their NIN (National Identification Number). The NIN is matched against the first and last name saved on the address. Once the sender is verified, the first and last name of the address can no longer be changed.
+
+Some carriers only accept shipments from a verified sender. Check [Rate](#rate)'s `requiresSenderVerification` and [Address](#address)'s `isVerifiedSender`.
+
+**Every attempt is charged to your wallet (₦390), even when the NIN does not match the name on the address. Reusing a NIN already verified on your account is free.**
+
+You can also verify the sender while creating or updating an address by adding the NIN to the request with the [AddressRequestBuilder](#addressrequestbuilder)'s `withNIN(_ nin: String)` function.
+
+##### Parameters
+
+`addressId: String`
+
+Unique id used to identify the address.
+
+`nin: String`
+
+The sender's 11 digit NIN. Spaces and dashes are removed. You can validate it first with `AddressRequest.isValidNIN(_ nin: String)`.
+
+`runCompletionOnUIThread: Bool = true`
+
+Boolean indicating whether the completion handler should be run on the UI or background thread. The default value is true.
+
+`completion: @escaping(Result<VerifyNINResult, Error>) -> Void`
+
+The completion handler to call, passing along the [VerifyNINResult](#verifyninresult) if no error occurred.
 
 ### Set Default Address
 
@@ -2118,6 +2161,40 @@ This function adds metadata to the address.
 
 Metadata you want to attach to the Addresss.
 
+#### Adding the Sender's NIN
+
+```
+withNIN(
+    _ nin: String
+)
+```
+
+
+
+##### Description
+
+This function adds the sender's NIN (National Identification Number) to the request so the sender's identity is verified when the address is created or updated. Spaces and dashes are removed. Only Nigerian sender addresses can be verified.
+
+**Every verification attempt is charged to your wallet (₦390), even when the NIN does not match the first and last name on the address.**
+
+##### Parameters
+
+`nin: String`
+
+The sender's 11 digit NIN. Use `AddressRequest.isValidNIN(_ nin: String)` to validate it first.
+
+#### Removing Fields Locked by Verification
+
+```
+removingVerifiedLockedFields()
+```
+
+
+
+##### Description
+
+This function removes the first name, last name and NIN from the request. Use it when updating an address whose sender has been verified, because those fields can no longer be changed.
+
 ### ArrangeShipmentRequest
 
 This class is used to make a request to arrange pickup and delivery for a Shipment.
@@ -3777,6 +3854,48 @@ Indicates whether the address is a residential address.
 
 Geographical Coordinates of the addresss.
 
+`isVerified: Bool`
+
+Indicates whether the sender's identity at this address has been verified. Prefer reading `verificationStatus` or `isVerifiedSender`.
+
+`verifiedAt: String?`
+
+The datetime the sender's identity at this address was verified.
+
+`identity: AddressIdentity?`
+
+Details of the identity verification attached to this address, if any. It contains `identityId`, `status` ([SenderVerificationStatus](#senderverificationstatus)) and `provider`.
+
+`verificationStatus: SenderVerificationStatus`
+
+The sender verification status of this address. The identity's status takes precedence over `isVerified`.
+
+`isVerifiedSender: Bool`
+
+Indicates whether this is a Nigerian address whose sender has been verified. Carriers that require a verified sender only accept addresses where this is true.
+
+### VerifyNINResult
+
+
+
+#### Description
+
+The result of verifying the sender at an address with their NIN.
+
+#### Properties
+
+`address: Address`
+
+The address after verification. Read its `verificationStatus` to get the outcome.
+
+`reused: Bool`
+
+Indicates whether a NIN already verified on the account was reused. Reusing a verified NIN is not charged.
+
+`message: String`
+
+Message returned by the API.
+
 ### Carrier
 
 
@@ -4312,6 +4431,10 @@ The unique id used to identify the previously stored address to pick up the parc
 `parcelId: String`
 
 The unique Id used to identify the parcel that contains the Items to be shipped.
+
+`requiresSenderVerification: Bool`
+
+Indicates whether the carrier only accepts shipments from a verified sender. See [Address](#address)'s `isVerifiedSender` and [Verify NIN](#verify-nin).
 
 ### Shipment
 
@@ -5224,6 +5347,10 @@ Details about the page of data being returned.
 The list of paginated [ShipmentPreview](#shipmentpreview)s.
 
 ## Enums
+
+### SenderVerificationStatus
+
+The verification status of the sender at an Address: `unverified`, `pending`, `verified` or `failed`. Unknown values from the API are read as `unverified`.
 
 
 

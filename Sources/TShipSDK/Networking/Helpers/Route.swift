@@ -20,6 +20,9 @@ enum Route {
     /// Address Route for setting and getting default Address.
     case defaultAddress
     
+    /// Address Route for verifying the sender at an existing Address with their NIN.
+    case verifyNIN(addressId: String)
+    
     /// Route for fetching list of countries valid on TShip.
     case countries
     
@@ -147,6 +150,9 @@ enum Route {
             
         case .defaultAddress:
             return "/addresses/default/sender"
+            
+        case .verifyNIN(let addressId):
+            return "/addresses/\(addressId)/verify-nin"
             
         case .countries:
             return "/countries"
